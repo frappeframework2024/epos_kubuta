@@ -1,0 +1,170 @@
+{% extends "templates/emenu_layout1.html" %}
+
+{% block title %} {{doc.welcome_title}} {% endblock %}
+
+{% block style%}
+{{doc.css}}
+{% endblock %}
+
+{% block page_content %}
+<div class="header">
+    <div class="container">
+        <div class="d-flex justify-between py-2">
+            <div class="logo">
+                <img loading="lazy" src="{{doc.logo}}" alt="">
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="ttl-header">
+                    <h6 class="m-0">{{doc.emenu_app_name}}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-main-wraper">
+    <div class="owl-carousel owl-theme mb-3" id="slid_banner">
+        {%for s in doc.slideshow%}
+        <div class="item">
+            {% if s.has_detail_view != 0 %}
+            <a class="popup-with-move-anim" href="#{{s.name}}">
+                <img src="{{s.photo or "/files/no_image.jpg"}}" />
+            </a>
+            <div id="{{s.name}}" class="zoom-anim-dialog mfp-hide small-dialog rounded overflow-hidden">
+                <img loading="lazy" src="{{s.photo or "/files/no_image.jpg"}}" class="w-100" style="object-fit: cover;height:30vh;object-position: top;" />
+                <div class="px-4 pt-4">
+                    <p>{{s.description}}</p>
+                </div>
+                <div class="p-4 genre-desc">
+                    <div class="p-4 rounded" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                        <h6 class="m-0 text-center mb-2 main-color">{{doc.emenu_app_name}}</h6>
+                        <p class="text-center t-paragraph">{{doc.welcome_description}}</p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <img loading="lazy" src="{{s.photo or "/files/no_image.jpg"}}" />
+            {% endif %}
+        </div>
+        {%endfor%}
+    </div>
+
+    <div class="container">
+        <div class="into-section">
+            <h1>{{doc.welcome_title}}</h1>
+            <div>
+                {{doc.welcome_description}}
+            </div>
+        </div>
+    </div>
+
+    <div class="py-3 my-3 nav-pro-wrapper border border-start-0 border-end-0 border-bottom-0 bg-white el-shadow">
+        <nav class="container">
+            <div class="position-relative">
+                <div class="tab-bar">
+                    <div class="left-arrow">
+                        <p><i class="fas fa-chevron-left"></i></p>
+                    </div>
+
+                    <div class="d-flex gap-2 mb-0 navigt tabs">
+                        {% if (doc.popular_product | length) >0 %}
+                        <a class="bg-white px-3 py-1 rounded-pill main-color nav-pro tab active" href="#popular_product"><p>Popular Products</p></a>
+                        {%endif%}
+
+                        {% for m in doc.pos_menu_selections %}
+                        <a class="bg-white px-3 py-1 rounded-pill main-color nav-pro tab" href="#{{m.name}}"><p>{{m.menu}}</p></a>
+                        {%endfor%}
+                    </div>
+
+                    <div class="right-arrow active">
+                        <p><i class="fas fa-chevron-right"></i></p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <div class="container sections-content-1">
+        <div class="sections sections-content">
+            {% if (doc.popular_product | length) >0 %}
+            <div class="scroll-section" id="popular_product">
+                <div class="mt-4 mb-3">
+                    <h2><i class="fas fa-fire main-color"></i> Popular Products</h2>
+                    <p>Our signature dishes</p>
+                </div>
+                <div class="row">
+                    {% for p in doc.popular_product %}
+                        <a class="product_detail col-12 col-lg-6 mb-3 text-dark" href="/product_detail?product_code={{p.product_code}}">
+                            <div class="rounded row p-3 items-inner-1 m-0" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+                                <div class="col-12 col-lg-3 p-0 h-100">
+                                    <img loading="lazy" class="rounded img" src="{{p.photo or "/files/no_image.jpg"}}" style="height:100%;width: 100%;"/>
+                                </div>
+                                <div class="col d-flex flex-column justify-between p-0 ps-lg-3 py-3 py-lg-0">
+                                    <div class="mb-4 mb-lg-0">
+                                        {% if p.product_name_en == p.product_name_kh %}
+                                            <div class="item-tt-txt">{{p.product_name_kh}}</div>
+                                        {%else%}
+                                            <div title="{{p.product_name_kh}}" class="item-tt-txt">{{p.product_name_kh}}</div>
+                                            <div title="{{p.product_name_en}}" class="item-tt-txt">{{p.product_name_en}} </div>
+                                        {%endif%}  
+                                    </div>
+                                    <div class="d-flex justify-between">
+                                        <div class="d-flex gap-2"><p>Product Code: {{p.product_code}}</p></div>
+                                        <div style="font-weight: 600;">From {{frappe.format(p.price,{"fieldtype":"Currency"})}}</div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {%endfor%}
+                </div>
+            </div>
+            {%endif%}
+            {% for m in doc.pos_menu_selections %}
+                <div class="scroll-section" id="{{m.name}}">
+                    <div class="mt-4 mb-3">
+                        <h2>{{m.menu}} </h2>
+                    </div>
+                    <div class="row">
+                        {%for p in products|selectattr('pos_menu', 'equalto', m.menu)|list %}
+                        <a class="product_detail col-12 col-lg-6 mb-3 text-dark" href="/product_detail?product_code={{p.product_code}}">
+                            <div class="rounded row p-3 items-inner-1 m-0" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+                                <div class="col-12 col-lg-3 p-0 h-100">
+                                 
+                                    <img loading="lazy" class="rounded" src="{{p.photo or "/files/no_image.jpg"}}" style="height:100%;"/>
+                                   
+                                </div>
+                                <div class="col d-flex flex-column justify-between p-0 ps-lg-3 py-3 py-lg-0">
+                                    <div class="mb-4 mb-lg-0">
+                                        {% if p.product_name_en == p.product_name_kh %}
+                                            <div class="item-tt-txt">{{p.product_name_kh}}</div>
+                                        {%else%}
+                                            <div title="{{p.product_name_kh}}" class="item-tt-txt">{{p.product_name_kh}}</div>
+                                            <div title="{{p.product_name_en}}" class="item-tt-txt">{{p.product_name_en}} </div>
+                                        {%endif%}  
+                                    </div>
+                                    <div class="d-flex justify-between">
+                                        <div class="d-flex gap-2"><p>Product Code: {{p.product_code}}</p></div>
+                                        <div style="font-weight: 600;">From {{frappe.format(p.price,{"fieldtype":"Currency"})}}</div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {%endfor%}
+                    </div>
+                </div>
+            {%endfor%}
+        </div>
+    </div>
+
+
+    <div class="container footer-section">
+        <hr/>
+        {% if doc.footer_description %}
+        <h1>{{doc.footer_description }}</h1>
+        {%endif%}
+        <hr/>
+        <p class="text-center mb-3">Design by: eSTC</p>
+    </div>
+
+    {% endblock %}
+</div>
