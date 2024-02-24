@@ -4,15 +4,14 @@
       <div class="flex">
         <div class="flex-grow cursor-pointer bg-green-600 text-white px-2 py-0  hover:bg-green-700" @click="onPayment()">
           <div style="margin-bottom: 0px!important;" class="flex justify-between mb-2 text-lg">
-            <div>{{ $t("Payment") }}</div>
-            <div style="margin: 0px; padding: 0px; font-size: 26px; font-weight: bold;">
+            <div  style="margin: 0px; padding: 0px; font-size: 22px">{{ $t("Payment") }}</div>
+            <div  style="margin: 0px; padding: 0px; font-size: 28px; font-weight: bold;">
               <CurrencyFormat :value="(sale.sale.grand_total-sale.sale.deposit)" />
             </div>
           </div>
           <div class="flex justify-between">
-            <div>{{ $t('Total Qty') }} : <span>{{ sale.sale.total_quantity ||0}}</span></div>
-            <div>
-              <ComExchangeRate />
+            <div style="margin: 0px; padding: 0px; font-size: 18px">{{ $t('Total Qty') }} : <span>{{ sale.sale.total_quantity ||0}}</span></div>
+            <div style="margin: 0px; padding: 0px; font-size: 22px; font-weight: bold;">
               <CurrencyFormat :value="((sale.sale.grand_total * (sale.sale.exchange_rate || 1)) - (sale.sale.deposit * (sale.sale.exchange_rate || 1)))"
                 :currency="sale.setting.pos_setting.second_currency_name" />
             </div>
@@ -24,11 +23,11 @@
             @click="onSubmit()">
             <div v-if="gv.setting.table_groups && gv.setting.table_groups.length > 0">
               <v-icon icon="mdi-arrow-right-thick"></v-icon>
-              <div>{{ $t('Submit Order') }}</div>
+              <div style="font-size: 18px">{{ $t('Submit Order') }}</div>
             </div>
             <div v-else>
               <v-icon icon="mdi-content-save"></v-icon>
-              <div>{{ $t('Save Order') }}</div>
+              <div style="font-size: 14px">{{ $t('Save Order') }}</div>
             </div>
           </div>
         </div>

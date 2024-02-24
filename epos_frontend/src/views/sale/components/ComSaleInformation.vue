@@ -10,13 +10,17 @@
         <ComChip v-if="setting.table_groups && setting.table_groups.length > 0 && setting.use_guest_cover == 1" :tooltip="$t('Guest Cover')" prepend-icon="mdi-account-multiple-outline" @onClick="onUpdateGuestCover()">{{ sale.sale.guest_cover }}</ComChip>
         <ComChip v-if="setting.table_groups && setting.table_groups.length > 0 && sale.sale.seat_number" :tooltip="($t('Seat')+' #')" prepend-icon="mdi-chair-school" @onClick="onUpdateSeatNumber()">{{ sale.sale.seat_number }}</ComChip>
         <ComChip :tooltip="$t('Price Rule')" prepend-icon="mdi-bulletin-board" @onClick="onChangePriceRule()">{{ sale.sale.price_rule }}</ComChip>
+
+        <ComExchangeRate />
         <ComSaleInformationHappyHourPromotionChip/>
+        
     </div>
 </template>
 <script setup>
 import ComSaleTypeChip from './ComSaleTypeChip.vue';
 import ComSaleInformationHappyHourPromotionChip from './happy_hour_promotion/ComSaleInformationHappyHourPromotionChip.vue';
 import { inject,keyboardDialog,changePriceRuleDialog, createToaster,i18n ,computed } from '@/plugin';
+import ComExchangeRate from './ComExchangeRate.vue';
  
 
 const { t: $t } = i18n.global;   

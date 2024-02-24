@@ -112,7 +112,10 @@
   "park_item_required_password",
   "section_break_70",
   "cash_in_check_out_required_password",
-  "use_guest_cover"
+  "use_guest_cover",
+  "pos_sale_screen_setting_tab",
+  "pos_screen_width_style",
+  "item_grid"
  ],
  "fields": [
   {
@@ -675,12 +678,27 @@
    "fieldtype": "Check",
    "label": "Allow Closed Working Day When Has Pending Order",
    "options": "0"
+  },
+  {
+   "fieldname": "pos_screen_width_style",
+   "fieldtype": "Data",
+   "label": "POS Screen Width Style"
+  },
+  {
+   "fieldname": "pos_sale_screen_setting_tab",
+   "fieldtype": "Tab Break",
+   "label": "POS Sale Screen Setting"
+  },
+  {
+   "fieldname": "item_grid",
+   "fieldtype": "Data",
+   "label": "Item Grid"
   }
  ],
  "image_field": "logo",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-20 10:03:38.579503",
+ "modified": "2024-02-24 15:31:01.142079",
  "modified_by": "Administrator",
  "module": "Configuration",
  "name": "POS Config",

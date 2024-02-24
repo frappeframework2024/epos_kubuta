@@ -163,6 +163,8 @@ export default class Product {
                 ["name", "like", '%' + keyword + '%'],
                 ["product_name_en", "like", '%' + keyword + '%'],
                 ["product_name_kh", "like", '%' + keyword + '%'],
+                ["product_code_2", "like", '%' + keyword + '%'],
+                ["product_code_3", "like", '%' + keyword + '%'],
             ]
         }).then((res) => {
             res.forEach(d => {

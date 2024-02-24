@@ -142,6 +142,10 @@ def get_product_by_barcode(barcode):
     
     #check if barcode have in product
     data  = frappe.db.sql("select name from `tabProduct` where name='{}'".format(barcode),as_dict=1)
+    if len(data) == 0:
+        data  = frappe.db.sql("select name from `tabProduct` where product_code_2='{}'".format(barcode),as_dict=1)
+    if len(data) == 0:
+        data  = frappe.db.sql("select name from `tabProduct` where product_code_3='{}'".format(barcode),as_dict=1)
     if data:
             if data[0].name:
                 p = frappe.get_doc('Product', data[0].name)

@@ -118,6 +118,8 @@ def get_system_settings(pos_profile="", device_name=''):
         "business_branch":profile.business_branch,
         "business_name_en":pos_config.business_name_en,
         "business_name_kh":pos_config.business_name_kh,
+        "pos_screen_width_style":pos_config.pos_screen_width_style,
+        "item_grid":pos_config.item_grid,
         "address_kh":pos_config.address_kh,
         "address_en":pos_config.address,
         "logo":pos_branding.logo,
