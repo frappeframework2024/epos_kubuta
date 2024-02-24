@@ -1,0 +1,146 @@
+[
+ {
+  "commission_title": "$2.50",
+  "commission_value": 2.5,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:37:51.543518",
+  "name": "$2.50"
+ },
+ {
+  "commission_title": "$3.50",
+  "commission_value": 3.5,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:38:12.749393",
+  "name": "$3.50"
+ },
+ {
+  "commission_title": "$4.00",
+  "commission_value": 4.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:38:59.890835",
+  "name": "$4.00"
+ },
+ {
+  "commission_title": "$4.50",
+  "commission_value": 4.5,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:39:14.227875",
+  "name": "$4.50"
+ },
+ {
+  "commission_title": "$5.00",
+  "commission_value": 5.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:39:31.518144",
+  "name": "$5.00"
+ },
+ {
+  "commission_title": "$5.50",
+  "commission_value": 5.5,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:39:41.037486",
+  "name": "$5.50"
+ },
+ {
+  "commission_title": "$6.00",
+  "commission_value": 6.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:39:54.181312",
+  "name": "$6.00"
+ },
+ {
+  "commission_title": "$6.50",
+  "commission_value": 6.5,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:40:03.398536",
+  "name": "$6.50"
+ },
+ {
+  "commission_title": "$7.00",
+  "commission_value": 7.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:40:10.578095",
+  "name": "$7.00"
+ },
+ {
+  "commission_title": "$8.00",
+  "commission_value": 8.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:40:31.821239",
+  "name": "$8.00"
+ },
+ {
+  "commission_title": "$0.00",
+  "commission_value": 0.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-12 16:06:20.705418",
+  "name": "$0.00"
+ },
+ {
+  "commission_title": "$0.50",
+  "commission_value": 0.5,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:37:02.501564",
+  "name": "$0.50"
+ },
+ {
+  "commission_title": "$1.00",
+  "commission_value": 1.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:37:21.832691",
+  "name": "$1.00"
+ },
+ {
+  "commission_title": "$3.00",
+  "commission_value": 3.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:38:02.896109",
+  "name": "$3.00"
+ },
+ {
+  "commission_title": "$1.50",
+  "commission_value": 1.5,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:37:32.417778",
+  "name": "$1.50"
+ },
+ {
+  "commission_title": "$2.00",
+  "commission_value": 2.0,
+  "docstatus": 0,
+  "doctype": "Predefine SPA Commission Code",
+  "is_standard": 1,
+  "modified": "2023-10-11 09:37:41.621294",
+  "name": "$2.00"
+ }
+]

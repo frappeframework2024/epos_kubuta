@@ -1,0 +1,87 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2023-11-27 14:35:25.293989",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "currency",
+  "currency_precision",
+  "pos_currency_format",
+  "label",
+  "value",
+  "total_note",
+  "total_amount",
+  "exchange_rate",
+  "total_base_currency_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "pos_currency_format",
+   "fieldtype": "Data",
+   "label": "POS Currency Format"
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Label"
+  },
+  {
+   "fieldname": "value",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Value"
+  },
+  {
+   "fieldname": "total_note",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Total Note"
+  },
+  {
+   "fieldname": "exchange_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Total Amount"
+  },
+  {
+   "fetch_from": "currency.custom_currency_precision",
+   "fieldname": "currency_precision",
+   "fieldtype": "Int",
+   "label": "Precision"
+  },
+  {
+   "fieldname": "total_base_currency_amount",
+   "fieldtype": "Currency",
+   "label": "Total Base Currency Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-12-01 12:25:18.579355",
+ "modified_by": "Administrator",
+ "module": "Configuration",
+ "name": "Cashier Shift Cash Count",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

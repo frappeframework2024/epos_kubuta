@@ -1,0 +1,125 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-25 11:31:46.961699",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "outlet",
+  "column_break_mhkk",
+  "shift_name",
+  "section_break_rmof",
+  "tax_1_account",
+  "column_break_hvmf",
+  "tax_2_account",
+  "column_break_dzko",
+  "tax_3_account",
+  "revenue_group_account_codes_section",
+  "pos_revenue_account_codes",
+  "pos_payment_type_account_codes"
+ ],
+ "fields": [
+  {
+   "fieldname": "outlet",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Outlet",
+   "options": "Outlet",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_mhkk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "shift_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Shift Name",
+   "options": "Shift Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_rmof",
+   "fieldtype": "Section Break",
+   "label": "Account Codes"
+  },
+  {
+   "fieldname": "revenue_group_account_codes_section",
+   "fieldtype": "Section Break",
+   "label": "Revenue Group Account Codes"
+  },
+  {
+   "fieldname": "pos_revenue_account_codes",
+   "fieldtype": "Table",
+   "options": "POS Revenue Account Code"
+  },
+  {
+   "fieldname": "pos_payment_type_account_codes",
+   "fieldtype": "Table",
+   "label": "Payment Type Account Codes",
+   "options": "POS Payment Type Accoount Code"
+  },
+  {
+   "fieldname": "column_break_hvmf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tax_2_account",
+   "fieldtype": "Link",
+   "label": "Tax 2 Account",
+   "options": "Account Code"
+  },
+  {
+   "fieldname": "column_break_dzko",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tax_1_account",
+   "fieldtype": "Link",
+   "label": "Tax 1 Account",
+   "options": "Account Code"
+  },
+  {
+   "fieldname": "tax_3_account",
+   "fieldtype": "Link",
+   "label": "Tax 3 Account",
+   "options": "Account Code"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-27 09:50:06.031790",
+ "modified_by": "Administrator",
+ "module": "Configuration",
+ "name": "POS Account Code Config",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

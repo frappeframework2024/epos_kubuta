@@ -1,0 +1,215 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"fsQYa-Xlzv\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Membership Amt\",\"col\":4}},{\"id\":\"WHWhhceTBD\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"MTD Membership Amt\",\"col\":4}},{\"id\":\"kS7L33HMCH\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"YTD Membership Amt\",\"col\":4}},{\"id\":\"w7I827Pgmp\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Check In\",\"col\":3}},{\"id\":\"ItAD4rr_Ej\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"MTD Check In\",\"col\":3}},{\"id\":\"7GUv2ReinR\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Memberships\",\"col\":3}},{\"id\":\"U2mMpdZHGY\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"MTD Memberships\",\"col\":3}},{\"id\":\"P1wb-ex_fW\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Today Expired\",\"col\":3}},{\"id\":\"HrMxr1okIC\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"MTD Expired\",\"col\":3}},{\"id\":\"EBF1wzWmzb\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Next Month Expired\",\"col\":3}},{\"id\":\"SDFiM8Af3z\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"This Week Birthday\",\"col\":3}},{\"id\":\"YxSRo2YpE6\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Your Shortcut</span>\",\"col\":12}},{\"id\":\"WPIsoMdLKf\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Membership Option\",\"col\":3}},{\"id\":\"5Snzfrj7gr\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Register Member\",\"col\":3}},{\"id\":\"KUbfKpywkW\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Register Membership\",\"col\":3}},{\"id\":\"Xulno1LT16\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Members\",\"col\":3}},{\"id\":\"VQMElVz0d2\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Membership List\",\"col\":3}},{\"id\":\"z2V8LuSzKU\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Trainers\",\"col\":3}},{\"id\":\"8Ko8EXX7eS\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Recent Check-In</span>\",\"col\":12}},{\"id\":\"D1ka3JVrnf\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Recent Membership Check In\",\"col\":12}},{\"id\":\"gdZYJwwbOA\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Master Data and Reports</b></span>\",\"col\":12}},{\"id\":\"W1khZpJEDs\",\"type\":\"card\",\"data\":{\"card_name\":\"Member & Membership Setup\",\"col\":3}},{\"id\":\"DLCKxyrr0e\",\"type\":\"card\",\"data\":{\"card_name\":\"Report\",\"col\":3}}]",
+ "creation": "2023-09-27 12:03:04.946999",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Recent Membership Check In",
+   "label": "Recent Membership Check In"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "today",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Gym",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Member & Membership Setup",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Membership Options",
+   "link_count": 0,
+   "link_to": "Membership Options",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Members",
+   "link_count": 0,
+   "link_to": "Customer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Trainers",
+   "link_count": 0,
+   "link_to": "Trainer",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Report",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Membership Report",
+   "link_count": 0,
+   "link_to": "Membership Register Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Membership Payment Report",
+   "link_count": 0,
+   "link_to": "Membership Payment Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Member Report",
+   "link_count": 0,
+   "link_to": "Customer List",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "GYM Audit Trail Report",
+   "link_count": 0,
+   "link_to": "GYM Audit Trail Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-01-27 15:18:32.332414",
+ "modified_by": "Administrator",
+ "module": "GYM",
+ "name": "Gym",
+ "number_cards": [
+  {
+   "label": "MTD Memberships",
+   "number_card_name": "MTD Membership Register"
+  },
+  {
+   "label": "Next Month Expired",
+   "number_card_name": "Next Month Expired"
+  },
+  {
+   "label": "This Week Birthday",
+   "number_card_name": "This Week Birthday"
+  },
+  {
+   "label": "Today Membership Amt",
+   "number_card_name": "Today Membership"
+  },
+  {
+   "label": "MTD Membership Amt",
+   "number_card_name": "MTD Membership"
+  },
+  {
+   "label": "Today Check In",
+   "number_card_name": "Today Membership Check In"
+  },
+  {
+   "label": "Today Expired",
+   "number_card_name": "Today Expired"
+  },
+  {
+   "label": "Today Memberships",
+   "number_card_name": "Today Membership Register"
+  },
+  {
+   "label": "MTD Check In",
+   "number_card_name": "MTD Membership Check In"
+  },
+  {
+   "label": "YTD Membership Amt",
+   "number_card_name": "YTD Membership"
+  },
+  {
+   "label": "MTD Expired",
+   "number_card_name": "MTD Expired"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "GYM User"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 4.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Membership List",
+   "link_to": "Membership",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Trainers",
+   "link_to": "Trainer",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Membership Option",
+   "link_to": "Membership Options",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Members",
+   "link_to": "Customer",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Register Member",
+   "link_to": "Customer",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "Register Membership",
+   "link_to": "Membership",
+   "type": "DocType"
+  }
+ ],
+ "title": "Gym"
+}

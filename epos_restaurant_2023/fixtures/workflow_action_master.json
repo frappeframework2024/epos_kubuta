@@ -1,0 +1,65 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-11-28 09:51:21.216202",
+  "name": "Approve",
+  "workflow_action_name": "Approve"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-11-28 09:51:21.219649",
+  "name": "Reject",
+  "workflow_action_name": "Reject"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-11-28 09:51:21.222492",
+  "name": "Review",
+  "workflow_action_name": "Review"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-12-20 10:39:00.765758",
+  "name": "Reserved",
+  "workflow_action_name": "Reserved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-12-20 10:58:42.273098",
+  "name": "Checked Out",
+  "workflow_action_name": "Checked Out"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-12-20 10:59:01.798297",
+  "name": "Dine-in",
+  "workflow_action_name": "Dine-in"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-12-20 10:36:57.435001",
+  "name": "Confirmed",
+  "workflow_action_name": "Confirmed"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-12-20 10:39:23.541144",
+  "name": "No Show",
+  "workflow_action_name": "No Show"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow Action Master",
+  "modified": "2023-12-20 10:40:42.820934",
+  "name": "Void",
+  "workflow_action_name": "Void"
+ }
+]

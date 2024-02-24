@@ -1,0 +1,123 @@
+<h1 style="text-align: center">{{report.page_title}}</h1>
+<div style="text-align: left; margin-bottom: 20px;">
+Date: {{filters.start_date}} - {{filters.end_date}}
+{% if filters.business_branch !="" %}
+    / Business Branch: {{filters.business_branch}}
+{% endif %}
+{% if filters.outlet !="" %}
+    / Outlet: {{filters.outlet}}
+{% endif %}
+{% if filters.product_group !="" %}
+    / Product Group: {{filters.product_group}}
+{% endif %}
+{% if filters.product_category !="" %}
+    / Product Category: {{filters.product_category}}
+{% endif %}
+{% if filters.customer_group !="" %}
+    / Customer Group: {{filters.customer_group}}
+{% endif %}
+{% if filters.customer %}
+    / Customer: {{filters.customer}}
+{% endif %}
+</div>
+
+<!-- {%for d in report.raw_data.report_summary%}
+    {{d.label}}: {{d.value}}
+{%endfor%} -->
+
+<!-- {% console.log(report.f) %} -->
+<table class="report-list" style="width: 100%;">
+    <thead>
+        <tr style="border-bottom: solid 1px black!important; background-color: rgb(216, 216, 216); font-size: 13px;">
+            <th>Nº</th>
+            {% for c in report.columns %}
+                <th class="text-{{c.align }}">{{ __(c.label) }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% var i = 1 %}
+        {% for d in data %}
+        <tr style="padding-top: 10px; padding-bottom: 10px;">
+            <td>
+                {% if d.is_group != 1 %}
+                    {% if i != data.length %}
+                        {{i}}
+                    {% endif %}
+                {% endif %}
+            </td>
+            {% for c in report.columns %}
+            {% if d.is_group == 1 %}
+            {% i = 0 %}
+            <td class="text-{{c.align}}" style="font-weight: bold; font-size: 11px; padding-left: 15px !important;">
+                {% if c.fieldtype == "Currency" %}
+                    {{format_currency(d[c.fieldname],frappe.defaults.get_default("currency"),frappe.defaults.get_default("float_precision"))}}
+                {% else %}
+                    {{ d[c.fieldname]}}
+                {% endif %}
+                {% if c.fieldname == "row_group" && d[c.fieldname] == undefined %}
+                    <div style="text-align: center; font-size: 12px;"><b>Total</b></div>
+                {% endif %}
+            </td>
+            {% else %}
+            <td class="text-{{c.align}}">
+                {% if c.fieldtype == "Currency" %}
+                    {{format_currency(d[c.fieldname],frappe.defaults.get_default("currency"),frappe.defaults.get_default("float_precision"))}}
+                {% else %}
+                    {{ d[c.fieldname]}} 
+                {% endif %}
+                {% if c.fieldname == "row_group" && d[c.fieldname] == undefined %}
+                    <div style="text-align: center; font-size: 12px;"><b>Total</b></div>
+                {% endif %}
+            </td>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% i++ %}
+        {%endfor%}
+    </tbody>
+</table>
+<footer> 
+    <div class="divfooter">
+        <p>Printed by: {{frappe.user.name}} on {{frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string())}}</p>
+    </div>
+</footer>
+<style>
+    .text {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        text-align: center;
+        margin-top: 30px;
+    }
+    .text_ {
+        margin-top: 50px;
+    }
+    .footer {
+        margin-top: 30px;
+    }
+    @media print{
+        div.divfooter{
+            position: fixed;
+            bottom: -25px;
+        }
+    .report-list td,.report-list {
+    padding: 3px !important;
+    /* font-size: 10px !important; */
+    /* padding: 3px 0px !important; */
+    }
+    .report-list tr th {
+        color: #000;
+        font-weight: 400;
+        padding-top: 4px !important;
+        padding-bottom: 4px !important;
+    }
+    .footer{
+        position: absolute !important;
+        bottom: 0;
+        height: 18px !important;
+        width: 100% !important;
+        overflow: hidden !important;
+    }
+}
+</style>
+

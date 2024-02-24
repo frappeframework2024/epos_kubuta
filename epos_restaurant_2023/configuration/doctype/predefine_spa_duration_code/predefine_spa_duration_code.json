@@ -1,0 +1,109 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "hash",
+ "creation": "2023-07-28 14:55:52.345400",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "duration_title",
+  "duration_value",
+  "commission",
+  "commission_value",
+  "is_overtime",
+  "column_break_nsvs",
+  "mapping_value"
+ ],
+ "fields": [
+  {
+   "fieldname": "duration_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Duration Title"
+  },
+  {
+   "default": "0",
+   "fieldname": "duration_value",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Duration Value"
+  },
+  {
+   "default": "0",
+   "fetch_from": "commission.commission_value",
+   "fieldname": "commission_value",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Commission Value"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_overtime",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Overtime"
+  },
+  {
+   "default": "0",
+   "fieldname": "commission",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Commission",
+   "options": "Predefine SPA Commission Code"
+  },
+  {
+   "fieldname": "column_break_nsvs",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Enter value mapping with product portion price. (Ex: 1H or 60MN)",
+   "fieldname": "mapping_value",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Mapping Value"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-02-10 09:04:36.167941",
+ "modified_by": "Administrator",
+ "module": "Configuration",
+ "name": "Predefine SPA Duration Code",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "search_fields": "duration_title",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "duration_title"
+}

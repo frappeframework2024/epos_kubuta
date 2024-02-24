@@ -1,0 +1,38 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-01-09 14:05:32.038984",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "base_value",
+  "roundup_value"
+ ],
+ "fields": [
+  {
+   "fieldname": "base_value",
+   "fieldtype": "Data",
+   "label": "Base Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "roundup_value",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Roundup Value"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-01-09 14:30:27.016928",
+ "modified_by": "Administrator",
+ "module": "Inventory",
+ "name": "Timer Item Roundup",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

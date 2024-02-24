@@ -1,0 +1,63 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-09-05 14:13:01.110975",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "product_code",
+  "product_name_en",
+  "product_name_kh",
+  "photo",
+  "price"
+ ],
+ "fields": [
+  {
+   "fieldname": "product_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Product Code",
+   "options": "Product"
+  },
+  {
+   "fetch_from": "product_code.product_name_en",
+   "fieldname": "product_name_en",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product Name EN"
+  },
+  {
+   "fetch_from": "product_code.product_name_kh",
+   "fieldname": "product_name_kh",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Product Name KH"
+  },
+  {
+   "fetch_from": "product_code.photo",
+   "fieldname": "photo",
+   "fieldtype": "Data",
+   "label": "Photo"
+  },
+  {
+   "fetch_from": "product_code.price",
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Price"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-09-05 14:19:04.739706",
+ "modified_by": "Administrator",
+ "module": "Selling",
+ "name": "eMenu Popular Products",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

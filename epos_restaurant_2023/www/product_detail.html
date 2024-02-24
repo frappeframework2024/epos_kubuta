@@ -1,0 +1,63 @@
+<div class="rounded overflow-hidden modal-pp-items section-modal-detail">    
+    <div class="modal-img">
+        <img src="{{doc.photo or "/files/no_image.jpg"}}" alt="" >
+    </div>
+    <div class="p-3">
+        <div class="section-top-under-img">
+            <div class="flex justify-between">
+                <div class="mb-2 wrapper-title-modal">
+                    {% if doc.product_name_en == doc.product_name_kh%}
+                    <h2>{{doc.product_name_kh}}</h2>
+                    {%else%}
+                    <h2>{{doc.product_name_kh}}</h2>
+                    <h2>{{doc.product_name_en}}</h2>
+                    {%endif%}
+                </div>
+                <div class="modal-pirc">
+                    {% if min_price == max_price %}
+                        <p>Price {{ frappe.format(doc.price,{"fieldtype":"Currency"})}}</p>
+                    {%else%}
+                        <p>Price {{ frappe.format(min_price,{"fieldtype":"Currency"})}} &#8594; {{
+                        frappe.format(max_price,{"fieldtype":"Currency"})}}</p>
+                    {%endif%}
+                </div>
+            </div>
+            <p>{{doc.product_category}}</p>
+            <p>Product Code: {{doc.product_code}}</p>
+        </div>
+        <!-- Portion and size price -->
+        {%if (doc.product_price | length) > 0%}
+        <hr>
+        <h5 class="header5-cs">Portion and Size</h5>
+        <ul class="pt-si">
+            {% for p in doc.product_price%}
+                <li><p>{{p.portion}} - {{frappe.format(p.price,{"fieldtype":"Currency"})}}</p></li>
+            {%endfor%}
+        </ul>
+        {%endif%}
+        <!-- Modifier -->
+        {%if (doc.product_modifiers | length) > 0%}
+        <hr>
+        {% for c in doc.product_modifiers|unique(attribute="modifier_category") %}
+        
+        <h5 class="header5-cs">{{ c.modifier_category }}</h5>
+        <ul class="pt-si">
+            {%for m in doc.product_modifiers|selectattr('modifier_category', 'equalto', c.modifier_category)|list %}
+            <li>
+                <p>{{m.modifier_code}} - {{frappe.format(m.price,{"fieldtype":"Currency"})}}</p>
+            </li>
+            {%endfor%}
+        </ul>
+        {% endfor %}
+
+        {%endif%}
+
+
+        {% if doc.description %}
+        <hr/>
+        <h4>Detail</h4>
+        {{doc.description}}
+        {%endif%}
+
+    </div>
+</div>

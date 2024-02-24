@@ -1,0 +1,62 @@
+*** Title ***
+វេណធ្វើការ {{doc.name}} ត្រូវបានបិទ
+
+*** Condition ***
+doc.is_closed == 1 and doc.is_edoor_shift == 0
+
+*** Send Base On ***
+Save
+
+
+*** Message Query ***
+
+{% set bus = frappe.get_doc('Business Information') %} {% set exch = frappe.db.sql("select exchange_rate,exchange_rate_input,to_currency,from_currency from `tabCurrency Exchange` where posting_date <= '{}' and from_currency <> to_currency order by posting_date  desc limit 1".format(doc.posting_date),as_dict=1) %}
+ពត៌មានបិទវេណ {%set main_currency = frappe.get_doc("Currency",frappe.db.get_default("currency"))%} {%set second_currency = frappe.get_doc("Currency",frappe.db.get_default("second_currency"))%} {% set data=frappe.db.sql("select name,custom_bill_number,grand_total,tbl_number from `tabSale` where cashier_shift='{}' and docstatus=1".format(doc.name),as_dict=1) %}
+  អ្នកបើកវេណ: {{frappe.db.get_value('User',doc.owner,'full_name')}}
+  ថ្ងៃបើកវេណ: {{frappe.format(doc.creation,{"fieldtype":"Datetime"})}}
+  អ្នកបិទវេណ: {{frappe.db.get_value('User',doc.modified_by,'full_name')}}
+  ថ្ងៃបិទវេណ: {{frappe.format(doc.closed_date,{"fieldtype":"Datetime"})}}
+{% if data|length > 0%}
+ប្រិតិបត្ដិការណ៍លក់
+------------------------{% for index,d in enumerate(data)%}
+    {{index+1}}. {{d.name}} - {{d.tbl_number}} => {{frappe.utils.fmt_money(d.grand_total,currency=main_currency.name,precision=main_currency.custom_currency_precision)}}{%endfor%}
+    ------------------------
+    {{_("សរុបវិក្ក័យបត្រ")}}: {{data|length}}
+    {{_("សរុបប្រាក់")}}: {{frappe.utils.fmt_money(data |sum(attribute='grand_total'),currency=main_currency.name,precision=main_currency.custom_currency_precision)}}
+                        = {{frappe.utils.fmt_money((data |sum(attribute='grand_total')) * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}}
+{%set revenue_data = frappe.db.sql("select revenue_group,sum(sp.total_revenue) as total_revenue from `tabSale Product` sp inner join `tabSale` s on s.name = sp.parent where s.cashier_shift='{}' and s.docstatus=1 group by revenue_group".format(doc.name),as_dict=1)%}
+បំបែកក្រុមទំនិញ
+------------------------{% for d in revenue_data %}
+    {{d.revenue_group}}: {{frappe.utils.fmt_money(d.total_revenue,currency=main_currency.name,precision=main_currency.custom_currency_precision)}} {% endfor%}
+    ------------------------
+    {{_("សរុបក្រុមទំនិញ")}}: {{frappe.utils.fmt_money(revenue_data |sum(attribute='total_revenue'),currency=main_currency.name,precision=main_currency.custom_currency_precision)}}
+                              = {{frappe.utils.fmt_money((revenue_data |sum(attribute='total_revenue')) * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}} 
+{% set open_amount = 0%}{%set cash_transactions = frappe.db.sql("select transaction_status,currency,note,symbol,sum(input_amount) as total_amount,sum(amount) as total_main_amount from `tabCash Transaction` where cashier_shift = '{}' group by transaction_status,currency,symbol,note".format(doc.name),as_dict=1)%}{%set cash_sale = frappe.db.sql("select sum(payment_amount) as payment_amount from `tabSale Payment` where cashier_shift = '{}' and payment_type_group='Cash'".format(doc.name),as_dict=1)%}
+========================{% set total_cash_transaction = cash_transactions|selectattr('transaction_status','equalto',"Cash In")|sum(attribute='total_main_amount')-cash_transactions|selectattr('transaction_status','equalto',"Cash Out")|sum(attribute='total_main_amount')%}
+សាច់ប្រាក់សុទ្ធិ 
+------------------------{% for t in doc.cash_float| selectattr("payment_type_group", "equalto", 'Cash')%}
+    {%if t.input_amount > 0 %}{%set open_amount =t.input_amount %}{{_("ប្រាក់អាប់")}} ({{t.currency}}) {{frappe.utils.fmt_money(t.input_amount,currency=t.currency_symbol)}}{% endif %}{% endfor %}
+    ------------------------{% if open_amount > 0%}
+    {{_("សរុបប្រាក់អាប់")}}: {{frappe.format_value(doc.total_opening_amount, "Currency")}} {%endif%}
+    {% for t in cash_transactions %}{{t.transaction_status}}({{t.currency}}): {{frappe.utils.fmt_money(t.total_amount,currency=t.currency)}} {%endfor%}
+    {{_("សរុបប្រាក់លក់បាន")}}: {{frappe.format_value(cash_sale[0].payment_amount, "Currency")}}
+                                 = {{frappe.utils.fmt_money(((cash_sale[0].payment_amount) or 0) * (exch[0].exchange_rate or 0), currency=second_currency.name, precision=second_currency.custom_currency_precision)}}
+    {% if doc.cash_float | selectattr("payment_type_group", "equalto", 'Cash')  | sum(attribute='close_amount') %}------------------------
+    {{_("សរុបប្រាក់បិតបញ្ជី")}}: {{frappe.format_value(doc.cash_float | selectattr("payment_type_group", "equalto", 'Cash') | sum(attribute='close_amount'), "Currency")}} 
+                                 = {{frappe.utils.fmt_money((doc.cash_float | selectattr("payment_type_group", "equalto", 'Cash') | sum(attribute='close_amount')) * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}}{% endif %}
+{%set sum_payment = 0%}{%set payment_breakdown = frappe.db.sql("select sp.currency,sp.currency_precision,sp.symbol,sum(sp.input_amount) as input_amount,sp.payment_type from `tabSale Payment` sp inner join `tabSale` s on s.name = sp.sale where s.cashier_shift='{}' and s.docstatus=1 group by sp.currency,sp.currency_precision,sp.payment_type,sp.symbol".format(doc.name),as_dict=1)%}  
+បំបែកប្រភេទបង់ប្រាក់ {%set credit_payment_breakdown = frappe.db.sql("select sp.currency,sp.currency_precision,	sum(sp.amount) as input_amount,sp.payment_type from `tabPOS Sale Payment` sp inner join `tabSale` s on s.name = sp.parent  where s.cashier_shift='{}'  and sp.payment_type_group = 'On Account' and s.docstatus=1  group by  sp.currency, sp.currency_precision, sp.payment_type, sp.currency_symbol".format(doc.name),as_dict=1)%}
+------------------------{% for p in payment_breakdown %}
+    {{p.payment_type}}: {{frappe.utils.fmt_money(p.input_amount,currency=p.currency,precision=p.currency_precision)}} {% endfor %}{% for p in credit_payment_breakdown %}
+    {{p.payment_type}}: {{frappe.utils.fmt_money(p.input_amount,currency=p.currency,precision=p.currency_precision)}} {% endfor %}
+    {% for t in cash_transactions %}{{t.transaction_status}}({{t.currency}}): {%if t.transaction_status =="Cash Out"%} -{%endif%}{{frappe.utils.fmt_money(t.total_amount,currency=t.currency)}} {%endfor%} {%set total_payment =  frappe.db.sql("select sum(sp.payment_amount) as base_payment_amount, sum(sp.payment_amount)*{0} as payment_amount  from `tabSale Payment` sp inner join `tabSale` s on s.name = sp.sale where s.cashier_shift='{1}' and s.docstatus=1".format(exch[0].exchange_rate, doc.name),as_dict=1)%} {%set total_credit_payment =  frappe.db.sql("select sum(sp.amount) as base_payment_amount, sum(sp.amount)*{0} as payment_amount  from `tabPOS Sale Payment` sp inner join `tabSale` s on s.name = sp.parent where s.cashier_shift='{1}' and sp.payment_type_group = 'On Account' and s.docstatus=1".format(exch[0].exchange_rate,doc.name),as_dict=1)%}
+    {% if (total_payment|length > 0 or total_credit_payment|length >0) %}------------------------{% if (total_payment|length > 0 and total_credit_payment|length >0) %}{%set sum_payment = (total_payment[0].base_payment_amount or 0) + (total_credit_payment[0].base_payment_amount or 0) %} {% elif (total_payment|length == 0 and total_credit_payment|length >0) %}{%set sum_payment = (total_credit_payment[0].base_payment_amount or 0) %} {% elif (total_payment|length > 0 and total_credit_payment|length ==0) %}{%set sum_payment = (total_credit_payment[0].base_payment_amount or 0) %}{%endif%}
+    {{_("សរុបការបង់ប្រាក់")}}: {{frappe.format_value(sum_payment + total_cash_transaction, "Currency")}} 
+                                 = {{frappe.utils.fmt_money((sum_payment + total_cash_transaction) * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}} {%endif%}
+
+{{_("សរុបប្រាក់លក់បាន និងប្រាក់អាប់")}}
+    => {{frappe.utils.fmt_money((doc.total_opening_amount + sum_payment + total_cash_transaction), currency=main_currency.name, precision=main_currency.custom_currency_precision)}}
+         = {{frappe.utils.fmt_money((doc.total_opening_amount + sum_payment + total_cash_transaction)*exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}}
+{% endif %}
+========================
+{{bus.business_name_en}}

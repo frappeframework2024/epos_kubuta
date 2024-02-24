@@ -1,0 +1,289 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-09-30 09:01:37.140060",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "posting_date",
+  "reference",
+  "column_break_gjxk",
+  "payment_type",
+  "payment_type_group",
+  "currency",
+  "amended_from",
+  "attach_file",
+  "payment_entry_section",
+  "input_amount",
+  "column_break_vlgb",
+  "exchange_rate",
+  "column_break_ijql",
+  "payment_amount",
+  "membership_information_section",
+  "membership",
+  "membership_date",
+  "member",
+  "column_break_vrdj",
+  "membership_amount",
+  "total_paid",
+  "balance",
+  "section_break_tmyu",
+  "note",
+  "section_break_onij",
+  "is_foc",
+  "account_code",
+  "currency_precision",
+  "currency_format"
+ ],
+ "fields": [
+  {
+   "default": "Cash Dollar",
+   "fieldname": "payment_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Payment Type",
+   "options": "Payment Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Document Number",
+   "options": "MP.YYYY.-.####"
+  },
+  {
+   "fieldname": "column_break_gjxk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "payment_type.payment_type_group",
+   "fieldname": "payment_type_group",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Payment Type Group"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Membership Payment",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "payment_type.currency",
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reference",
+   "fieldtype": "Data",
+   "label": "Reference"
+  },
+  {
+   "fieldname": "membership_information_section",
+   "fieldtype": "Section Break",
+   "label": "Membership Information"
+  },
+  {
+   "fieldname": "membership",
+   "fieldtype": "Link",
+   "label": "Membership",
+   "options": "Membership",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "membership.posting_date",
+   "fieldname": "membership_date",
+   "fieldtype": "Date",
+   "label": "Membership Date"
+  },
+  {
+   "fieldname": "column_break_vrdj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "membership.customer",
+   "fieldname": "member",
+   "fieldtype": "Link",
+   "label": "Member",
+   "options": "Customer"
+  },
+  {
+   "default": "0",
+   "fetch_from": "membership.grand_total",
+   "fieldname": "membership_amount",
+   "fieldtype": "Currency",
+   "label": "Membership Amount"
+  },
+  {
+   "default": "0",
+   "fetch_from": "membership.total_paid",
+   "fieldname": "total_paid",
+   "fieldtype": "Currency",
+   "label": "Total Paid"
+  },
+  {
+   "bold": 1,
+   "default": "0",
+   "fetch_from": "membership.balance",
+   "fieldname": "balance",
+   "fieldtype": "Currency",
+   "label": "Balance"
+  },
+  {
+   "fieldname": "payment_entry_section",
+   "fieldtype": "Section Break",
+   "label": "Payment Entry"
+  },
+  {
+   "fetch_from": "membership.balance",
+   "fetch_if_empty": 1,
+   "fieldname": "input_amount",
+   "fieldtype": "Float",
+   "label": "Input Amount"
+  },
+  {
+   "fieldname": "column_break_vlgb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fetch_from": "payment_type.exchange_rate",
+   "fieldname": "exchange_rate",
+   "fieldtype": "Float",
+   "label": "Exchange Rate"
+  },
+  {
+   "fieldname": "column_break_ijql",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "payment_amount",
+   "fieldtype": "Currency",
+   "label": "Payment Amount",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_tmyu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "section_break_onij",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fetch_from": "payment_type.is_foc",
+   "fieldname": "is_foc",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Is FOC"
+  },
+  {
+   "fieldname": "attach_file",
+   "fieldtype": "Attach Image",
+   "label": "Attach File"
+  },
+  {
+   "fieldname": "account_code",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Account Code"
+  },
+  {
+   "fieldname": "currency_precision",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Currency Precision"
+  },
+  {
+   "fetch_from": "currency.custom_pos_currency_format",
+   "fieldname": "currency_format",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Currency Format"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-01-08 08:57:45.730625",
+ "modified_by": "Administrator",
+ "module": "GYM",
+ "name": "Membership Payment",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Sales Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Sales Master Manager",
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "Sales User",
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

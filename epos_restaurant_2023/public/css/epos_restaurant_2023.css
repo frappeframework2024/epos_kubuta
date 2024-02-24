@@ -1,0 +1,57 @@
+.side_bar_menu{
+    background: rgb(247, 150, 4);
+}
+
+.widget.shortcut-widget-box{
+    background: #ebeef0!important;
+    padding: 10px!important;
+}
+.widget.shortcut-widget-box .es-icon{
+    display: none!important;
+}
+
+.widget.links-widget-box {
+    background: #f9fafa;
+    border: solid 1px #e3dede;
+}
+.widget.custom-block-widget-box{
+    padding: 0 !important;
+}
+.btn-primary{
+    background: #0181c0 !important;
+}
+.navbar {
+    background: #0181c0 !important;
+    height: 60px!important;
+}
+.desk-sidebar .standard-sidebar-item.selected{
+    background-color: #ceeaf985 !important;
+}
+@media (max-width: 1500px) and (min-width: 768px){
+    .ce-block.col-xs-12.col-sm-6.col-md-4, 
+    .ce-block.col-xs-12.col-sm-5{
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+.navbar-home img{
+    width: 45px !important;
+    max-height: unset !important;
+}
+.nav-item.dropdown.dropdown-help.dropdown-mobile.d-none.d-lg-block{
+    display: none !important;
+}
+.navbar.navbar-expand.sticky-top #navbar-breadcrumbs li a{
+    color: #fff !important;
+}
+.navbar.navbar-expand.sticky-top .notifications-seen .icon{
+    stroke: #fff !important;
+}
+
+/* .ce-block.col-xs-12.col-sm-6.col-md-4.col-lg-3{
+    border: 1px solid red;
+} */
+
+.page-card-head img.app-logo{
+    max-height: 120px!important;
+}

@@ -1,0 +1,83 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "question-sign",
+  "modified": "2023-11-28 09:51:21.142970",
+  "name": "Pending",
+  "style": "",
+  "workflow_state_name": "Pending"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "ok-sign",
+  "modified": "2023-11-28 09:51:21.147622",
+  "name": "Approved",
+  "style": "Success",
+  "workflow_state_name": "Approved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "remove",
+  "modified": "2023-11-28 09:51:21.152271",
+  "name": "Rejected",
+  "style": "Danger",
+  "workflow_state_name": "Rejected"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-20 10:58:04.262026",
+  "name": "Checked Out",
+  "style": "",
+  "workflow_state_name": "Checked Out"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-20 10:57:44.549519",
+  "name": "Dine-in",
+  "style": "",
+  "workflow_state_name": "Dine-in"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-20 10:40:07.247298",
+  "name": "Void",
+  "style": "",
+  "workflow_state_name": "Void"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-20 10:46:30.333702",
+  "name": "No Show",
+  "style": "Info",
+  "workflow_state_name": "No Show"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-20 10:35:31.820739",
+  "name": "Reserved",
+  "style": "",
+  "workflow_state_name": "Reserved"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": "",
+  "modified": "2023-12-20 10:36:17.339732",
+  "name": "Confirmed",
+  "style": "",
+  "workflow_state_name": "Confirmed"
+ }
+]

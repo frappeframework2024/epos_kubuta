@@ -1,0 +1,33 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"3D1p6OTLTm\",\"type\":\"custom_block\",\"data\":{\"custom_block_name\":\"Member Check In\",\"col\":12}}]",
+ "creation": "2023-09-27 12:04:31.067343",
+ "custom_blocks": [
+  {
+   "custom_block_name": "Member Check In",
+   "label": "Member Check In"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "milestone",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Check In",
+ "links": [],
+ "modified": "2024-01-20 09:16:50.716830",
+ "modified_by": "Administrator",
+ "module": "GYM",
+ "name": "Check In",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "Gym",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 5.0,
+ "shortcuts": [],
+ "title": "Check In"
+}

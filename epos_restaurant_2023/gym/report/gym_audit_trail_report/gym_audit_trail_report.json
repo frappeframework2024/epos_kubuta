@@ -1,0 +1,33 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2024-01-27 14:26:37.140796",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "Default Letterhead",
+ "letterhead": null,
+ "modified": "2024-01-27 14:26:37.140796",
+ "modified_by": "Administrator",
+ "module": "GYM",
+ "name": "GYM Audit Trail Report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Comment",
+ "report_name": "GYM Audit Trail Report",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Website Manager"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "GYM User"
+  }
+ ]
+}

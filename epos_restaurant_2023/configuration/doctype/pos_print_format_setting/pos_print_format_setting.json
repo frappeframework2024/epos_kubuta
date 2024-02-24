@@ -1,0 +1,196 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:print_format",
+ "creation": "2023-08-28 15:41:36.877128",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "print_format",
+  "print_report_name",
+  "pos_invoice_file_name",
+  "pos_receipt_file_name",
+  "receipt_height",
+  "receipt_width",
+  "print_format_doc_type",
+  "column_break_yxpe",
+  "receipt_margin_top",
+  "receipt_margin_right",
+  "receipt_margin_bottom",
+  "receipt_margin_left",
+  "print_receipt_copies",
+  "print_invoice_copies",
+  "sort_order",
+  "show_in_pos",
+  "show_in_pos_report",
+  "show_in_pos_closed_sale",
+  "other_tab",
+  "report_options"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title"
+  },
+  {
+   "fieldname": "print_format",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Print Format",
+   "options": "Print Format",
+   "unique": 1
+  },
+  {
+   "fieldname": "print_report_name",
+   "fieldtype": "Data",
+   "label": "Print Report Name"
+  },
+  {
+   "fieldname": "pos_invoice_file_name",
+   "fieldtype": "Data",
+   "label": "POS Invoice File Name"
+  },
+  {
+   "fieldname": "pos_receipt_file_name",
+   "fieldtype": "Data",
+   "label": "POS Receipt File Name"
+  },
+  {
+   "default": "11.69",
+   "fieldname": "receipt_height",
+   "fieldtype": "Float",
+   "label": "Receipt Height"
+  },
+  {
+   "default": "3.14",
+   "fieldname": "receipt_width",
+   "fieldtype": "Float",
+   "label": "Receipt Width"
+  },
+  {
+   "fieldname": "column_break_yxpe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "receipt_margin_top",
+   "fieldtype": "Float",
+   "label": "Receipt Margin Top"
+  },
+  {
+   "default": "0",
+   "fieldname": "receipt_margin_right",
+   "fieldtype": "Float",
+   "label": "Receipt Margin Right"
+  },
+  {
+   "default": "0",
+   "fieldname": "receipt_margin_bottom",
+   "fieldtype": "Float",
+   "label": "Receipt Margin Bottom"
+  },
+  {
+   "default": "0",
+   "fieldname": "receipt_margin_left",
+   "fieldtype": "Float",
+   "label": "Receipt Margin Left"
+  },
+  {
+   "default": "1",
+   "fieldname": "print_receipt_copies",
+   "fieldtype": "Float",
+   "label": "Print Receipt Copies"
+  },
+  {
+   "default": "1",
+   "fieldname": "print_invoice_copies",
+   "fieldtype": "Float",
+   "label": "Print Invoice Copies"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_in_pos",
+   "fieldtype": "Check",
+   "label": " Show In POS"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_in_pos_report",
+   "fieldtype": "Check",
+   "label": "Show In POS Report"
+  },
+  {
+   "default": "0",
+   "fieldname": "show_in_pos_closed_sale",
+   "fieldtype": "Check",
+   "label": "Show in POS Closed Sale"
+  },
+  {
+   "fieldname": "other_tab",
+   "fieldtype": "Tab Break",
+   "label": "Other"
+  },
+  {
+   "fieldname": "report_options",
+   "fieldtype": "JSON",
+   "label": "Report Options"
+  },
+  {
+   "default": "0",
+   "fieldname": "sort_order",
+   "fieldtype": "Int",
+   "label": "Sort Order"
+  },
+  {
+   "fetch_from": "print_format.doc_type",
+   "fieldname": "print_format_doc_type",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "in_standard_filter": 1,
+   "label": "Print Format Doc Type",
+   "options": "DocType"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-08-30 11:44:28.330852",
+ "modified_by": "Administrator",
+ "module": "Configuration",
+ "name": "POS Print Format Setting",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "role": "All",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Guest"
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

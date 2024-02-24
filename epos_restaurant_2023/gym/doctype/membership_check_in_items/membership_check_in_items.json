@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-10-02 10:27:41.406465",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "membership",
+  "membership_type",
+  "membership_name",
+  "member",
+  "check_in_number"
+ ],
+ "fields": [
+  {
+   "fieldname": "membership",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Membership",
+   "options": "Membership",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "check_in_number",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Checked In Count",
+   "options": "Membership",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "membership.membership_type",
+   "fieldname": "membership_type",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Membership Type",
+   "options": "Membership"
+  },
+  {
+   "fetch_from": "membership.membership",
+   "fieldname": "membership_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Membership Name",
+   "options": "Membership"
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "member",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Member",
+   "options": "Membership"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-10-05 16:14:36.796068",
+ "modified_by": "Administrator",
+ "module": "GYM",
+ "name": "Membership Check In Items",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

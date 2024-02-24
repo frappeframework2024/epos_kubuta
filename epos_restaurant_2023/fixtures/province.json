@@ -1,0 +1,266 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:11:46.934621",
+  "name": "Los Angeles",
+  "note": "Los Angeles",
+  "province": "Los Angeles"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:12:53.580366",
+  "name": "Houston",
+  "note": "Houston",
+  "province": "Houston"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:13:03.000752",
+  "name": "San Diego",
+  "note": "San Diego",
+  "province": "San Diego"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:13:33.266236",
+  "name": "Shanghai",
+  "note": "Shanghai",
+  "province": "Shanghai"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:14:23.254549",
+  "name": "Hangzhou",
+  "note": "Hangzhou",
+  "province": "Hangzhou"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:14:32.610532",
+  "name": "Nanjing",
+  "note": "Nanjing",
+  "province": "Nanjing"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:14:41.369590",
+  "name": "Guangzhou",
+  "note": "Guangzhou",
+  "province": "Guangzhou"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:15:40.869660",
+  "name": "Mumbai",
+  "note": "Mumbai",
+  "province": "Mumbai"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:16:00.941295",
+  "name": "Jaipur",
+  "note": "Jaipur",
+  "province": "Jaipur"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:17:03.710680",
+  "name": "Kanchanaburi",
+  "note": "Kanchanaburi",
+  "province": "Kanchanaburi"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:17:41.369288",
+  "name": "Ho Chi Minh",
+  "note": "Ho Chi Minh",
+  "province": "Ho Chi Minh"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:12:10.672206",
+  "name": "New York",
+  "note": "New York",
+  "province": "New York"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:12:19.873113",
+  "name": "San Francisco",
+  "note": "San Francisco",
+  "province": "San Francisco"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:12:29.706732",
+  "name": "Chicago",
+  "note": "Chicago",
+  "province": "Chicago"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:16:30.188280",
+  "name": "Bangkok",
+  "note": "Bangkok",
+  "province": "Bangkok"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:17:18.014261",
+  "name": "Phuket",
+  "note": "Phuket",
+  "province": "Phuket"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:13:55.515125",
+  "name": "Beijing",
+  "note": "Beijing",
+  "province": "Beijing"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:15:14.192287",
+  "name": "Chennai",
+  "note": "Chennai",
+  "province": "Chennai"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:15:32.493158",
+  "name": "Hyderabad",
+  "note": "Hyderabad",
+  "province": "Hyderabad"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:13:43.698305",
+  "name": "Shenzhen",
+  "note": "Shenzhen",
+  "province": "Shenzhen"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:14:09.370456",
+  "name": "Chongqing",
+  "note": "Chongqing",
+  "province": "Chongqing"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:16:37.014224",
+  "name": "Chiang Mai",
+  "note": "Chiang Mai",
+  "province": "Chiang Mai"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2022-12-05 20:47:13.698038",
+  "name": "Phnom Penh",
+  "note": null,
+  "province": "Phnom Penh"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:15:49.820107",
+  "name": "New Delhi",
+  "note": "New Delhi",
+  "province": "New Delhi"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:16:08.917947",
+  "name": "Kolkata",
+  "note": "Kolkata",
+  "province": "Kolkata"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:18:23.385678",
+  "name": "Nha Trang",
+  "note": "Nha Trang",
+  "province": "Nha Trang"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-03-26 16:48:58.237585",
+  "name": "Battam Bang",
+  "note": null,
+  "province": "Battam Bang"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:15:23.843487",
+  "name": "Bengaluru",
+  "note": "Bengaluru",
+  "province": "Bengaluru"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:18:05.808656",
+  "name": "Hanoi",
+  "note": "Hanoi",
+  "province": "Hanoi"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:18:13.959875",
+  "name": "Da Nang",
+  "note": "Da Nang",
+  "province": "Da Nang"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:16:56.617401",
+  "name": "Ayutthaya",
+  "note": "Ayutthaya",
+  "province": "Ayutthaya"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2023-10-27 16:16:48.191108",
+  "name": "Pattaya",
+  "note": "Pattaya",
+  "province": "Pattaya"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Province",
+  "modified": "2022-12-05 20:47:21.564060",
+  "name": "Siem Reap",
+  "note": null,
+  "province": "Siem Reap"
+ }
+]

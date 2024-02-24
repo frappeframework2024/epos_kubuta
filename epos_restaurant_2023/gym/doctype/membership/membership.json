@@ -1,0 +1,562 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-09-28 15:29:33.205252",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "information_section",
+  "naming_series",
+  "posting_date",
+  "reference_no",
+  "customer_code",
+  "customer",
+  "photo",
+  "member_name",
+  "member_name_kh",
+  "gender",
+  "phone_number_1",
+  "phone_number_2",
+  "duration_type",
+  "membership_duration",
+  "is_delay_access",
+  "delay_access",
+  "delay_access_base_on",
+  "column_break_qwqf",
+  "membership",
+  "membership_type",
+  "duration_base_on",
+  "start_date",
+  "end_date",
+  "regular_end_date",
+  "tracking_limited",
+  "max_access",
+  "note",
+  "trainer_section",
+  "personal_trainer",
+  "trainer_name_en",
+  "trainer_name_kh",
+  "trainer_phone",
+  "trainer_gender",
+  "trainer_email",
+  "time_training",
+  "trainer_fee_percentage",
+  "trainer_photo",
+  "column_break_ojpw",
+  "trainer_note",
+  "pricing_section",
+  "regular_price",
+  "price",
+  "discount_type",
+  "discount",
+  "total_discount",
+  "column_break_higk",
+  "grand_total",
+  "total_paid",
+  "balance",
+  "access_to_training_section",
+  "access_type",
+  "column_break_sogc",
+  "duration",
+  "per_duration",
+  "family_shared_section",
+  "count_members",
+  "membership_family_table",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "allow_on_submit": 1,
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Member",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_qwqf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "membership",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Membership Option",
+   "options": "Membership Options",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "membership.duration_type",
+   "fieldname": "duration_type",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Duration Type"
+  },
+  {
+   "fieldname": "information_section",
+   "fieldtype": "Section Break",
+   "label": "Information"
+  },
+  {
+   "fetch_from": "membership.membership_duration",
+   "fieldname": "membership_duration",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Membership Duration",
+   "options": "Membership"
+  },
+  {
+   "default": "0",
+   "fetch_from": "membership.cost",
+   "fetch_if_empty": 1,
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price"
+  },
+  {
+   "fetch_from": "membership.membership_duration_base_on",
+   "fieldname": "duration_base_on",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Duration Base on"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Start Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "End Date"
+  },
+  {
+   "fieldname": "family_shared_section",
+   "fieldtype": "Section Break",
+   "label": "Family Shared"
+  },
+  {
+   "default": "2",
+   "fieldname": "count_members",
+   "fieldtype": "Int",
+   "label": "Count Members"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "customer.naming_series",
+   "fieldname": "customer_code",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Member Code"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Membership",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "membership.membership_type",
+   "fieldname": "membership_type",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Membership Type"
+  },
+  {
+   "description": "How many times can a member attend?",
+   "fieldname": "access_to_training_section",
+   "fieldtype": "Section Break",
+   "label": "Access to Training"
+  },
+  {
+   "fetch_from": "membership.access_type",
+   "fieldname": "access_type",
+   "fieldtype": "Data",
+   "label": "Access Type"
+  },
+  {
+   "fieldname": "column_break_sogc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "membership.duration",
+   "fieldname": "duration",
+   "fieldtype": "Int",
+   "label": "Duration"
+  },
+  {
+   "fetch_from": "membership.per_duration",
+   "fieldname": "per_duration",
+   "fieldtype": "Data",
+   "label": "Per"
+  },
+  {
+   "default": "0",
+   "fetch_from": ".cost",
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Grand Total",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "default": "0",
+   "fetch_from": ".cost",
+   "fieldname": "discount",
+   "fieldtype": "Float",
+   "label": "Discount"
+  },
+  {
+   "default": "Percent",
+   "fetch_from": ".cost",
+   "fieldname": "discount_type",
+   "fieldtype": "Select",
+   "label": "Discount Type",
+   "options": "Percent\nAmount"
+  },
+  {
+   "default": "0",
+   "fetch_from": ".cost",
+   "fieldname": "total_paid",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Paid",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": ".cost",
+   "fieldname": "balance",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pricing_section",
+   "fieldtype": "Section Break",
+   "label": "Summary"
+  },
+  {
+   "fieldname": "column_break_higk",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Code",
+   "options": "MS.-.#####"
+  },
+  {
+   "description": "Assign member to table list",
+   "fieldname": "membership_family_table",
+   "fieldtype": "Table",
+   "options": "Membership Family"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "customer.customer_name_en",
+   "fieldname": "member_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Member Name",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "customer.photo",
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Photo"
+  },
+  {
+   "default": "0",
+   "fetch_from": ".cost",
+   "fieldname": "total_discount",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Total Discount"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "personal_trainer",
+   "fieldtype": "Link",
+   "label": "Personal Trainer",
+   "options": "Trainer"
+  },
+  {
+   "default": "0",
+   "fetch_from": "membership.tracking_limited",
+   "fieldname": "tracking_limited",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Tracking Limited"
+  },
+  {
+   "default": "0",
+   "fetch_from": "membership.max_access",
+   "fieldname": "max_access",
+   "fieldtype": "Int",
+   "label": "Max Access"
+  },
+  {
+   "default": "0",
+   "fetch_from": "membership.cost",
+   "fieldname": "regular_price",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Regular Price"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "customer.customer_name_kh",
+   "fieldname": "member_name_kh",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Member Name Kh"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "customer.gender",
+   "fieldname": "gender",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Gender"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "customer.phone_number",
+   "fieldname": "phone_number_1",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Phone Number 1"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "customer.phone_number_2",
+   "fieldname": "phone_number_2",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Phone Number 2"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "trainer_section",
+   "fieldtype": "Section Break",
+   "label": "Trainer"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "personal_trainer.trainer_name_en",
+   "fieldname": "trainer_name_en",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Trainer Name En"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "personal_trainer.trainer_name_kh",
+   "fieldname": "trainer_name_kh",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Trainer Name Kh"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "personal_trainer.phone_number",
+   "fieldname": "trainer_phone",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Trainer Phone"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "personal_trainer.gender",
+   "fieldname": "trainer_gender",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Trainer Gender"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "personal_trainer.email_id",
+   "fieldname": "trainer_email",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Trainer Email"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "trainer_photo",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Trainer Photo"
+  },
+  {
+   "fieldname": "column_break_ojpw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "time_training",
+   "fieldtype": "Link",
+   "label": "Time Training",
+   "options": "GYM Training Time"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "trainer_note",
+   "fieldtype": "Small Text",
+   "label": "Trainer Note"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fetch_from": ".",
+   "fieldname": "is_delay_access",
+   "fieldtype": "Check",
+   "label": "Is Delay Access"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Month(s)",
+   "fieldname": "delay_access_base_on",
+   "fieldtype": "Select",
+   "label": "Delay Access Base On",
+   "options": "Day(s)\nMonth(s)"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fetch_from": ".",
+   "fieldname": "delay_access",
+   "fieldtype": "Int",
+   "label": "Delay Access "
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "regular_end_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Regular End Date"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "reference_no",
+   "fieldtype": "Data",
+   "label": "Reference No"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "0",
+   "fieldname": "trainer_fee_percentage",
+   "fieldtype": "Float",
+   "label": "Trainer Fee (%)"
+  }
+ ],
+ "image_field": "photo",
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Payment",
+   "link_doctype": "Membership Payment",
+   "link_fieldname": "membership"
+  }
+ ],
+ "modified": "2024-01-27 10:41:17.231548",
+ "modified_by": "Administrator",
+ "module": "GYM",
+ "name": "Membership",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "GYM User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "member_name,membership_type",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "membership",
+ "track_changes": 1
+}

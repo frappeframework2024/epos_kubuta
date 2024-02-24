@@ -1,0 +1,430 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2023-12-15 10:14:59.711811",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_rtsw",
+  "naming_series",
+  "reference_number",
+  "property",
+  "table_id",
+  "table_number",
+  "total_guest",
+  "column_break_ygte",
+  "reservation_date",
+  "arrival_date",
+  "arrival_time",
+  "reservation_status",
+  "status",
+  "reservation_status_color",
+  "reservation_status_background_color",
+  "total_deposit",
+  "price",
+  "guest_inforamtion_section",
+  "guest",
+  "guest_name",
+  "guest_type",
+  "column_break_spvy",
+  "phone_number",
+  "phone_number_2",
+  "email_address",
+  "guest_photo",
+  "guest_information_section",
+  "custom_guest_name",
+  "nationality",
+  "column_break_bzao",
+  "guest_phone_number",
+  "section_break_gtak",
+  "tour_code",
+  "tour_phone_number",
+  "column_break_xdnr",
+  "tour_name",
+  "section_break_mpbx",
+  "guide_name",
+  "column_break_jjdv",
+  "guide_phone_number",
+  "section_break_rrqs",
+  "note",
+  "products_tab",
+  "reservation_product_section",
+  "reservation_product",
+  "section_break_hgky",
+  "total_quantity",
+  "column_break_dxzp",
+  "total_amount",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "PRes.YYYY.-.####"
+  },
+  {
+   "fieldname": "reference_number",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Reference Number"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "table_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Table",
+   "options": "Tables Number"
+  },
+  {
+   "fieldname": "column_break_ygte",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "reservation_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Reservation Date",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Today",
+   "fieldname": "arrival_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Arrival Date",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Reserved",
+   "fieldname": "reservation_status",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "in_filter": 1,
+   "label": "Reservation Status",
+   "options": "POS Reservation Status",
+   "reqd": 1
+  },
+  {
+   "fieldname": "guest_inforamtion_section",
+   "fieldtype": "Section Break",
+   "label": "Guest Inforamtion"
+  },
+  {
+   "fieldname": "guest",
+   "fieldtype": "Link",
+   "label": "Guest",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "guest.customer_name_en",
+   "fieldname": "guest_name",
+   "fieldtype": "Data",
+   "label": "Guest Name"
+  },
+  {
+   "fetch_from": "guest.customer_group",
+   "fieldname": "guest_type",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Guest Type"
+  },
+  {
+   "fieldname": "column_break_spvy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "guest.phone_number",
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number"
+  },
+  {
+   "fetch_from": "guest.phone_number_2",
+   "fieldname": "phone_number_2",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Phone Number 2"
+  },
+  {
+   "fetch_from": "guest.email_address",
+   "fieldname": "email_address",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Email Address"
+  },
+  {
+   "fieldname": "guest_photo",
+   "fieldtype": "Attach",
+   "hidden": 1,
+   "label": "Guest Photo"
+  },
+  {
+   "fieldname": "section_break_rrqs",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Now",
+   "fieldname": "arrival_time",
+   "fieldtype": "Time",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Arrival Time"
+  },
+  {
+   "default": "1",
+   "fieldname": "total_guest",
+   "fieldtype": "Int",
+   "label": "Total Guest"
+  },
+  {
+   "fieldname": "products_tab",
+   "fieldtype": "Tab Break",
+   "hidden": 1,
+   "label": "Products"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "reservation_product",
+   "fieldtype": "Table",
+   "label": "Reservation Product",
+   "options": "POS Reservation Item"
+  },
+  {
+   "fieldname": "section_break_hgky",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_quantity",
+   "fieldtype": "Float",
+   "label": "Total Quantity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_dxzp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reservation_product_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_rtsw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": ".",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Status"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "reservation_status.color",
+   "fieldname": "reservation_status_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Reservation Status Color"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "reservation_status.background_color",
+   "fieldname": "reservation_status_background_color",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Reservation Status Background Color"
+  },
+  {
+   "fieldname": "property",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "in_list_view": 1,
+   "label": "Property",
+   "options": "Business Branch"
+  },
+  {
+   "allow_on_submit": 1,
+   "fetch_from": "table_id.tbl_number",
+   "fieldname": "table_number",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Table Number"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "POS Reservation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "total_deposit",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "Total Deposit",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tour_code",
+   "fieldtype": "Data",
+   "label": "Tour Code"
+  },
+  {
+   "fieldname": "tour_name",
+   "fieldtype": "Data",
+   "label": "Tour Name"
+  },
+  {
+   "fieldname": "section_break_gtak",
+   "fieldtype": "Section Break",
+   "label": "Tour Information"
+  },
+  {
+   "fieldname": "column_break_xdnr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tour_phone_number",
+   "fieldtype": "Data",
+   "label": "Tour Phone Number "
+  },
+  {
+   "fieldname": "guest_information_section",
+   "fieldtype": "Section Break",
+   "hidden": 1,
+   "label": "Guest Information"
+  },
+  {
+   "fieldname": "custom_guest_name",
+   "fieldtype": "Data",
+   "label": "Guest Name"
+  },
+  {
+   "fieldname": "column_break_bzao",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "guest_phone_number",
+   "fieldtype": "Data",
+   "label": "Guest Phone Number"
+  },
+  {
+   "fieldname": "section_break_mpbx",
+   "fieldtype": "Section Break",
+   "label": "Guide Information"
+  },
+  {
+   "fieldname": "guide_name",
+   "fieldtype": "Data",
+   "label": "Guide Name"
+  },
+  {
+   "fieldname": "column_break_jjdv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "guide_phone_number",
+   "fieldtype": "Data",
+   "label": "Guide Phone Number"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price"
+  },
+  {
+   "fieldname": "nationality",
+   "fieldtype": "Data",
+   "label": "Nationality"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Deposit",
+   "link_doctype": "Sale Payment",
+   "link_fieldname": "pos_reservation"
+  }
+ ],
+ "modified": "2024-01-24 16:19:34.121794",
+ "modified_by": "Administrator",
+ "module": "Selling",
+ "name": "POS Reservation",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Product Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "guest_name, phone_number",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

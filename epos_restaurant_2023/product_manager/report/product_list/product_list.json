@@ -1,0 +1,77 @@
+{
+ "add_total_row": 0,
+ "columns": [
+  {
+   "fieldname": "name",
+   "fieldtype": "Data",
+   "label": "Code",
+   "width": 0
+  },
+  {
+   "fieldname": "product_name_en",
+   "fieldtype": "Data",
+   "label": "Product",
+   "width": 350
+  },
+  {
+   "fieldname": "product_category",
+   "fieldtype": "Data",
+   "label": "Category",
+   "width": 0
+  },
+  {
+   "fieldname": "price_rule",
+   "fieldtype": "Data",
+   "label": "Price Rule",
+   "width": 100
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price",
+   "width": 100
+  }
+ ],
+ "creation": "2023-11-11 16:26:09.781663",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "price_rule",
+   "fieldtype": "Link",
+   "label": "Price Rule",
+   "mandatory": 1,
+   "options": "Price Rule",
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "Default Letter Head",
+ "letterhead": null,
+ "modified": "2023-11-13 10:44:49.843821",
+ "modified_by": "Administrator",
+ "module": "Product Manager",
+ "name": "Product List",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "\nwith a as (select p.`name` ,p.product_name_en, p.product_category,pp.price , pp.price_rule \nfrom `tabProduct Price`  pp\ninner join `tabProduct` p on p.name = pp.parent )\n, b as (\nselect p.`name` ,p.product_name_en, p.product_category,p.price, 'Normal Rate' as price_rule from `tabProduct` p where p.name not in (select a.name from a)\nUNION\nselect p.`name` ,p.product_name_en, p.product_category,p.price, p.price_rule from a as p)\n\nselect \np.`name` ,\np.product_name_en, \np.product_category,\np.price_rule,\np.price\n\nfrom b as p \nwhere p.price_rule = %(price_rule)s \n\norder by p.name ",
+ "ref_doctype": "Product",
+ "report_name": "Product List",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "Product Manager"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Sales User"
+  }
+ ]
+}

@@ -1,0 +1,133 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:trainer_code",
+ "creation": "2023-10-26 08:52:09.859270",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "trainer_code",
+  "trainer_name_en",
+  "trainer_name_kh",
+  "photo",
+  "column_break_salt",
+  "gender",
+  "phone_number",
+  "email_id",
+  "is_disabled"
+ ],
+ "fields": [
+  {
+   "fieldname": "trainer_code",
+   "fieldtype": "Data",
+   "label": "Trainer Code",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "trainer_name_en",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Trainer Name En",
+   "reqd": 1
+  },
+  {
+   "fieldname": "trainer_name_kh",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Trainer Name Kh",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_salt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Not Set",
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Gender",
+   "options": "Not Set\nMale\nFemale"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Phone Number"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID"
+  },
+  {
+   "fieldname": "photo",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Photo"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  }
+ ],
+ "image_field": "photo",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-01-06 17:12:00.886894",
+ "modified_by": "Administrator",
+ "module": "GYM",
+ "name": "Trainer",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "GYM User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "trainer_name_en,trainer_name_kh,phone_number,email_id",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "trainer_name_en",
+ "track_changes": 1
+}

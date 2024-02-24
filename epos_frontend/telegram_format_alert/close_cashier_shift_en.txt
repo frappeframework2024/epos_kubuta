@@ -1,0 +1,61 @@
+*** Title ***
+Cashier Shift {{doc.name}} is closed
+
+*** Condition ***
+doc.is_closed == 1 and doc.is_edoor_shift == 0
+
+*** Send Base On ***
+Save
+
+
+
+*** Message Query ***
+
+{% set bus = frappe.get_doc('Business Information') %} {% set exch = frappe.db.sql("select exchange_rate,exchange_rate_input,to_currency,from_currency from `tabCurrency Exchange` where posting_date <= '{}' and from_currency <> to_currency order by posting_date  desc limit 1".format(doc.posting_date),as_dict=1) %}
+CLOSE SHIFT INFORMATION {%set main_currency = frappe.get_doc("Currency",frappe.db.get_default("currency"))%} {%set second_currency = frappe.get_doc("Currency",frappe.db.get_default("second_currency"))%} {% set data=frappe.db.sql("select name,grand_total,tbl_number from `tabSale` where cashier_shift='{}' and docstatus=1".format(doc.name),as_dict=1) %}
+  Opened By: {{frappe.db.get_value('User',doc.owner,'full_name')}}
+  Opened Date: {{frappe.format(doc.creation,{"fieldtype":"Datetime"})}}
+  Closed By: {{frappe.db.get_value('User',doc.modified_by,'full_name')}}
+  Close Date: {{frappe.format(doc.closed_date,{"fieldtype":"Datetime"})}}
+{% if data|length > 0%}
+SALE TRANSACTION
+------------------------{% for index,d in enumerate(data)%}
+    {{index+1}}. {{d.name}} - {{d.tbl_number}} => {{frappe.utils.fmt_money(d.grand_total,currency=main_currency.name,precision=main_currency.custom_currency_precision)}}{%endfor%}
+    ______________
+    {{_("Total Bills")}}: {{data|length}}
+    {{_("Grand Total")}}: {{frappe.utils.fmt_money(data |sum(attribute='grand_total'),currency=main_currency.name,precision=main_currency.custom_currency_precision)}}
+                             {{frappe.utils.fmt_money((data |sum(attribute='grand_total')) * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}}
+{%set revenue_data = frappe.db.sql("select revenue_group,sum(sp.total_revenue) as total_revenue from `tabSale Product` sp inner join `tabSale` s on s.name = sp.parent where s.cashier_shift='{}' and s.docstatus=1 group by revenue_group".format(doc.name),as_dict=1)%}
+REVENUE BREAKDOWN
+------------------------{% for d in revenue_data %}
+    {{d.revenue_group}}: {{frappe.utils.fmt_money(d.total_revenue,currency=main_currency.name,precision=main_currency.custom_currency_precision)}} {% endfor%}
+    ______________
+    {{_("Total Revenue")}}: {{frappe.utils.fmt_money(revenue_data |sum(attribute='total_revenue'),currency=main_currency.name,precision=main_currency.custom_currency_precision)}}
+                              = {{frappe.utils.fmt_money((revenue_data |sum(attribute='total_revenue')) * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}} 
+{% set open_amount = 0%}{%set cash_transactions = frappe.db.sql("select transaction_status,currency,note,symbol,sum(input_amount) as total_amount,sum(amount) as total_main_amount from `tabCash Transaction` where cashier_shift = '{}' group by transaction_status,currency,symbol,note".format(doc.name),as_dict=1)%}{%set cash_sale = frappe.db.sql("select sum(payment_amount) as payment_amount from `tabSale Payment` where cashier_shift = '{}' and payment_type_group='Cash'".format(doc.name),as_dict=1)%}
+========================
+CASH DRAWSER
+------------------------{% for t in doc.cash_float| selectattr("payment_type_group", "equalto", 'Cash')%}
+    {%if t.input_amount > 0 %}{%set open_amount =t.input_amount %}{{_("Start Amount")}} ({{t.currency}}) {{frappe.utils.fmt_money(t.input_amount,currency=t.currency_symbol)}}{% endif %}{% endfor %}
+    ______________{% if open_amount > 0%}
+    {{_("Total Start Amount")}}: {{frappe.format_value(doc.total_opening_amount, "Currency")}} {%endif%}
+    {{_("Total Cash Sale")}}: {{frappe.format_value(cash_sale[0].payment_amount, "Currency")}}
+                                 = {{frappe.utils.fmt_money(((cash_sale[0].payment_amount) or 0) * (exch[0].exchange_rate or 0), currency=second_currency.name, precision=second_currency.custom_currency_precision)}}
+    {% if doc.cash_float | selectattr("payment_type_group", "equalto", 'Cash')  | sum(attribute='close_amount') %}______________
+    {{_("Closed Amount")}}: {{frappe.format_value(doc.cash_float | selectattr("payment_type_group", "equalto", 'Cash') | sum(attribute='close_amount'), "Currency")}} 
+                                 = {{frappe.utils.fmt_money((doc.cash_float | selectattr("payment_type_group", "equalto", 'Cash') | sum(attribute='close_amount')) * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}}{% endif %}
+{%set sum_payment = 0%}{%set payment_breakdown = frappe.db.sql("select sp.currency,sp.currency_precision,sp.symbol,sum(sp.input_amount) as input_amount,sp.payment_type from `tabSale Payment` sp inner join `tabSale` s on s.name = sp.sale where s.cashier_shift='{}' and s.docstatus=1 group by sp.currency,sp.currency_precision,sp.payment_type,sp.symbol".format(doc.name),as_dict=1)%}  
+PAYMENT BREAKDOWN {%set credit_payment_breakdown = frappe.db.sql("select sp.currency,sp.currency_precision,	sum(sp.amount) as input_amount,sp.payment_type from `tabPOS Sale Payment` sp inner join `tabSale` s on s.name = sp.parent  where s.cashier_shift='{}'  and sp.payment_type_group = 'On Account' and s.docstatus=1  group by  sp.currency, sp.currency_precision, sp.payment_type, sp.currency_symbol".format(doc.name),as_dict=1)%}
+------------------------{% for p in payment_breakdown %}
+    {{p.payment_type}}: {{frappe.utils.fmt_money(p.input_amount,currency=p.currency,precision=p.currency_precision)}} {% endfor %}{% for p in credit_payment_breakdown %}
+    {{p.payment_type}}: {{frappe.utils.fmt_money(p.input_amount,currency=p.currency,precision=p.currency_precision)}} {% endfor %}{%set total_payment =  frappe.db.sql("select sum(sp.payment_amount) as base_payment_amount, sum(sp.payment_amount)*{0} as payment_amount  from `tabSale Payment` sp inner join `tabSale` s on s.name = sp.sale where s.cashier_shift='{1}' and s.docstatus=1".format(exch[0].exchange_rate, doc.name),as_dict=1)%} {%set total_credit_payment =  frappe.db.sql("select sum(sp.amount) as base_payment_amount, sum(sp.amount)*{0} as payment_amount  from `tabPOS Sale Payment` sp inner join `tabSale` s on s.name = sp.parent where s.cashier_shift='{1}' and sp.payment_type_group = 'On Account' and s.docstatus=1".format(exch[0].exchange_rate,doc.name),as_dict=1)%}
+    {% if (total_payment|length > 0 or total_credit_payment|length >0) %}______________{% if (total_payment|length > 0 and total_credit_payment|length >0) %}{%set sum_payment = (total_payment[0].base_payment_amount or 0) + (total_credit_payment[0].base_payment_amount or 0) %} {% elif (total_payment|length == 0 and total_credit_payment|length >0) %}{%set sum_payment = (total_credit_payment[0].base_payment_amount or 0) %} {% elif (total_payment|length > 0 and total_credit_payment|length ==0) %}{%set sum_payment = (total_credit_payment[0].base_payment_amount or 0) %}{%endif%}
+    {{_("Total Payment")}}: {{frappe.format_value(sum_payment, "Currency")}} 
+                                  = {{frappe.utils.fmt_money((sum_payment) * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}} {%endif%}
+
+{{_("Total Start & Payment Amount")}}
+    => {{frappe.utils.fmt_money((doc.total_opening_amount + sum_payment), currency=main_currency.name, precision=main_currency.custom_currency_precision)}}
+        = {{frappe.utils.fmt_money((doc.total_opening_amount + sum_payment)*exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}}
+{% endif %}
+========================
+Property: {{bus.business_name_en}}

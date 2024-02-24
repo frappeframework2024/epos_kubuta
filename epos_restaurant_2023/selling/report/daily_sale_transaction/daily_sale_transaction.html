@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Sale Transaction</title>
+</head>
+<body>
+<div class="title">
+    <h1>Daily Sale Transaction</h1>
+    Date: {{filters.start_date}} - {{filters.end_date}}
+    {% if filters.business_branch !="" %}
+        / Business Branch: {{filters.business_branch}}
+    {% endif %}
+    {% if filters.pos_profile != "" %}
+        / POS Profile: {{filters.pos_profile}}
+    {% endif %}
+    {% if filters.outlet !="" %}
+        / Outlet: {{filters.outlet}}
+    {% endif %}
+    {% if filters.customer_group !="" %}
+        / Customer Group: {{filters.customer_group}}
+    {% endif %}
+    {% if filters.customer %}
+        / Customer Name: {{filters.customer}}
+    {% endif %}
+</div>
+    <table class="report-list">
+        <tr style="border-bottom: solid 1px black!important; background-color: rgb(216, 216, 216); font-size: 12px;">
+            <th>Nº</th>
+            {% for c in report.columns %}
+                <th class="text-{{c.align }}">{{ __(c.label) }}</th>
+            {% endfor %}
+        </tr>
+        {% var i = 1 %}
+        {% for d in data %}
+        <tr class="title">
+            <td>
+                {% if i != data.length %}
+                    {{i}}
+                {% endif %}
+            </td>
+            {% for c in report.columns %}
+                <td class="text-{{c.align}}">
+                    {% if c.fieldname  == "tbl_number" && i == data.length%}
+                        <span class="total-text">Total</span>
+                    {%else%}
+                        <span>
+                            {% if c.fieldtype == "Currency" %}
+                                {{format_currency(d[c.fieldname],frappe.defaults.get_default("currency"),frappe.boot.docs[4].number_format)}}
+                            {% else %}
+                                {{ d[c.fieldname]}}
+                            {% endif %} 
+                        </span>
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+        {% i++ %}
+        {% endfor %}
+    </table>
+    <footer>
+        <div class="divfooter">
+            <p>Printed by: {{frappe.user.name}} on {{frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string())}}</p>
+        </div>
+    </footer>
+</body>
+
+<!-- Console Here -->
+<!-- {% console.log(data) %} -->
+<!-- {% console.log(report.columns) %} -->
+
+<style>
+@media print {
+  @page { 
+        margin: 0;
+    }
+    body { 
+        margin: 1cm;
+        page-break-after: always;
+    }
+    .divfooter{
+        position: fixed;
+        bottom: 0;
+    }
+} 
+.title{
+    text-align: center;
+}
+.report-list {
+    width: 100%;
+    margin-top: 20px;
+    font-size: 10px;
+}
+.report-list tr th {
+    color: #000;
+    font-weight: 400px;
+    padding-top: 4px ;
+    padding-bottom: 4px ;
+}
+.total-text{
+    font-size: 12px;
+    font-weight: bold;
+    /* border-top: solid 1px black!important; background-color: rgb(216, 216, 216); */
+}
+</style>
+</html>

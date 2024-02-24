@@ -1,0 +1,120 @@
+{
+ "charts": [
+  {
+   "chart_name": "Employee Expense",
+   "label": "Employee Expense"
+  }
+ ],
+ "content": "[{\"id\":\"OrfdFRLgVk\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"> Employee Management</span>\",\"col\":12}},{\"id\":\"aIdMJkGh1w\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Employee Expense\",\"col\":12}},{\"id\":\"rrSPH24gIP\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"rGtT_vyiE9\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Employee\",\"col\":3}},{\"id\":\"k0l_cV9t2-\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New Employee\",\"col\":3}},{\"id\":\"haXGd9yG82\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Department\",\"col\":3}},{\"id\":\"mqr4sX60QL\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Position\",\"col\":3}},{\"id\":\"vwK8YtpK7S\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"U73dESoIvc\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Recent Added Employee\",\"col\":6}},{\"id\":\"BDM9w_inNZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Setting\",\"col\":6}}]",
+ "creation": "2022-12-03 17:19:17.043664",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "share-people",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Employee Management",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Setting",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Employee Type",
+   "link_count": 0,
+   "link_to": "Employee Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Department",
+   "link_count": 0,
+   "link_to": "Department",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Position",
+   "link_count": 0,
+   "link_to": "Position",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Exit Type",
+   "link_count": 0,
+   "link_to": "Employee Exit Type",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-01-23 14:04:45.894946",
+ "modified_by": "Administrator",
+ "module": "Employee Management",
+ "name": "Employee Management",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Employee",
+   "label": "Recent Added Employee",
+   "quick_list_filter": "[]"
+  }
+ ],
+ "roles": [],
+ "sequence_id": 9.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "New",
+   "label": "New Employee",
+   "link_to": "Employee",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Department",
+   "link_to": "Department",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Position",
+   "link_to": "Position",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Employee",
+   "link_to": "Employee",
+   "stats_filter": "{\"disabled\":[\"=\",0]}",
+   "type": "DocType"
+  }
+ ],
+ "title": "Employee Management"
+}

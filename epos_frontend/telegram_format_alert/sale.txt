@@ -1,0 +1,26 @@
+*** Title ***
+Closed Payment {{doc.name}}
+
+*** Condition ***
+
+
+*** Send Base On ***
+Submit
+
+
+*** Message Query ***
+
+New sale submit and payment {%set main_currency = frappe.get_doc("Currency",frappe.db.get_default("currency"))%} {%set second_currency = frappe.get_doc("Currency",frappe.db.get_default("second_currency"))%}
+Cashier: {{doc.closed_by}}
+Table: {{doc.tbl_number}}
+Time: {{frappe.format(doc.modified,{'fieldtype':'Datetime'})}}
+Menus:
+===================={% set exch = frappe.db.sql("select exchange_rate,exchange_rate_input,to_currency,from_currency from `tabCurrency Exchange` where posting_date <= '{}' and from_currency <> to_currency order by posting_date  desc limit 1".format(doc.posting_date),as_dict=1) %}
+{% for ind, d in enumerate(doc.sale_products) %}
+   {{ind+1}}. {{d.product_name}} x {{d.quantity}} ={{frappe.utils.fmt_money(d.amount, currency=main_currency.name,precision=main_currency.custom_currency_precision)}}
+{% endfor %}
+====================
+Qty: {{doc.total_quantity}}
+Amount:{{frappe.utils.fmt_money(doc.grand_total, currency=main_currency.name,precision=main_currency.custom_currency_precision)}} ({{frappe.utils.fmt_money(doc.grand_total * exch[0].exchange_rate, currency=second_currency.name, precision=second_currency.custom_currency_precision)}})
+Paid By: {% for p in doc.payment %}{{p.payment_type}}-{{frappe.utils.fmt_money(p.input_amount, currency=p.currency,format=p.currency_format,precision=p.currency_precision)}}{% if not loop.last %} , {% endif %}{% endfor %}
+{% if doc.changed_amount > 0 %}Changed: {{frappe.utils.fmt_money(doc.changed_amount, currency=main_currency.name,precision=main_currency.custom_currency_precision)}} ({{frappe.utils.fmt_money(doc.second_changed_amount, currency=second_currency.name, precision=second_currency.custom_currency_precision)}}){%endif%}

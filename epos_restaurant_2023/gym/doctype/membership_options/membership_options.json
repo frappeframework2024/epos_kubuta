@@ -1,0 +1,225 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:membership_option_title",
+ "creation": "2023-09-28 14:17:19.628396",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "membership_option_title",
+  "membership_type",
+  "pricing_section",
+  "cost",
+  "family_pricing_section",
+  "family_members_table",
+  "column_break_umac",
+  "duration_section",
+  "duration_type",
+  "membership_duration",
+  "column_break_eccz",
+  "membership_duration_base_on",
+  "tracking_limited",
+  "max_access",
+  "access_to_training_section",
+  "column_break_illp",
+  "access_type",
+  "duration",
+  "column_break_zhbz",
+  "per_duration"
+ ],
+ "fields": [
+  {
+   "fieldname": "membership_option_title",
+   "fieldtype": "Data",
+   "label": "Membership Option Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "Single Member",
+   "fieldname": "membership_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Membership Type",
+   "options": "Single Member\nFamily Shared"
+  },
+  {
+   "fieldname": "pricing_section",
+   "fieldtype": "Section Break",
+   "label": "Pricing"
+  },
+  {
+   "default": "0",
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Cost"
+  },
+  {
+   "fieldname": "family_pricing_section",
+   "fieldtype": "Section Break",
+   "label": "Family Pricing"
+  },
+  {
+   "default": "Limited Duration",
+   "fieldname": "duration_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Duration Type",
+   "options": "Ongoing\nLimited Duration"
+  },
+  {
+   "default": "Unlimited",
+   "fieldname": "access_type",
+   "fieldtype": "Select",
+   "label": "Access Type",
+   "options": "Unlimited\nTimes"
+  },
+  {
+   "default": "1",
+   "fieldname": "duration",
+   "fieldtype": "Int",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "column_break_umac",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_eccz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "duration_section",
+   "fieldtype": "Section Break",
+   "label": "Duration"
+  },
+  {
+   "description": "How many times can a member attend?",
+   "fieldname": "access_to_training_section",
+   "fieldtype": "Section Break",
+   "label": "Access To Training"
+  },
+  {
+   "fieldname": "column_break_zhbz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "membership_duration",
+   "fieldtype": "Int",
+   "label": "Membership Duration"
+  },
+  {
+   "default": "Month(s)",
+   "fieldname": "membership_duration_base_on",
+   "fieldtype": "Select",
+   "label": "Base On",
+   "options": "Day(s)\nWeek(s)\nMonth(s)\nYear(s)"
+  },
+  {
+   "fieldname": "column_break_illp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Day",
+   "fieldname": "per_duration",
+   "fieldtype": "Select",
+   "label": "Per",
+   "options": "Day"
+  },
+  {
+   "fieldname": "family_members_table",
+   "fieldtype": "Table",
+   "label": "Family Members",
+   "options": "Membership Family Pricing"
+  },
+  {
+   "default": "0",
+   "fieldname": "tracking_limited",
+   "fieldtype": "Check",
+   "label": "Tracking Limited"
+  },
+  {
+   "default": "1",
+   "fieldname": "max_access",
+   "fieldtype": "Int",
+   "label": "Max Access"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-11-29 11:55:18.842099",
+ "modified_by": "Administrator",
+ "module": "GYM",
+ "name": "Membership Options",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Master Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Product Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

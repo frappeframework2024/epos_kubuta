@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-09-19 16:50:40.993130",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ftp_backup_path",
+  "ftp_user",
+  "delete_after",
+  "column_break_mojg",
+  "ftp_url",
+  "ftp_password",
+  "ftp_folder_name"
+ ],
+ "fields": [
+  {
+   "fieldname": "ftp_backup_path",
+   "fieldtype": "Data",
+   "label": "Backup Path"
+  },
+  {
+   "fieldname": "ftp_user",
+   "fieldtype": "Data",
+   "label": "User"
+  },
+  {
+   "fieldname": "delete_after",
+   "fieldtype": "Int",
+   "label": "Delete After",
+   "options": "7"
+  },
+  {
+   "fieldname": "column_break_mojg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ftp_url",
+   "fieldtype": "Data",
+   "label": "Url"
+  },
+  {
+   "fieldname": "ftp_password",
+   "fieldtype": "Data",
+   "label": "Password"
+  },
+  {
+   "fieldname": "ftp_folder_name",
+   "fieldtype": "Data",
+   "label": "FTP Folder Name"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-10-04 10:25:44.728602",
+ "modified_by": "Administrator",
+ "module": "Configuration",
+ "name": "FTP Backup",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "All",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
