@@ -253,7 +253,7 @@ export default class Sale {
         //check for append quantity rule
         //product code, allow_append_qty,price, unit,modifier, portion, is_free,sale_product_status
         //and check system have feature to send to kitchen
-        let strFilter = `$.is_timer_product == 0 && $.is_require_employee==0 && $.product_code=='${p.name}' && $.append_quantity ==1 && $.price==${p.price} && $.portion=='${this.getString(p.portion)}'  && $.modifiers=='${p.modifiers}'  && $.unit=='${p.unit}' && $.is_free==0 && $.note==''`
+        let strFilter = `$.is_timer_product == 0 && $.product_code=='${p.name}' && $.append_quantity ==1 && $.price==${p.price} && $.portion=='${this.getString(p.portion)}'  && $.modifiers=='${p.modifiers}'  && $.unit=='${p.unit}' && $.is_free==0 && $.note==''`
 
         if (!this.setting?.pos_setting?.allow_change_quantity_after_submit) {
             strFilter = strFilter + ` && $.sale_product_status == 'New'`
@@ -269,6 +269,9 @@ export default class Sale {
        
         
         let sp = Enumerable.from(this.sale.sale_products).where(strFilter).firstOrDefault()
+        console.log(strFilter)
+        console.log(this.sale.sale_products)
+        console.log(sp)
         let is_new_sale_product = true;
         let new_sale_product;
         let prev_sale_product;
@@ -316,6 +319,8 @@ export default class Sale {
             const saleProduct = {
                 menu_product_name: p.menu_product_name,
                 product_code: p.name,
+                product_code_2: p.product_code_2,
+                product_code_3: p.product_code_3,
                 product_name: p.name_en,
                 product_name_kh: p.name_kh,
                 revenue_group:p.revenue_group,
@@ -465,6 +470,7 @@ export default class Sale {
 
     updateSaleProduct(sp) {
         //set property for re render comhappyhour check
+        
         sp.is_render = false; 
         //end
         sp.sub_total = sp.quantity * sp.price + sp.quantity * sp.modifiers_price;

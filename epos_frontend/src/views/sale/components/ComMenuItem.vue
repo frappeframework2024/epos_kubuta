@@ -32,13 +32,14 @@
         class="relative overflow-hidden h-full bg-cover bg-no-repeat rounded-lg shadow-lg cursor-pointer bg-gray-300 "
         v-bind:style="{ 'background-image': 'url(' + encodeURIComponent(image).replace(/%2F/g, '/') + ')', 'background-size': 'contain', 'background-position': 'center center' }"
         @click="onClickProduct()">
+        
         <div class="absolute top-0 bottom-0 right-0 left-0" v-if="!image">
             <avatar class="!h-full !w-full" :name="data.name_en" :rounded="false" background="#f1f1f1"></avatar>
             
         </div>
         <div class="block relative p-2 w-full h-full">
         
-            <div class="absolute left-0 top-0 bg-red-700 text-white p-1 rounded-tl-lg rounded-br-lg text-sm">
+            <div class="absolute left-0 top-0 bg-red-700 text-white p-1 rounded-tl-lg text-sm">
                 <span>
                     <span v-if="productPrices.length > 1">
                         <span>
@@ -47,18 +48,22 @@
                             <CurrencyFormat :value="maxPrice" />
                         </span>
                     </span>
-                    <CurrencyFormat v-else :value="showPrice" />
+                    <div  v-else>
+                        <CurrencyFormat :value="showPrice" /> /
+                        <CurrencyFormat :value="(showPrice * second_currency_exchange_rate)" :currency="gv.setting.pos_setting.second_currency_name"/>
+                    </div>
+                    
                 </span>
             </div>
             <div class="p-1 rounded-md absolute bottom-1 right-1 left-1 bg-gray-50 bg-opacity-90 text-sm text-center">
-                <span v-if="!sale.load_menu_lang">{{ getMenuName(data, true) }}</span> <span
-                    style="color:red; font-weight: bold;"> {{ getTotalQuantityOrder(data) }}</span>
+                <span v-if="!sale.load_menu_lang" style="white-space: pre-line">{{ getMenuName(data, true)  }}</span> 
+                <span style="color:red; font-weight: bold;"> {{ getTotalQuantityOrder(data) }}</span>
             </div>
         </div>
     </div>
 </template>
 <script setup>
-import { computed, addModifierDialog, SelectDateTime, inject, keypadWithNoteDialog, SaleProductComboMenuGroupModal, createToaster } from '@/plugin'
+import { computed, addModifierDialog,onMounted, SelectDateTime, inject, keypadWithNoteDialog, SaleProductComboMenuGroupModal, createToaster ,ref} from '@/plugin'
 import Enumerable from 'linq'
 // import ComPriceOnMenu from '../ComPriceOnMenu.vue';
 const props = defineProps({ data: Object })
@@ -68,6 +73,16 @@ const product = inject("$product");
 const toaster = createToaster({ position: 'top' })
 const frappe = inject("$frappe")
 const db = frappe.db();
+const call = frappe.call();
+let second_currency_exchange_rate = ref(1)
+
+onMounted(()=>{
+    if(gv.setting.pos_setting.second_currency_name ){
+        call.get('epos_restaurant_2023.api.api.get_exchange_rate').then((res)=>{
+            second_currency_exchange_rate.value=res.message
+        })
+    }
+})
 
 
 // get image
@@ -109,12 +124,14 @@ const minPrice = computed(() => {
 
 function getMenuName(menu, is_item = false) {
     const mlang = localStorage.getItem('mLang');
-    let code = !is_item ? "" : (gv.setting.show_item_code_in_sale_screen == 0 ? "" : `${menu.name} - `);
+    let code = !is_item ? "" : (gv.setting.show_item_code_in_sale_screen == 0 ? "" : menu.product_code_2 ? `${menu.name} / ${menu.product_code_2}\n` : `${menu.name}\n`);
+    let shelf_name = menu.shelf_name ? `${menu.shelf_name}\n` : ""
+    console.log(menu.shelf_name)
     if (mlang != null) {
         if (mlang == "en") {
-            return `${code}${menu.name_en}`;
+            return `${code}${shelf_name}${menu.name_en}`;
         } else {
-            return `${code}${menu.name_kh}`;
+            return `${code}${shelf_name}${menu.name_kh}`;
         }
 
     } else {
@@ -151,11 +168,12 @@ function onBack(parent) {
     product.parentMenu = parent_menu;
 }
 async function onClickProduct() {
+
     if (!sale.isBillRequested()) {
 
         const p = JSON.parse(JSON.stringify(props.data));
         product.is_open_price = p.is_open_price
-
+        
         if (!p.is_timer_product) {
             if (p.is_open_product == 1) {
 

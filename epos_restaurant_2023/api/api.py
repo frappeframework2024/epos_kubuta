@@ -1094,6 +1094,25 @@ def get_exchange_rate():
     return exchange_rate or 1
 
 
+@frappe.whitelist()
+def get_third_exchange_rate():
+    
+    main_currency = frappe.db.get_single_value("ePOS Settings", "currency")
+    exchange_rate_main_currency = frappe.db.get_single_value("ePOS Settings", "exchange_rate_main_currency")
+
+    third_currency = frappe.db.get_single_value("ePOS Settings", "third_currency")
+    if exchange_rate_main_currency == third_currency:
+        third_currency  = main_currency
+    
+    
+    data = frappe.db.sql("select exchange_rate  from `tabCurrency Exchange` where from_currency='{}' and to_currency='{}' and docstatus=1 order by posting_date desc, modified desc limit 1".format(exchange_rate_main_currency, third_currency),as_dict=1)
+    exchange_rate = 1
+
+    if len(data):
+        exchange_rate = data[0]["exchange_rate"]    
+    return exchange_rate or 1
+
+
 # update sale payment of pos reservation 
 @frappe.whitelist()
 def update_pos_reservation_and_sale_payment(reservation_name,reservation_status,sale):

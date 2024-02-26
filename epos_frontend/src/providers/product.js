@@ -89,6 +89,9 @@ export default class Product {
                 fields: [
                     "name as menu_product_name",
                     "name",
+                    "product_code_2",
+                    "product_code_3",
+                    "shelf_name",
                     "product_name_en as name_en",
                     "product_name_kh as name_kh",
                     "product_category as parent",
@@ -109,6 +112,7 @@ export default class Product {
                     "is_timer_product",
                     'tax_rule',
                     'revenue_group',
+                    'is_require_employee',
                     'prices',
                     'sort_order'
                 ],
@@ -142,6 +146,9 @@ export default class Product {
                 "product_name_en as name_en",
                 "product_name_kh as name_kh",
                 "product_category as parent",
+                "product_code_2",
+                "product_code_3",
+                "shelf_name",
                 "price",
                 "unit",
                 "allow_discount",

@@ -32,6 +32,10 @@
                             <div v-if="!sp.is_timer_product">
                                 {{ sp.quantity }} x 
                                 <CurrencyFormat :value="sp.price" />
+                                <span class="font-weight-black"> / </span>
+                                <CurrencyFormat :value="(sp.price*sale.sale.exchange_rate)"
+                                    :currency="sale.setting.pos_setting.second_currency_name" />
+                                
                             </div>
                             <div v-else>
                                 <template v-if="sp.time_in">
@@ -48,6 +52,7 @@
                                 <div v-if="sp.modifiers && !sp.is_timer_product">
                                     <span>{{ sp.modifiers }} (
                                         <CurrencyFormat :value="sp.modifiers_price * sp.quantity" />)
+                                       
                                     </span>
                                 </div>
 
@@ -87,8 +92,14 @@
 
                         <div class="flex-none text-right w-36">
                             <div class="text-lg">
+                                
                                 <ComTimerProductEstimatePrice v-if="sp.is_timer_product && !sp.time_out_price" :saleProduct="sp" />
-                                <CurrencyFormat v-else :value="(sp.amount - sp.total_tax)" />
+                                <div v-else>
+                                    <CurrencyFormat  :value="(sp.amount - sp.total_tax)" />
+                                    <span> / </span>
+                                    <CurrencyFormat  :value="((sp.amount - sp.total_tax) * sale.sale.exchange_rate)" :currency="gv.setting.pos_setting.second_currency_name"/>
+                                </div>
+                                
                             </div>
                             <span v-if="sp.product_tax_rule && sp.total_tax > 0" class="text-xs">
                                 {{ $t('Tax') }}:
@@ -138,7 +149,6 @@
                     </div>
 
 
-
                 </div>
 
             </template>
@@ -174,8 +184,7 @@ const props = defineProps({
 
 function getMenuName(sp) {
     const mlang = localStorage.getItem('mLang');
-    let code = gv.setting.show_item_code_in_sale_screen == 0 ? "" : `${sp.product_code} - `;
-
+    let code = gv.setting.show_item_code_in_sale_screen == 0 ? "" : sp.product_code_2 ? `${sp.product_code} / ${sp.product_code_2} -  `:`${sp.product_code} - `;
     if (mlang != null) {
         if (mlang == "en") {
 

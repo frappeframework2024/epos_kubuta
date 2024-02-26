@@ -50,6 +50,13 @@
             </div>
         </div>
 
+        <div class="mb-1 flex justify-between text-sm" v-if="balance > 0">
+            <div>{{ $t('Balance') }} ({{sale.setting.pos_setting.third_currency_name}}):</div>
+            <div>
+                <CurrencyFormat :value="balance * third_currency_exchange_rate" :currency="gv.setting.pos_setting.third_currency_name"/>                
+            </div>
+        </div>
+
         <hr v-if="sale.sale.changed_amount > 0"/>
         <div class="mb-1 flex justify-between text-sm" v-if="sale.sale.changed_amount > 0">
             <div>{{ $t('Change Amount') }}({{ gv.setting.pos_setting.main_currency_name }}):</div>
@@ -64,15 +71,24 @@
                     :currency="gv.setting.pos_setting.second_currency_name" />
             </div>
         </div>
+        <div class="mb-1 flex justify-between text-sm" v-if="sale.sale.changed_amount > 0">
+            <div>{{ $t('Change Amount') }}({{ gv.setting.pos_setting.third_currency_name }}):</div>
+            <div>
+                <CurrencyFormat :value="sale.sale.changed_amount * third_currency_exchange_rate"
+                    :currency="gv.setting.pos_setting.third_currency_name" />
+            </div>
+        </div>
     </div> 
 </template>
 <script setup>
-import { inject,computed } from 'vue'
+import { inject,computed,ref } from 'vue'
 import { useDisplay } from 'vuetify'
 const { mobile } = useDisplay()
 const sale = inject('$sale')
 const gv = inject('$gv')
-
+const frappe = inject("$frappe");
+const call = frappe.call();
+let third_currency_exchange_rate = ref(1)
 const balance = computed(()=>{
     if(sale.sale?.balance>0){ 
     return Number(sale.sale.balance.toFixed(gv.setting.pos_setting.main_currency_precision));
@@ -80,6 +96,12 @@ const balance = computed(()=>{
         return 0;
     }
 })
+
+if(gv.setting.pos_setting.third_currency_name ){
+    call.get('epos_restaurant_2023.api.api.get_third_exchange_rate').then((res)=>{
+        third_currency_exchange_rate.value=res.message
+    })
+}
 
 
 
