@@ -58,12 +58,12 @@
             <v-list-item  prepend-icon="mdi-cash-100" :title="$t('Tax Setting')" v-if="saleProduct.product_tax_rule"  @click="sale.onSaleProductChangeTaxSetting(saleProduct,gv)">
             </v-list-item>
             
-            <v-list-item v-if="!saleProduct.is_timer_product" prepend-icon="mdi-cash-100" :title="$t('Printer')"    @click="onSelectPrinter()">
-            </v-list-item>
+            <!-- <v-list-item v-if="!saleProduct.is_timer_product" prepend-icon="mdi-cash-100" :title="$t('Printer')"    @click="onSelectPrinter()">
+            </v-list-item> -->
             
         </v-list>
     </v-menu>
-        <v-dialog
+        <!-- <v-dialog
         v-model="showDialogSelectPrinter"
         width="auto">
             <v-card title="Select Printers">
@@ -77,7 +77,7 @@
                 <v-btn color="success"  @click="onConfirmSelectPrinter">Confirm</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-dialog>
+        </v-dialog> -->
 </template>
 
 <script setup>

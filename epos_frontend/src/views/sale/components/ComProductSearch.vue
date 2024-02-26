@@ -98,7 +98,8 @@ function onKeyDown(event) {
                 p.modifiers_data = "[]";
                 p.portion = "";
             }
-
+            product.menuProducts = [];
+            product.menuProducts.push(p);
             sale.addSaleProduct(p);
 
             toaster.success("Added product " + product.searchProductKeywordStore + " successfully")

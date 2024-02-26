@@ -134,8 +134,8 @@
                                 color="teal" class="mx-1 grow text-center justify-center" variant="elevated" size="small"
                                 @click="sale.onChangeQuantity(sp)">{{ $t('Qty') }}</v-chip>
 
-                            <v-chip color="teal" class="mx-1 grow text-center justify-center" variant="elevated"
-                                size="small" @click="onReorder(sp)">{{ $t('Re-Order') }}</v-chip>
+                            <!-- <v-chip color="teal" class="mx-1 grow text-center justify-center" variant="elevated"
+                                size="small" @click="onReorder(sp)">{{ $t('Re-Order') }}</v-chip> -->
                         </template>
                         <template v-if="(sp.is_require_employee || 0) == 1">
                             <v-chip color="primary" class="mx-1 grow text-center justify-center" variant="elevated"
