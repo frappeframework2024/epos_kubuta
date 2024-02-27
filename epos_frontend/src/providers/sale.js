@@ -269,9 +269,6 @@ export default class Sale {
        
         
         let sp = Enumerable.from(this.sale.sale_products).where(strFilter).firstOrDefault()
-        console.log(strFilter)
-        console.log(this.sale.sale_products)
-        console.log(sp)
         let is_new_sale_product = true;
         let new_sale_product;
         let prev_sale_product;
