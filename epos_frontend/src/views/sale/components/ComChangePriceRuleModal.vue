@@ -20,7 +20,10 @@
 <script setup>
 import { defineEmits, inject, confirm,i18n } from '@/plugin'
 import ComPlaceholder from '../../../components/layout/components/ComPlaceholder.vue';
-
+import { FrappeApp } from 'frappe-js-sdk';
+const gv = inject("$gv");
+const frappe = new FrappeApp();
+const call = frappe.call();
 const { t: $t } = i18n.global;  
 
 const emit = defineEmits(['resolve'])
@@ -35,12 +38,24 @@ const price_rules = JSON.parse(localStorage.getItem('setting')).price_rules;
 function onClose() {
     emit('resolve', false)
 }
+
 async function onSelect(result) {
     if (sale.sale.sale_products.length > 0) {
         const yesNo = await confirm({ title: $t('msg.are you sure to change price rule'), text: $t('msg.All items will be remove from bill') })
         if (yesNo == true) {
-            sale.sale.sale_products = []
-            await onConfrim(result)
+            let product_list = []
+            for(let p of sale.sale.sale_products){
+                product_list.push({"product_code":p.product_code})
+            }
+            await  call.get("epos_restaurant_2023.api.product.get_product_price_by_price_rule",{products:JSON.stringify(product_list),business_branch:gv.setting.business_branch,price_rule:result})
+            .then(async (res)=>{
+                for (let sp of sale.sale.sale_products) {
+                    JSON.parse(res.message) .forEach((e) => { if (e.product_code == sp.product_code){sp.price = e.price}});
+                    sale.updateSaleProduct(sp)
+                }
+                await onConfrim(result)
+             })
+            
         }
     } else {
         await onConfrim(result)
@@ -53,6 +68,9 @@ async function onConfrim(result) {
     product.searchProductKeyword = '';
     product.searchProductKeywordStore = '';
     product.selectedProduct = {};
+    sale.updateSaleSummary()
+    
+    
     await emit('resolve', true)
 }
 </script>

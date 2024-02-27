@@ -69,7 +69,7 @@ function onKeyDown(event) {
             const p = JSON.parse(JSON.stringify(doc));   
          
             const portions = JSON.parse(p.prices)?.filter(r => (r.branch == sale.sale.business_branch || r.branch == '') && r.price_rule == sale.sale.price_rule);
-            const check_modifiers = product.onCheckModifier(JSON.parse(p.modifiers));
+            const check_modifiers = product.onCheckModifier(JSON.parse(p.modifiers == "" ? "[]" : p.modifiers));
             if (portions?.length == 1) {
                 p.price = portions[0].price
                 p.unit = portions[0].unit

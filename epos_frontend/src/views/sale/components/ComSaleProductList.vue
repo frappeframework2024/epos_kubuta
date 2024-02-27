@@ -90,7 +90,7 @@
                             </div>
                         </div>
 
-                        <div class="flex-none text-right w-36">
+                        <div class="flex-none text-right">
                             <div class="text-lg">
                                 
                                 <ComTimerProductEstimatePrice v-if="sp.is_timer_product && !sp.time_out_price" :saleProduct="sp" />

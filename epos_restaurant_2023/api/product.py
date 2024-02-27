@@ -217,3 +217,22 @@ def get_product_by_barcode(barcode):
         
 
     frappe.throw("Product Not Found")
+
+
+@frappe.whitelist()  
+def get_product_price_by_price_rule(products, business_branch, price_rule="Normal Rate"):
+    product_list = json.loads(products)
+    for p in product_list:
+        doc = frappe.get_doc("Product",p["product_code"])
+        # check product price by price rule and branch
+        price = 0
+        if doc.product_price:
+            price = max([d.price for d in doc.product_price if d.business_branch==business_branch and price_rule==d.price_rule]) or 0
+            #check product by price rule
+            if price==0:
+                price = max([d.price for d in doc.product_price if price_rule==d.price_rule]) or 0
+        else:
+            price = doc.price
+        p["price"] = price
+        p["regular_price"] = price
+    return json.dumps(product_list)

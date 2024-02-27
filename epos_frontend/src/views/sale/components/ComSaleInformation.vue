@@ -22,7 +22,8 @@ import ComSaleInformationHappyHourPromotionChip from './happy_hour_promotion/Com
 import { inject,keyboardDialog,changePriceRuleDialog, createToaster,i18n ,computed } from '@/plugin';
 import ComExchangeRate from './ComExchangeRate.vue';
  
-
+const frappe = inject('$frappe')
+const db = frappe.db();
 const { t: $t } = i18n.global;   
 
 
