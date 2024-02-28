@@ -1,7 +1,7 @@
 import Enumerable from 'linq'
 import moment from '@/utils/moment.js';
 import { noteDialog,changeTaxSettingModal,SaleProductComboMenuGroupModal, keyboardDialog,keypadWithNoteDialog, createResource,
-    createDocumentResource, addModifierDialog, useRouter, confirmDialog,selectEmployeeDialog, saleProductDiscountDialog,i18n } from "@/plugin"
+    createDocumentResource, addModifierDialog, useRouter, confirmDialog,selectEmployeeDialog, saleProductDiscountDialog,i18n,ProductStockDiscountDialog } from "@/plugin"
 import { createToaster } from "@meforma/vue-toaster";
 import socket from '@/utils/socketio';
 import { FrappeApp } from 'frappe-js-sdk';
@@ -321,6 +321,7 @@ export default class Sale {
                 product_name: p.name_en,
                 product_name_kh: p.name_kh,
                 revenue_group:p.revenue_group,
+                shelf_name:p.shelf_name,
                 unit: p.unit,
                 quantity: 1,
                 sub_total: 0,
@@ -1153,6 +1154,23 @@ export default class Sale {
                 }
             }
             this.updateSaleSummary();
+        }
+        this.dialogActiveState=false;
+    }
+
+    async onStock(sp) {
+       
+        const result = await ProductStockDiscountDialog({
+            data: {
+                sale_product: sp
+            }
+        })
+         
+       
+        this.dialogActiveState=false ;
+    
+        if (result != false) {  
+            
         }
         this.dialogActiveState=false;
     }

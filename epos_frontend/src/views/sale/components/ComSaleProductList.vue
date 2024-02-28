@@ -1,6 +1,6 @@
 <template>
     <v-list class="!p-0">
-        <v-list-item v-for="sp, index in (readonly == true ? getSaleProducts(groupKey) : sale.getSaleProducts(groupKey))"
+        <v-list-item v-for="sp, index in (readonly == true ? getSaleProducts(groupKey) : sale.getSaleProducts(groupKey))" 
             :key="index" @click="!readonly ? { click: sale.onSelectSaleProduct(sp) } : {}"
             class="!border-t !border-gray-300 !mb-0 !p-2"
             :class="{ 'selected': (sp.selected && !readonly), 'submitted relative': sp.sale_product_status == 'Submitted', 'item-list': !readonly }">
@@ -15,7 +15,7 @@
                 <div class="text-sm">
                     <div class="flex">
                         <div class="grow">
-                            <div v-if="!sale.load_menu_lang"> {{ getMenuName(sp) }}<v-chip class="ml-1" size="x-small"
+                            <div style="white-space: pre-wrap;" v-if="!sale.load_menu_lang"> {{ getMenuName(sp) }}<v-chip class="ml-1" size="x-small"
                                     color="error" variant="outlined" v-if="sp.portion">{{ sp.portion }}</v-chip>
                                 <v-chip v-if="sp.is_free" size="x-small" color="success" variant="outlined">{{ $t('Free')
                                 }}</v-chip>
@@ -184,13 +184,14 @@ const props = defineProps({
 
 function getMenuName(sp) {
     const mlang = localStorage.getItem('mLang');
-    let code = gv.setting.show_item_code_in_sale_screen == 0 ? "" : sp.product_code_2 ? `${sp.product_code} / ${sp.product_code_2} -  `:`${sp.product_code} - `;
+    console.log(sp)
+    let code = gv.setting.show_item_code_in_sale_screen == 0 ? "" : sp.product_code_2 ? `${sp.product_code} / ${sp.product_code_2} - `:`${sp.product_code} - `;
+    let shelf_name = sp.shelf_name ? `\n${sp.shelf_name}` : ""
     if (mlang != null) {
         if (mlang == "en") {
-
-            return `${code}${sp.product_name}`;
+            return `${code}${sp.product_name}${shelf_name}`;
         } else {
-            return `${code}${sp.product_name_kh}`;
+            return `${code}${sp.product_name_kh}${shelf_name}`;
         }
 
     } else {

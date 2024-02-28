@@ -179,10 +179,6 @@ async function onReferenceNumber(){
 }
 
 async function onChangePriceRule() {
-    if (sale.sale.sale_status != 'New') {
-        toaster.warning($t('msg.This bill is not new order'));
-        return;
-    }
     if (!sale.isBillRequested()) {
         sale.dialogActiveState=true;
         const result = await changePriceRuleDialog({})

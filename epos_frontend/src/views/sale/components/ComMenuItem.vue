@@ -32,13 +32,13 @@
         class="relative overflow-hidden h-full bg-cover bg-no-repeat rounded-lg shadow-lg cursor-pointer bg-gray-300 "
         v-bind:style="{ 'background-image': 'url(' + encodeURIComponent(image).replace(/%2F/g, '/') + ')', 'background-size': 'contain', 'background-position': 'center center' }"
         @click="onClickProduct()">
-        
+
         <div class="absolute top-0 bottom-0 right-0 left-0" v-if="!image">
             <avatar class="!h-full !w-full" :name="data.name_en" :rounded="false" background="#f1f1f1"></avatar>
-            
+
         </div>
         <div class="block relative p-2 w-full h-full">
-        
+
             <div class="absolute left-0 top-0 bg-red-700 text-white p-1 rounded-tl-lg text-sm">
                 <span>
                     <span v-if="productPrices.length > 1">
@@ -48,43 +48,38 @@
                             <CurrencyFormat :value="maxPrice" />
                         </span>
                     </span>
-                    <div  v-else>
+                    <div v-else>
                         <CurrencyFormat :value="showPrice" /> /
-                        <CurrencyFormat :value="(showPrice * second_currency_exchange_rate)" :currency="gv.setting.pos_setting.second_currency_name"/>
+                        <CurrencyFormat :value="(showPrice * (props.exchangeRate || 1))" :currency="gv.setting.pos_setting.second_currency_name" />
                     </div>
-                    
+                </span>
+            </div>
+            <div class="absolute right-1 top-0">
+                <span>
+                    <div>
+                        <span style="color:red; font-weight: bold; font-size: 16px;"> {{ getTotalQuantityOrder(data) }}</span>
+                    </div>
                 </span>
             </div>
             <div class="p-1 rounded-md absolute bottom-1 right-1 left-1 bg-gray-50 bg-opacity-90 text-sm text-center">
-                <span v-if="!sale.load_menu_lang" style="white-space: pre-line">{{ getMenuName(data, true)  }}</span> 
-                <span style="color:red; font-weight: bold;"> {{ getTotalQuantityOrder(data) }}</span>
+                <span v-if="!sale.load_menu_lang" style="white-space: pre-line">{{ getMenuName(data, true) }}</span>
             </div>
         </div>
     </div>
 </template>
 <script setup>
-import { computed, addModifierDialog,onMounted, SelectDateTime, inject, keypadWithNoteDialog, SaleProductComboMenuGroupModal, createToaster ,ref} from '@/plugin'
+import { computed, addModifierDialog, SelectDateTime, inject, keypadWithNoteDialog, SaleProductComboMenuGroupModal } from '@/plugin'
+import { defineProps } from 'vue'
 import Enumerable from 'linq'
-// import ComPriceOnMenu from '../ComPriceOnMenu.vue';
-const props = defineProps({ data: Object })
+const props = defineProps({
+        data: Object,
+        exchangeRate: Object,
+    })
 const sale = inject("$sale");
 const gv = inject("$gv");
 const product = inject("$product");
-const toaster = createToaster({ position: 'top' })
 const frappe = inject("$frappe")
 const db = frappe.db();
-const call = frappe.call();
-let second_currency_exchange_rate = ref(1)
-
-onMounted(()=>{
-    if(gv.setting.pos_setting.second_currency_name ){
-        call.get('epos_restaurant_2023.api.api.get_exchange_rate').then((res)=>{
-            second_currency_exchange_rate.value=res.message
-        })
-    }
-})
-
-
 // get image
 const image = computed(() => {
     return props.data.photo
@@ -126,7 +121,6 @@ function getMenuName(menu, is_item = false) {
     const mlang = localStorage.getItem('mLang');
     let code = !is_item ? "" : (gv.setting.show_item_code_in_sale_screen == 0 ? "" : menu.product_code_2 ? `${menu.name} / ${menu.product_code_2}\n` : `${menu.name}\n`);
     let shelf_name = menu.shelf_name ? `${menu.shelf_name}\n` : ""
-    console.log(menu.shelf_name)
     if (mlang != null) {
         if (mlang == "en") {
             return `${code}${shelf_name}${menu.name_en}`;
@@ -142,13 +136,17 @@ function getMenuName(menu, is_item = false) {
 
 function getTotalQuantityOrder(data) {
     const qty = sale.sale?.sale_products?.filter(r => r.product_code == data.name).reduce((n, d) => n + (d.quantity || 0), 0);
-    if (qty == undefined) {
+    if (qty == undefined) 
+    {
         return ""
     }
-    if (qty == 0) {
+    if (qty == 0) 
+    {
         return ""
-    } else {
-        return " (" + qty + ")"
+    } 
+    else 
+    {
+        return "(" + qty + ")"
     }
 }
 
@@ -168,12 +166,12 @@ function onBack(parent) {
     product.parentMenu = parent_menu;
 }
 async function onClickProduct() {
-
+    
     if (!sale.isBillRequested()) {
 
         const p = JSON.parse(JSON.stringify(props.data));
         product.is_open_price = p.is_open_price
-        
+
         if (!p.is_timer_product) {
             if (p.is_open_product == 1) {
 
@@ -189,7 +187,7 @@ async function onClickProduct() {
                 });
 
                 if (productPrices) {
-
+                    
                     p.name_en = productPrices.note;
                     p.price = productPrices.number;
                     p.modifiers = '';
@@ -208,8 +206,7 @@ async function onClickProduct() {
             }
             else {
                 const portions = JSON.parse(p.prices)?.filter(r => (r.branch == sale.sale.business_branch || r.branch == '') && r.price_rule == sale.sale.price_rule);
-                
-                const check_modifiers = product.onCheckModifier(JSON.parse(p.modifiers));
+                const check_modifiers = product.onCheckModifier(JSON.parse(p.modifiers == "" ? "[]" : p.modifiers));
 
                 if (portions?.length == 1) {
                     p.price = portions[0].price
@@ -218,18 +215,18 @@ async function onClickProduct() {
 
 
                 }
-              
 
-                if (check_modifiers || portions?.length > 1 || p.is_open_price)  {
+
+                if (check_modifiers || portions?.length > 1 || p.is_open_price) {
                     const pro_data = props.data
-                    if (p.is_open_price && portions.length==0){
-                        pro_data.prices = JSON.stringify( [{"price":p.price,"branch":"","price_rule":sale.sale.price_rule,"portion":"Normal","unit":p.unit,"default_discount":0}])                
+                    if (p.is_open_price && portions.length == 0) {
+                        pro_data.prices = JSON.stringify([{ "price": p.price, "branch": "", "price_rule": sale.sale.price_rule, "portion": "Normal", "unit": p.unit, "default_discount": 0 }])
                     }
-                    
+
                     product.setSelectedProduct(pro_data);
-                    
+
                     let productPrices = await addModifierDialog();
-                   
+
 
                     if (productPrices) {
                         if (productPrices.portion != undefined) {
@@ -252,21 +249,23 @@ async function onClickProduct() {
                 }
 
             }
+            
 
         } else {
             let selectdatetime = await SelectDateTime();
             if (selectdatetime) {
-                if (selectdatetime !='Set Later'){
+                if (selectdatetime != 'Set Later') {
                     p.time_in = selectdatetime;
-                }else{
-                    p.time_in= undefined;
+                } else {
+                    p.time_in = undefined;
                 }
-                
-            }else{
+
+            } else {
                 return
             }
+           
         }
-
+       
         sale.addSaleProduct(p);
 
     }

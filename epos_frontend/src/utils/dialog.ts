@@ -17,6 +17,7 @@ import ComConfirmBackToTableLayout from '@/views/sale/components/ComConfirmBackT
 import ComSearchCustomer from '@/views/sale/components/ComSearchCustomer.vue';
 import ComScanCustomerCode from '@/views/sale/components/ComScanCustomerCode.vue';
 import ComSaleProductDiscountModal from '@/views/sale/components/ComSaleProductDiscountModal.vue';
+import ComProductStockModal from '@/views/sale/components/ComProductStockModal.vue';
 import ComPayment from '@/views/sale/components/ComPayment.vue';
 import ComPayToRoomModal from '@/views/sale/components/ComPayToRoomModal.vue';
 import ComPayToCityLedgerModal from '@/views/sale/components/ComPayToCityLedgerModal.vue';
@@ -87,6 +88,7 @@ export  const scanCustomerCodeDialog= createPromiseDialog<params, object>(ComSca
 export  const authorizeDialog= createPromiseDialog<params, object>(ComAuthorize);
 export  const noteDialog= createPromiseDialog<params, object>(ComNote);
 export  const saleProductDiscountDialog = createPromiseDialog<params, object>(ComSaleProductDiscountModal);
+export  const ProductStockDiscountDialog = createPromiseDialog<params, object>(ComProductStockModal);
 export  const paymentDialog = createPromiseDialog<params, object>(ComPayment);
 export  const payToRoomDialog = createPromiseDialog<params, object>(ComPayToRoomModal);
 export  const payToCityLedgerDialog = createPromiseDialog<params, object>(ComPayToCityLedgerModal);

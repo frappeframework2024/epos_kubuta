@@ -154,10 +154,6 @@ async function onChangeTable() {
     }
 }
 async function onChangePriceRule() {
-    if (sale.sale.sale_status != 'New') {
-        toaster.warning($t('msg.This bill is not new order'));
-        return;
-    }
     if (!sale.isBillRequested()) {
         const result = await changePriceRuleDialog({})
         if (result == true) {

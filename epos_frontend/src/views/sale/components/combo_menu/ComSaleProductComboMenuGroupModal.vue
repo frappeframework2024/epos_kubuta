@@ -24,7 +24,7 @@
                                         <ComPlaceholder :is-not-empty="product.getComboMenu(item).length > 0">
                                             <div class="p-2">
                                                 <div class="grid gap-2" :class="mobile ? 'grid-cols-2' : 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4'">
-                                                    <div v-for="(m, index) in product.getComboMenu(item)" :key="index" class="h-36">
+                                                    <div v-for="(m, index) in product.getComboMenu(item)" :key="index" class="h-40">
                                                         <ComSaleProductComboMenuGroupItem :product="m" :group="item"/>
                                                     </div>
                                                 </div>

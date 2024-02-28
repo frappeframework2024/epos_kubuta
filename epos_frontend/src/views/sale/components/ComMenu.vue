@@ -2,26 +2,24 @@
    
     <div class="h-full relative bg-cover bg-no-repeat bg-center" v-bind:style="{'background-image': 'url(' + backgroundImage + ')' }">
         <div class="flex h-full flex-col">
-        
             <ComShortcut  v-if="product.setting.pos_menus.length>0"/>
                 
             <ComShortcurMenuFromProductGroup v-else/>
             <div class="pa-2 h-full overflow-y-auto" :class="getCustomerScrollWidth()"  id="wrap_menu">
-             
                 <ComPlaceholder :loading="product.posMenuResource.loading" :is-not-empty="product.posMenuResource.data?.length > 0" class-color="text-white" :is-placeholder="true">
                     <template #default> 
                         <div class="grid gap-2" :class="mobile ? 'grid-cols-2' :gv.setting.pos_setting.item_grid" v-if="product.posMenuResource.data?.length > 0">
                             <template v-if="product.setting.pos_menus.length>0">
                               
-                            <div v-for="(m, index) in product.getPOSMenu()" :key="index" class="h-36">
+                                <div v-for="(m, index) in product.getPOSMenu()" :key="index" class="h-40">
+                                    <ComMenuItem :exchange="m" :data="m"/>                              
+                                </div>
+                            </template>
+                            <template v-else>
+                                
+                                <ComMenuItemByProductCategory />
                             
-                                <ComMenuItem :data="m"/>                              
-                            </div>
-                        </template>
-                        <template v-else>
-                           <ComMenuItemByProductCategory />
-                           
-                        </template>
+                            </template>
                         </div>
                     </template>
                     <template #empty>
@@ -48,8 +46,8 @@ import ComShortcurMenuFromProductGroup from './ComShortcurMenuFromProductGroup.v
 import ComMenuItemByProductCategory from './ComMenuItemByProductCategory.vue';
 import ComPlaceholder from '@/components/layout/components/ComPlaceholder.vue';
 import ComMenuItem from './ComMenuItem.vue';
-import {  inject, defineProps} from '@/plugin';
-import { useDisplay } from 'vuetify'
+import {  inject, defineProps,ref} from '@/plugin';
+import { useDisplay } from 'vuetify';
 import ComSaleButtonActions from './ComSaleButtonActions.vue';
 const { mobile } = useDisplay()
 const product = inject("$product")
@@ -59,6 +57,15 @@ const db = frappe.db();
 const props = defineProps({
     backgroundImage: String
 });
+
+const call = frappe.call();
+let second_currency_exchange_rate=ref(1)
+
+    if(gv.setting.pos_setting.second_currency_name ){
+        call.get('epos_restaurant_2023.api.api.get_exchange_rate').then((res)=>{
+            second_currency_exchange_rate.value=res.message
+        })
+    }
 
 function getCustomerScrollWidth(){
     const is_window = localStorage.getItem('is_window');
