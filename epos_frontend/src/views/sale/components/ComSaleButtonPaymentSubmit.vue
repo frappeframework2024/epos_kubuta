@@ -141,7 +141,6 @@ async function onSubmit() {
                   sale.sale.cashier_shift = data.message.cashier_shift.name;
                   sale.sale.shift_name = data.message.cashier_shift.shift_name;
                   gv.confirm_close_working_day(data.message.working_day.posting_date);
-                  onCheckExpireHappyHoursPromotion();
               }
             })
           }

@@ -1,7 +1,7 @@
 <template>
     <ComModal :persistent="true" @onClose="onClose()" @onOk="onOK()" title-ok-button="OK" :fullscreen="mobile">
         <template #title>
-            <div>Product Stock</div>
+            <div>{{$t('Product Stock')}}</div>
         </template>
         <template #content>
             <v-table fixed-header class="ma-2">
