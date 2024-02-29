@@ -41,8 +41,6 @@ function onClose() {
 
 async function onSelect(result) {
     if (sale.sale.sale_products.length > 0) {
-        const yesNo = await confirm({ title: $t('msg.are you sure to change price rule'), text: $t('msg.All items will be remove from bill') })
-        if (yesNo == true) {
             let product_list = []
             for(let p of sale.sale.sale_products){
                 product_list.push({"product_code":p.product_code})
@@ -56,7 +54,6 @@ async function onSelect(result) {
                 await onConfrim(result)
              })
             
-        }
     } else {
         await onConfrim(result)
     }

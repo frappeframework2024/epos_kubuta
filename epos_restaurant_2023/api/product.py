@@ -135,7 +135,7 @@ def get_product_variants(parent):
         return data
 
 @frappe.whitelist()
-def get_product_by_barcode(barcode):
+def get_product_by_barcode(barcode,price_rule=""):
     #step 1 check barcard in tabProduct if have product return 
     #step 2 if product not exist check barcode from product price if exist retrun
     # step 3 both not exist then throw product not exist
@@ -151,7 +151,7 @@ def get_product_by_barcode(barcode):
                 p = frappe.get_doc('Product', data[0].name)
                 price = p.price or 0
                 if p.product_price:
-                    product_price = [d for d in p.product_price if d.unit == p.unit]
+                    product_price = [d for d in p.product_price if d.unit == p.unit and d.price_rule == price_rule]
                     if product_price:
                         price = product_price[0].price
                         
@@ -220,7 +220,7 @@ def get_product_by_barcode(barcode):
 
 
 @frappe.whitelist()  
-def get_product_price_by_price_rule(products, business_branch, price_rule="Normal Rate"):
+def get_product_price_by_price_rule(products, business_branch, price_rule=""):
     product_list = json.loads(products)
     for p in product_list:
         doc = frappe.get_doc("Product",p["product_code"])

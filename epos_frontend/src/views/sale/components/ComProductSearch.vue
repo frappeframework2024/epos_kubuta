@@ -60,7 +60,8 @@ function onKeyDown(event) {
         const searchProductResource = createResource({
                 url: "epos_restaurant_2023.api.product.get_product_by_barcode",
                     params: {
-                        barcode:product.searchProductKeywordStore
+                        barcode:product.searchProductKeywordStore,
+                        price_rule:sale.sale.price_rule
                     }
             });
 
