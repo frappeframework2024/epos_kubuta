@@ -2,6 +2,17 @@
  {
   "docstatus": 0,
   "doctype": "Custom HTML Block",
+  "html": "<!--development-->\n<!--<iframe src='http://192.168.10.19:5577/gym/check-in-ui' style=\"width:100%;border:0\"/>-->\n\n\n<!--production-->\n<iframe src='/gym/check-in-ui' style=\"width:100%;border:0\"/>\n\n\n",
+  "modified": "2023-12-04 14:17:52.022299",
+  "name": "Member Check In",
+  "private": 0,
+  "roles": [],
+  "script": "window.addEventListener(\"message\", (event)=>{\n    if(event.data==\"full_screen\"){\n        const el = document.querySelector('[custom_block_name=\"Member Check In\"]').querySelector(\".widget-body\").children[0].shadowRoot.querySelector(\"iframe\")\n        el.requestFullscreen()\n    }else if(event.data==\"view_all_recent_membership_check_in\"){\n        document.exitFullscreen();\n        frappe.set_route('List',\"Membership Check In\",\"List\")\n    }\n}, false);",
+  "style": "iframe{\n    height: calc(100vh - 240px);\n}"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Custom HTML Block",
   "html": null,
   "modified": "2023-10-04 17:08:45.075144",
   "name": "Sidebar Menu",
