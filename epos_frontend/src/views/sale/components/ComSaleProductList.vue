@@ -130,7 +130,7 @@
 
                         <template v-if="(sp.is_require_employee || 0) == 0 && !sp.is_timer_product">
                             <v-chip
-                                :disabled="sale.setting.pos_setting.allow_change_quantity_after_submit == 1 || sp.sale_product_status == 'Submitted' || sp.append_quantity == 0"
+                                :disabled="sale.setting.pos_setting.allow_change_quantity_after_submit == 0"
                                 color="teal" class="mx-1 grow text-center justify-center" variant="elevated" size="small"
                                 @click="sale.onChangeQuantity(sp)">{{ $t('Qty') }}</v-chip>
 

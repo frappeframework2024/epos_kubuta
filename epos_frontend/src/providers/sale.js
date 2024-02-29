@@ -809,7 +809,7 @@ export default class Sale {
     }
     
     async onChangeQuantity(sp, gv) {
-        if(this.setting.pos_setting.allow_change_quantity_after_submit == 1 || sp.sale_product_status == 'Submitted'){
+        if(this.setting.pos_setting.allow_change_quantity_after_submit == 0){
             return;
         }
 
