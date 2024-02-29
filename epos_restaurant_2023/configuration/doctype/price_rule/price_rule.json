@@ -11,7 +11,8 @@
   "rule_name",
   "note",
   "disabled",
-  "is_standard"
+  "is_standard",
+  "previous_name"
  ],
  "fields": [
   {
@@ -41,11 +42,17 @@
    "fieldname": "is_standard",
    "fieldtype": "Check",
    "label": "Is Standard"
+  },
+  {
+   "fieldname": "previous_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Previous Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-05-08 15:26:17.484959",
+ "modified": "2024-02-29 14:55:29.089851",
  "modified_by": "Administrator",
  "module": "Configuration",
  "name": "Price Rule",
