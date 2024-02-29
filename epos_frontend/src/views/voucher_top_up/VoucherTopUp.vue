@@ -22,7 +22,6 @@ async function onAddVoucherTopUp() {
     
     gv.authorize("add_voucher_top_up_required_password","add_voucher_top_up").then(async (v)=>{
         if(v){
-            console.log(v)
             const result = await AddVoucherTopUpDialog ({title: $t("Add New"), value:  '',authUser:v});   
             if (result == true){
                 onCallback()

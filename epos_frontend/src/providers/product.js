@@ -182,7 +182,6 @@ export default class Product {
                 d.printers = "[]"
             });
             this.menuProducts = res
-            console.log(res)
         }).catch((err) => {
             console.log("ds",err)
         })

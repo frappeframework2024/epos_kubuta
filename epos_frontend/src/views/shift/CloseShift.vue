@@ -217,7 +217,6 @@ async function onCloseShift() {
 }
 async function onChangeShiftName(){
     const result = await ChangeShiftNameModal({data:cashierShiftInfo.data});
-    console.log(result)
     cashierShiftInfo.data.shift_name = result.shift_name
 }
 function onOpenReport() {

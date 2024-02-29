@@ -137,11 +137,6 @@ onMounted(() => {
                 sale.sale.working_day = data.working_day.name;
                 sale.sale.cashier_shift = data.cashier_shift.name;
                 sale.sale.shift_name = data.cashier_shift.shift_name;
-
-
-                // sale.working_day = data.working_day.name;
-                // sale.cashier_shift = data.cashier_shift.name;
-                // sale.shift_name = data.cashier_shift.shift_name;
                 product.getProductMenuByProductCategory(db,'All Product Categories')
                 gv.confirm_close_working_day(data.working_day.posting_date);
                 

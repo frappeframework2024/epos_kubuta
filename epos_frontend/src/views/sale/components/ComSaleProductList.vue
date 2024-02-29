@@ -184,7 +184,6 @@ const props = defineProps({
 
 function getMenuName(sp) {
     const mlang = localStorage.getItem('mLang');
-    console.log(sp)
     let code = gv.setting.show_item_code_in_sale_screen == 0 ? "" : sp.product_code_2 ? `${sp.product_code} / ${sp.product_code_2} - `:`${sp.product_code} - `;
     let shelf_name = sp.shelf_name ? `\n${sp.shelf_name}` : ""
     if (mlang != null) {
