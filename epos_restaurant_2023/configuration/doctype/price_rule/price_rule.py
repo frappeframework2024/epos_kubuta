@@ -17,4 +17,4 @@ class PriceRule(Document):
 
 @frappe.whitelist()
 def update_product_prices(self):
-	frappe.db.sql("UPDATE `tabProduct` a SET a.prices = ((SELECT CONCAT('[', GROUP_CONCAT(JSON_OBJECT('price', price, 'branch', business_branch, 'price_rule', price_rule, 'portion', b.portion, 'unit', unit, 'default_discount', default_discount)),']') FROM `tabProduct Price` b WHERE b.parent = a.name))")
+	frappe.db.sql("UPDATE `tabProduct` a SET a.prices = ((SELECT CONCAT('[', GROUP_CONCAT(JSON_OBJECT('price', format(price,4), 'branch', business_branch, 'price_rule', price_rule, 'portion', b.portion, 'unit', unit, 'default_discount', format(default_discount,4))),']') FROM `tabProduct Price` b WHERE b.parent = a.name))")
