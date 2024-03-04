@@ -21,7 +21,7 @@ class Sale(Document):
 			#frappe.throw(_("Please select your working day"))
 		if self.pos_profile:
 			if not self.working_day:
-				sql="select name from `tabWorking Day` where pos_profile='{}' and business_branch='{}' and is_closed = 0 order by posting_date limit 1".format(self.pos_profile, self.business_branch)
+				sql="select name from `tabWorking Day` where pos_profile='{}' and business_branch='{}' and is_closed = 0 order by posting_date desc limit 1".format(self.pos_profile, self.business_branch)
 				data = frappe.db.sql(sql,as_dict=1)
 				if len(data)>0:
 					self.working_day = data[0]["name"]
@@ -29,7 +29,12 @@ class Sale(Document):
 					frappe.throw(_("Please start working day first"))
 
 			if not self.cashier_shift: 
-				frappe.throw(_("Please start shift first"))
+				sql="select name from `tabCashier Shift` where pos_profile='{}' and business_branch='{}' and is_closed = 0 order by posting_date desc limit 1".format(self.pos_profile, self.business_branch)
+				data = frappe.db.sql(sql,as_dict=1)
+				if len(data)>0:
+					self.working_day = data[0]["name"]
+				else:
+					frappe.throw(_("Please start shift first"))
 		
 		if self.working_day:
 			if not self.cashier_shift: 
