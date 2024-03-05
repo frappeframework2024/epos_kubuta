@@ -4,7 +4,7 @@
       <div class="mb-4">
      
 
-                <v-text-field :readonly="mobile" type="text" class="mb-2" density="compact" variant="solo" autofocus 
+                <v-text-field :readonly="((sale.sale.is_return ?? 0) == 0 ? false : true)" type="text" class="mb-2" density="compact" variant="solo" autofocus
                     append-inner-icon="mdi-arrow-left" single-line hide-details v-model="sale.paymentInputNumber " @input="onInput"
                     @click:append-inner="onBackspace()"></v-text-field>
         <div>

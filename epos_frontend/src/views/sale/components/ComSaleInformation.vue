@@ -10,10 +10,11 @@
         <ComChip v-if="setting.table_groups && setting.table_groups.length > 0 && setting.use_guest_cover == 1" :tooltip="$t('Guest Cover')" prepend-icon="mdi-account-multiple-outline" @onClick="onUpdateGuestCover()">{{ sale.sale.guest_cover }}</ComChip>
         <ComChip v-if="setting.table_groups && setting.table_groups.length > 0 && sale.sale.seat_number" :tooltip="($t('Seat')+' #')" prepend-icon="mdi-chair-school" @onClick="onUpdateSeatNumber()">{{ sale.sale.seat_number }}</ComChip>
         <ComChip :tooltip="$t('Price Rule')" prepend-icon="mdi-bulletin-board" @onClick="onChangePriceRule()">{{ sale.sale.price_rule }}</ComChip>
+        
 
         <ComExchangeRate />
         <ComSaleInformationHappyHourPromotionChip/>
-        
+        <ComChip color="#DB1818" v-if="sale.sale.is_return">Sale Return</ComChip>
     </div>
 </template>
 <script setup>

@@ -275,7 +275,7 @@ export default class Sale {
         if (sp != undefined) {
             // append quantity
             prev_sale_product = JSON.parse(JSON.stringify(sp));
-            sp.quantity = parseFloat(sp.quantity) + 1;
+            sp.quantity = parseFloat(Math.abs(sp.quantity)) + 1;
             this.clearSelected();
             sp.selected = true;
             this.updateSaleProduct(sp);
@@ -468,7 +468,7 @@ export default class Sale {
 
     updateSaleProduct(sp) {
         //set property for re render comhappyhour check
-        
+        sp.quantity = (this.sale.is_return ?? 0) == 1 ? -Math.abs(sp.quantity) : Math.abs(sp.quantity)
         sp.is_render = false; 
         //end
         sp.sub_total = sp.quantity * sp.price + sp.quantity * sp.modifiers_price;
@@ -1339,18 +1339,22 @@ export default class Sale {
         }
     }
 
-    onCheckPriceSmallerThanZero() {
-        if (this.sale.sale_products.filter(r => r.amount < 0).length > 0) {
-            toaster.warning($t('msg.Product price cannot smaller than zero'));
-            return true
+    onCheckPriceSmallerThanZero() 
+    {   
+        if ((this.sale.is_return ?? 0) == 0){
+            if (this.sale.sale_products.filter(r => r.amount < 0).length > 0) {
+                toaster.warning($t('msg.Product price cannot smaller than zero'));
+                return true
+            }
+            else if (this.sale.grand_total < 0) {
+                toaster.warning($t('msg.Sale price cannot smaller than zero'));
+                return true
+            }
+            else {
+                return false
+            }
         }
-        else if (this.sale.grand_total < 0) {
-            toaster.warning($t('msg.Sale price cannot smaller than zero'));
-            return true
-        }
-        else {
-            return false
-        }
+       
     }
 
     onSubmit() {
@@ -1738,6 +1742,10 @@ export default class Sale {
                 this.sale.payment = [];
                 data.amount = parseFloat(parseFloat(this.sale.grand_total).toFixed(precision));
             }
+            if ((this.sale.is_return ?? 0) == 1) {
+                this.sale.payment = [];
+                data.amount = data.amount
+            }
             if (!this.getNumber(data.amount) == 0) {
                 if((data.fee_amount||0)==0){
                     data.fee_amount = parseFloat(parseFloat(data.amount / data.paymentType.exchange_rate).toFixed(precision)) * (data.paymentType.fee_percentage/100);
@@ -1777,6 +1785,15 @@ export default class Sale {
     }
 
     updatePaymentAmount() {
+       if((this.sale.is_return ?? 0) == 1){
+        const payments = Enumerable.from(this.sale.payment);
+        const total_payment = payments.sum("$.amount") + (this.sale.deposit||0);
+        const total_fee = payments.sum("$.fee_amount");
+        this.sale.total_paid = total_payment ;
+        this.sale.total_fee = total_fee;
+        this.sale.balance = (this.sale.grand_total||0)  - this.sale.total_paid;
+       }
+       else{
         const payments = Enumerable.from(this.sale.payment);
         const total_payment = payments.sum("$.amount") + (this.sale.deposit||0);
         const total_fee = payments.sum("$.fee_amount");
@@ -1797,7 +1814,7 @@ export default class Sale {
         if (this.sale.changed_amount <= 0) {
             this.sale.changed_amount = 0;
         }
-
+       }
         this.action
     } 
 

@@ -180,10 +180,21 @@ sale.vue.$onKeyStroke('F7', (e) => {
 
 
 function onUpdateQuantity(param){
-    if(props.saleProduct.quantity<=1 && param==-1){
+   if((sale.sale.is_return??0) == 1)
+   {
+    if(props.saleProduct.quantity>=-1 && param == -1){
+        return
+    }
+    sale.updateQuantity(props.saleProduct, props.saleProduct.quantity - param)
+   }
+   else
+   {
+    if(props.saleProduct.quantity<=1 && param == -1){
         return
     }
     sale.updateQuantity(props.saleProduct, props.saleProduct.quantity + param)
+   }
+    
 }
 
 function onDiscountClick(discount_type){

@@ -1,6 +1,5 @@
 <template> 
-    <div v-if="sale.sale.total_paid > 0 || balance > 0 || sale.sale.changed_amount > 0" class="mt-auto bg-green-600 border border-gray-500 text-white rounded-sm px-1 pt-1" :class="mobile ? 'mx-1' : ''">
-        
+    <div v-if="((balance ?? 0) != 0 || (sale.sale.changed_amount ?? 0) != 0)" class="mt-auto bg-green-600 border border-gray-500 text-white rounded-sm px-1 pt-1" :class="mobile ? 'mx-1' : ''">
         <div class="mb-1 flex justify-between" v-if="sale.sale.tip_amount > 0">
             <div>{{ $t('TIP') }}:</div>
             <div>
@@ -36,21 +35,21 @@
             </div>
         </div>
         
-        <div class="mb-1 flex justify-between text-sm" v-if="balance > 0">
+        <div class="mb-1 flex justify-between text-sm" v-if="balance != 0">
             <div>{{$t('Balance')  }} ({{sale.setting.pos_setting.main_currency_name}}):</div>
             <div>
                 <CurrencyFormat :value="balance" />
             </div>
         </div>
 
-        <div class="mb-1 flex justify-between text-sm" v-if="balance > 0">
+        <div class="mb-1 flex justify-between text-sm" v-if="balance != 0">
             <div>{{ $t('Balance') }} ({{sale.setting.pos_setting.second_currency_name}}):</div>
             <div>
                 <CurrencyFormat :value="balance * sale.sale.exchange_rate" :currency="sale.setting.pos_setting.second_currency_name"/>                
             </div>
         </div>
 
-        <div class="mb-1 flex justify-between text-sm" v-if="balance > 0">
+        <div class="mb-1 flex justify-between text-sm" v-if="balance != 0">
             <div>{{ $t('Balance') }} ({{sale.setting.pos_setting.third_currency_name}}):</div>
             <div>
                 <CurrencyFormat :value="balance * third_currency_exchange_rate" :currency="gv.setting.pos_setting.third_currency_name"/>                
@@ -90,9 +89,12 @@ const frappe = inject("$frappe");
 const call = frappe.call();
 let third_currency_exchange_rate = ref(1)
 const balance = computed(()=>{
-    if(sale.sale?.balance>0){ 
-    return Number(sale.sale.balance.toFixed(gv.setting.pos_setting.main_currency_precision));
-    }else {
+    if(sale.sale?.balance != 0)
+    { 
+        return Number(sale.sale.balance.toFixed(gv.setting.pos_setting.main_currency_precision));
+    }
+    else 
+    {
         return 0;
     }
 })
