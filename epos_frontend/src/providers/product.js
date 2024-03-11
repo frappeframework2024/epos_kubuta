@@ -77,7 +77,8 @@ export default class Product {
             filters: [
                 ["parent_product_category", "=", product_category],
                 ["allow_sale", "=", 1]
-            ]
+            ],
+            limit:100
          }).then((docs) => {
             docs.forEach(d => {
                 d.price_rule = ""
@@ -139,6 +140,38 @@ export default class Product {
     }
 
     getProductFromDbByKeyword(db, keyword) {
+        if(keyword != ""){
+            db.getDocList("Product Category", {
+                fields: ["name", "name as name_en", "product_category_name_kh as name_kh", "parent_product_category as parent", "photo", "text_color", "background_color", "show_in_pos_shortcut_menu as shortcut_menu", "allow_sale"],
+                filters: [
+                    ["product_category_name_en", "like", '%' + keyword + '%'],
+                    ["product_category_name_kh", "like", '%' + keyword + '%'],
+                    ["allow_sale", "=", 1]
+                ],
+                limit:100
+             }).then((docs) => {
+                docs.forEach(d => {
+                    d.price_rule = ""
+                    d.type = "menu"
+                });
+                this.menuProducts = docs
+            })
+        }
+        else{
+            db.getDocList("Product Category", {
+                fields: ["name", "name as name_en", "product_category_name_kh as name_kh", "parent_product_category as parent", "photo", "text_color", "background_color", "show_in_pos_shortcut_menu as shortcut_menu", "allow_sale"],
+                filters: [
+                    ["allow_sale", "=", 1]
+                ],
+                limit:100
+             }).then((docs) => {
+                docs.forEach(d => {
+                    d.price_rule = ""
+                    d.type = "menu"
+                });
+                this.menuProducts = docs
+            })
+        }
         db.getDocList("Product", {
             fields: [
                 "name as menu_product_name",
@@ -181,7 +214,9 @@ export default class Product {
                 d.modifiers = "[]"
                 d.printers = "[]"
             });
-            this.menuProducts = res
+            if(keyword != ""){
+                this.menuProducts = this.menuProducts.concat(res)
+            }
         }).catch((err) => {
             console.log("ds",err)
         })

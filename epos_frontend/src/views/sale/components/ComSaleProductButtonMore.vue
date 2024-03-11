@@ -58,9 +58,9 @@
             <v-list-item  prepend-icon="mdi-cash-100" :title="$t('Tax Setting')" v-if="saleProduct.product_tax_rule"  @click="sale.onSaleProductChangeTaxSetting(saleProduct,gv)">
             </v-list-item>
             
-            <v-list-item v-if="!saleProduct.is_timer_product" prepend-icon="mdi-warehouse " :title="$t('Stock')"    @click="onStock()">
-                
-            </v-list-item>
+            <v-list-item v-if="!saleProduct.is_timer_product" prepend-icon="mdi-warehouse " :title="$t('Stock')"    @click="onStock()"></v-list-item>
+            <v-list-item v-if="saleProduct.is_return == 0" prepend-icon="mdi-arrow-u-left-top" :title="$t('Return')" @click="onReturn(saleProduct)"></v-list-item>
+            <v-list-item v-if="saleProduct.is_return == 1" prepend-icon="mdi-arrow-u-left-top" :title="$t('Cancel Return')" @click="onReturn(saleProduct)"></v-list-item>
             
         </v-list>
     </v-menu>
@@ -86,6 +86,11 @@ function onRemoveNote() {
     props.saleProduct.note = "";
 }
 
+function onReturn(sp) {
+  sp.is_return = !sp.is_return 
+  sale.updateQuantity(sp, sp.quantity * -1)
+
+}
 
 function onStock(){
     sale.onStock(props.saleProduct)

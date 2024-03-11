@@ -54,12 +54,6 @@
         </template>
         <v-list-item-title class="text-red-700">{{ $t('Delete Bill') }} {{ showSplitBill }}</v-list-item-title>
     </v-list-item>
-    <v-list-item  @click="OnSaleReturn()">
-        <template #prepend>
-            <v-icon color="error" icon="mdi-arrow-u-left-top"></v-icon>
-        </template>
-        <v-list-item-title class="text-red-700">{{ $t('Sale Return') }} {{ showSplitBill }}</v-list-item-title>
-    </v-list-item>
 </template>
 <script setup>
 import { computed,
@@ -215,25 +209,6 @@ async function onSeatNumber() {
     } else {
         return;
     }
-}
-async function OnSaleReturn() {
-    if ((sale.sale.is_return ?? 0) == 0){
-        sale.sale.is_return = 1;
-        (sale.sale.sale_products || []).forEach((sp) => {
-            sale.updateSaleProduct(sp);
-        });
-        sale.updateSaleSummary();
-        return;
-    }
-    else{
-        sale.sale.is_return = 0;
-        (sale.sale.sale_products || []).forEach((sp) => {
-            sale.updateSaleProduct(sp);
-        });
-        sale.updateSaleSummary();
-        return;
-    }
-    
 }
 async function onReferenceNumber() {
     const reference_number = await ComSaleReferenceNumberDialog({
