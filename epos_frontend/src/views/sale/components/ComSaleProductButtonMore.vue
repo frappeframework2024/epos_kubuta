@@ -59,8 +59,8 @@
             </v-list-item>
             
             <v-list-item v-if="!saleProduct.is_timer_product" prepend-icon="mdi-warehouse " :title="$t('Stock')"    @click="onStock()"></v-list-item>
-            <v-list-item v-if="saleProduct.is_return == 0" prepend-icon="mdi-arrow-u-left-top" :title="$t('Return')" @click="onReturn(saleProduct)"></v-list-item>
-            <v-list-item v-if="saleProduct.is_return == 1" prepend-icon="mdi-arrow-u-left-top" :title="$t('Cancel Return')" @click="onReturn(saleProduct)"></v-list-item>
+            <v-list-item v-if="(saleProduct.is_return ?? 0) == 0" prepend-icon="mdi-arrow-u-left-top" :title="$t('Return')" @click="onReturn(saleProduct)"></v-list-item>
+            <v-list-item v-if="(saleProduct.is_return ?? 0) == 1" prepend-icon="mdi-arrow-u-left-top" :title="$t('Cancel Return')" @click="onReturn(saleProduct)"></v-list-item>
             
         </v-list>
     </v-menu>

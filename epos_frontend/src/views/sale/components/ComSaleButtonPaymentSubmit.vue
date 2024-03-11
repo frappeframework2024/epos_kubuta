@@ -166,9 +166,6 @@ async function onPayment() {
     toaster.warning($t('msg.Please select a menu item to process payment'));
     return
   }
-  else if (sale.onCheckPriceSmallerThanZero()) {
-    return;
-  }
 
   const check_employee = sale.sale.sale_products.filter((sp)=>sp.is_require_employee && (JSON.parse(sp.employees||"[]")).length <=0)
   if(check_employee.length> 0){

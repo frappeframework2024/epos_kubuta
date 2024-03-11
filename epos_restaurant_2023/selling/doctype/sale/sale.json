@@ -43,6 +43,8 @@
   "section_break_7",
   "sale_products",
   "section_break_8",
+  "sale_quantity",
+  "return_quantity",
   "total_quantity",
   "discount_type",
   "discount",
@@ -945,6 +947,16 @@
    "fieldname": "is_return",
    "fieldtype": "Check",
    "label": "Is Return"
+  },
+  {
+   "fieldname": "sale_quantity",
+   "fieldtype": "Float",
+   "label": "Sale Quantity"
+  },
+  {
+   "fieldname": "return_quantity",
+   "fieldtype": "Float",
+   "label": "Return Quantity"
   }
  ],
  "image_field": "photo",
@@ -957,7 +969,7 @@
    "link_fieldname": "sale"
   }
  ],
- "modified": "2024-03-04 11:35:18.548212",
+ "modified": "2024-03-11 15:47:39.163983",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Sale",

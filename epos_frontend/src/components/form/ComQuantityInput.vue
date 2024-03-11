@@ -9,7 +9,7 @@
             v-if="(saleProduct.sale_product_status == 'New' && saleProduct.append_quantity==1 && saleProduct.is_require_employee==0) || sale.setting.pos_setting.allow_change_quantity_after_submit == 1"
             color="error" size="x-small" variant="tonal" icon="mdi-arrow-down"
             @click="onUpdateQuantity(-1)"
-            :disabled="saleProduct.quantity == 1 "></v-btn>        
+            :disabled="saleProduct.quantity == 1 || saleProduct.quantity == -1"></v-btn>        
             
         <v-btn class="mx-1" size="small" variant="tonal" @click="onChangeQuantity">{{
             saleProduct.quantity }}</v-btn>
@@ -180,7 +180,7 @@ sale.vue.$onKeyStroke('F7', (e) => {
 
 
 function onUpdateQuantity(param){
-   if((sale.sale.is_return??0) == 1)
+   if((props.saleProduct.is_return??0) == 1)
    {
     if(props.saleProduct.quantity>=-1 && param == -1){
         return

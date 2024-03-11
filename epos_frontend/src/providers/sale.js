@@ -279,7 +279,7 @@ export default class Sale {
         if (sp != undefined) {
             // append quantity
             prev_sale_product = JSON.parse(JSON.stringify(sp));
-            sp.quantity = parseFloat(Math.abs(sp.quantity)) + 1;
+            sp.quantity = parseFloat((Math.abs(sp.quantity)) + 1) * (sp.is_return == 1 ? -1 : 1);
             this.clearSelected();
             sp.selected = true;
             this.updateSaleProduct(sp);
@@ -364,7 +364,8 @@ export default class Sale {
                 product_tax_rule: (p.tax_rule=="None"?"":p.tax_rule),
                 is_require_employee:p.is_require_employee,
                 is_timer_product: p.is_timer_product || 0,
-                time_stop: 0
+                time_stop: 0,
+                is_return: 0
             }       
             if (p.is_timer_product){
                 if  (p.time_in){ 
@@ -629,6 +630,8 @@ export default class Sale {
         const sp = Enumerable.from(this.sale.sale_products);
         this.sale.total_quantity = this.getNumber(sp.where("$.is_timer_product == 0").sum("$.quantity"));
         this.sale.sub_total = this.getNumber(sp.sum("$.sub_total"));
+        this.sale.return_quantity = this.getNumber(sp.where("$.is_return==1").sum("$.quantity"));
+        this.sale.sale_quantity = this.getNumber(sp.where("$.is_return==0").sum("$.quantity"));
         //calculate sale discount
         this.sale.sale_discountable_amount = this.getNumber(sp.where("$.allow_discount==1 && $.discount==0").sum("$.sub_total"));
         this.sale.discount = this.getNumber(this.sale.discount);
@@ -1366,31 +1369,10 @@ export default class Sale {
         }
     }
 
-    onCheckPriceSmallerThanZero() 
-    {   
-        if ((this.sale.is_return ?? 0) == 0){
-            if (this.sale.sale_products.filter(r => r.amount < 0).length > 0) {
-                toaster.warning($t('msg.Product price cannot smaller than zero'));
-                return true
-            }
-            else if (this.sale.grand_total < 0) {
-                toaster.warning($t('msg.Sale price cannot smaller than zero'));
-                return true
-            }
-            else {
-                return false
-            }
-        }
-       
-    }
-
     onSubmit() {
         return new Promise(async (resolve) => {
             if (this.sale.sale_products.length == 0 && this.sale.name == undefined && (this.sale.from_reservation||"")=="") {
                 toaster.warning($t('msg.Please select a menu item to submit order'));
-                resolve(false);
-            }
-            else if (this.onCheckPriceSmallerThanZero()) {
                 resolve(false);
             }
             else {
@@ -1769,7 +1751,7 @@ export default class Sale {
                 this.sale.payment = [];
                 data.amount = parseFloat(parseFloat(this.sale.grand_total).toFixed(precision));
             }
-            if ((this.sale.is_return ?? 0) == 1) {
+            if ((this.sale.grand_total ?? 0) <= 0) {
                 this.sale.payment = [];
                 data.amount = data.amount
             }
@@ -1812,7 +1794,7 @@ export default class Sale {
     }
 
     updatePaymentAmount() {
-       if((this.sale.is_return ?? 0) == 1){
+       if((this.sale.grand_total ?? 0) <= 0){
         const payments = Enumerable.from(this.sale.payment);
         const total_payment = payments.sum("$.amount") + (this.sale.deposit||0);
         const total_fee = payments.sum("$.fee_amount");
