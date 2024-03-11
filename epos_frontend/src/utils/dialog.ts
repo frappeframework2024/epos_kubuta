@@ -52,6 +52,7 @@ import ComSelectEmployeeModal from "@/views/sale/employee/ComSelectEmployeeModal
 import ComAddVoucherTopUp from "@/views/voucher_top_up/ComAddTopUp.vue"
 import ComVoucherTopUpDetail from "@/views/voucher_top_up/ComVoucherTopUpDetail.vue"
 import ComVoucherTopUpAddPayment from "@/views/voucher_top_up/ComVoucherTopUpAddPayment.vue"
+import ComSearchProduct from "@/views/sale/components/retail_ui/ComSearchProduct.vue"
 
 interface params {
     doctype?:String,
@@ -123,3 +124,4 @@ export  const ChangeShiftNameModal = createPromiseDialog<params, object>(ComChan
 export  const AddVoucherTopUpDialog = createPromiseDialog<params, object>(ComAddVoucherTopUp);
 export  const VoucherTopUpDetailDialog = createPromiseDialog<params, object>(ComVoucherTopUpDetail);
 export  const VoucherTopUpAddPaymentDialog = createPromiseDialog<params, object>(ComVoucherTopUpAddPayment);
+export const SearchProductDialog = createPromiseDialog<params, object>(ComSearchProduct);

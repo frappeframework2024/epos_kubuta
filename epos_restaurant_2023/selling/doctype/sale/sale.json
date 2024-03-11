@@ -16,20 +16,21 @@
   "posting_date",
   "reference_number",
   "pos_profile",
-  "customer",
-  "customer_name",
   "customer_photo",
-  "phone_number",
   "customer_group",
   "column_break_6",
-  "business_branch",
-  "outlet",
+  "customer",
+  "phone_number",
+  "customer_name",
   "stock_location",
   "table_id",
   "tbl_number",
   "tbl_group",
   "card",
+  "is_return",
   "column_break_9",
+  "outlet",
+  "business_branch",
   "working_day",
   "cashier_shift",
   "shift_name",
@@ -938,6 +939,12 @@
    "label": "Custom Bill Number Prefix",
    "print_hide": 1,
    "report_hide": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_return",
+   "fieldtype": "Check",
+   "label": "Is Return"
   }
  ],
  "image_field": "photo",
@@ -950,7 +957,7 @@
    "link_fieldname": "sale"
   }
  ],
- "modified": "2024-02-23 17:33:20.095924",
+ "modified": "2024-03-04 11:35:18.548212",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Sale",

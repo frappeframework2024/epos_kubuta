@@ -244,3 +244,11 @@ def get_product_stock(product_code):
     doc = frappe.get_doc("Product",product_code)
     products = frappe.db.sql("select product_code,stock_location,unit,quantity from `tabStock Location Product` WHERE product_code = '{0}'".format(product_code),as_dict=1)
     return products
+
+
+@frappe.whitelist()
+def get_product_detail_information(product_code):
+    doc = frappe.get_doc("Product",product_code)
+    inventory = frappe.db.sql("select stock_location,unit,quantity,reorder_level from `tabStock Location Product` where product_code='{}'".format(product_code),as_dict=1)
+    
+    return {"product":doc,"invenotry":inventory}

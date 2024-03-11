@@ -14,6 +14,7 @@
   "stock_location",
   "max_cashier_shift",
   "is_edoor_profile",
+  "use_retail_ui",
   "column_break_5",
   "price_rule",
   "tax_rule",
@@ -207,11 +208,17 @@
    "fieldtype": "Link",
    "label": "Default POS Receipt",
    "options": "POS Print Format Setting"
+  },
+  {
+   "default": "0",
+   "fieldname": "use_retail_ui",
+   "fieldtype": "Check",
+   "label": "Use Retail UI"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-02 09:24:28.680674",
+ "modified": "2024-03-08 11:33:33.151491",
  "modified_by": "Administrator",
  "module": "Configuration",
  "name": "POS Profile",

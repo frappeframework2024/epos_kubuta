@@ -2,7 +2,8 @@
     <ComLoadingDialog
         v-if="sale.loading || sale.newSaleResource?.loading || (sale.saleResource != null && sale.saleResource?.get.loading) || (sale.saleResource != null && sale.saleResource?.setValue.loading)" />
     <ComSmallAddSale v-if="mobile" />
-    <div v-else style="height: calc(100vh - 64px)" id="tst">
+    <ComAddSaleRetail v-if="!mobile && sale.setting.use_retail_ui == 1"/>
+    <div v-if="!mobile && sale.setting.use_retail_ui==0" style="height: calc(100vh - 64px)" id="tst">
         <div class="h-full ma-0 flex w-full">
             <div class="flex-auto pa-0 h-full d-none d-sm-block"> 
                 <ComMenu :background-image="gv.setting.pos_sale_order_background_image" />
@@ -28,7 +29,7 @@
                     <div class="mt-auto">
                         <div class="-mx-1 bg-blue-100 rounded-tl-md rounded-tr-md text-xs">
                             <ComSaleSummaryList />
-                        
+                            
                             <ComSaleKeyPad v-if="gv.device_setting.show_keypad_in_sale_screen==1"/>
                             <ComSaleButtonPaymentSubmit />
                         </div>
@@ -43,6 +44,7 @@ import { inject, useRoute, useRouter, ref, onMounted, onUnmounted, onBeforeRoute
 import { getCurrentInstance } from 'vue';
 import ComMenu from './components/ComMenu.vue';
 import ComSelectCustomer from './components/ComSelectCustomer.vue';
+import ComAddSaleRetail from './components/ComAddSaleRetail.vue';
 import ComSaleInformation from '@/views/sale/components/ComSaleInformation.vue';
 import ComLoadingDialog from '../../components/ComLoadingDialog.vue';
 import ComSmallAddSale from './components/mobile_screen/ComSmallAddSale.vue';

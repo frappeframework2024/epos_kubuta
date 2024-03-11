@@ -7,7 +7,9 @@ import socket from '@/utils/socketio';
 import { FrappeApp } from 'frappe-js-sdk';
 import NumberFormat from 'number-format.js'
 
+
 const frappe = new FrappeApp();
+const call = frappe.call()
 const { t: $t } = i18n.global;
 const toaster = createToaster({ position: "top" });
 
@@ -116,6 +118,8 @@ export default class Sale {
             exchange_rate: this.exchange_rate,
             change_exchange_rate: this.change_exchange_rate,
             table_id: this.table_id,
+            outlet: this.setting?.outlet,
+            stock_location: this.setting?.stock_location,
             tbl_number: this.tbl_number,
             pos_profile: this.setting?.pos_profile,
             pos_station_name: localStorage.getItem("device_name"),
@@ -411,6 +415,20 @@ export default class Sale {
             }) ;
         }
     }
+
+    getSelectedProduct(sp){
+        let sale = this
+       
+        if(sp.product_code != this.selected_sale_product?.product_code){
+            call.get('epos_restaurant_2023.api.product.get_product_detail_information',{product_code:sp.product_code})
+            .then((data) => {
+                sale.selected_product = data.message
+                
+            }).catch((res)=>{
+                console.log(res)
+            })
+        }
+    }
     
     cloneSaleProduct(sp, quantity) {
         const u = JSON.parse(localStorage.getItem('make_order_auth'));
@@ -460,15 +478,16 @@ export default class Sale {
     onSelectSaleProduct(sp) {
         this.clearSelected();
         sp.selected = true;
+        if(this.setting.table_groups.length == 0){
+            
+            this.getSelectedProduct(sp)
+            this.selected_sale_product = sp    
+        }
     }
-
-    clearSelected() {       
-        Enumerable.from(this.sale.sale_products).where(`$.selected==true`).forEach("$.selected=false");
-    }
-
+    
+    
     updateSaleProduct(sp) {
         //set property for re render comhappyhour check
-        sp.quantity = (this.sale.is_return ?? 0) == 1 ? -Math.abs(sp.quantity) : Math.abs(sp.quantity)
         sp.is_render = false; 
         //end
         sp.sub_total = sp.quantity * sp.price + sp.quantity * sp.modifiers_price;
@@ -497,6 +516,11 @@ export default class Sale {
         //set property for re render comhappyhour check
         sp.is_render = true;
     }
+
+    clearSelected() {       
+        Enumerable.from(this.sale.sale_products).where(`$.selected==true`).forEach("$.selected=false");
+    }
+
 
     //on sale product apply tax setting
     onSaleProductApplyTax(tax_rule, sp){
@@ -642,7 +666,10 @@ export default class Sale {
     }
 
     updateQuantity(sp, n) {
+       
         sp.quantity = n;
+        
+        
         this.updateSaleProduct(sp)
         this.updateSaleSummary();
     }

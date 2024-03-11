@@ -98,6 +98,7 @@
   "is_require_employee",
   "delete_from_pos_require_password",
   "move_from_sale_printed",
+  "is_return",
   "backup_product_price",
   "backup_modifier_price",
   "free_note",
@@ -901,12 +902,19 @@
    "fieldname": "employee_names",
    "fieldtype": "Small Text",
    "label": "Employee Names"
+  },
+  {
+   "default": "0",
+   "fetch_from": ".delete_from_pos_require_password",
+   "fieldname": "is_return",
+   "fieldtype": "Check",
+   "label": "Is Return"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-02-09 14:42:49.552833",
+ "modified": "2024-03-08 08:54:04.736249",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Sale Product",

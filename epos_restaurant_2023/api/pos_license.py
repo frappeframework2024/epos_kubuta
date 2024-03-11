@@ -25,7 +25,6 @@ def station_license(device_id,platform="Windows"):
              'platform':platform
             }
     # frappe.throw(str(filters))
-
     doc = frappe.db.get_list('POS Station',
         filters=filters,
         fields=["name","license","platform","is_used"],
