@@ -19,7 +19,6 @@ export default class Product {
         this.currentRootPOSMenu = null
         this.productCategory = "";
         this.menuProducts = []
-
         this.posMenuResource = createResource({
             url: 'epos_restaurant_2023.api.product.get_product_by_menu',
             params: {
@@ -71,7 +70,7 @@ export default class Product {
     }
 
     getProductMenuByProductCategory(db,product_category) {
-        
+        let raw_data = []
         db.getDocList("Product Category", {
             fields: ["name", "name as name_en", "product_category_name_kh as name_kh", "parent_product_category as parent", "photo", "text_color", "background_color", "show_in_pos_shortcut_menu as shortcut_menu", "allow_sale"],
             filters: [
@@ -83,8 +82,9 @@ export default class Product {
             docs.forEach(d => {
                 d.price_rule = ""
                 d.type = "menu"
+                d.sort_order = 0
             });
-            this.menuProducts = docs
+            raw_data = docs
 
             db.getDocList("Product", {
                 fields: [
@@ -131,7 +131,11 @@ export default class Product {
                     d.modifiers = "[]"
                     d.printers = "[]"
                 });
-                this.menuProducts = this.menuProducts.concat(res)
+                if(product_category != "All Product Categories"){
+                    raw_data = raw_data.concat({type:"back",parent:product_category,sort_order:-1})
+                }
+                raw_data = raw_data.concat(res).sort((a,b) => (a.sort_order > b.sort_order) ? 1 : ((b.sort_order > a.sort_order) ? -1 : 0));
+                this.menuProducts = raw_data
             }).catch((err) => {
                 console.log(err)
             })

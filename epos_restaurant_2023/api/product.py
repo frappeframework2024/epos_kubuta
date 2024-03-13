@@ -5,47 +5,66 @@ from frappe.utils.response import json_handler
 from datetime import datetime, timedelta
 @frappe.whitelist(allow_guest=True)
 def get_product_by_menu(root_menu=""):
-    if root_menu=="":
-        return []
-    else:
-        menus = []
+    menus = []
+    sql = """select 
+                name,
+                pos_menu_name_en as name_en,
+                pos_menu_name_kh as name_kh,
+                parent_pos_menu as parent,
+                photo,
+                text_color,
+                background_color,
+                shortcut_menu,
+                price_rule,
+                photo,
+                'menu' as type,
+                1 as type_index,
+                sort_order
+            from `tabPOS Menu` 
+            where 
+                parent_pos_menu='{}' and
+                disabled = 0 
+            order by sort_order, name
+            """.format(root_menu)
+    data = frappe.db.sql(sql,as_dict=1)
+    if len(data) == 0:
         sql = """select 
                     name,
-                    pos_menu_name_en as name_en,
-                    pos_menu_name_kh as name_kh,
-                    parent_pos_menu as parent,
-                    photo,
-                    text_color,
-                    background_color,
-                    shortcut_menu,
-                    price_rule,
-                    photo,
-                    'menu' as type,
-                    1 as type_index,
-                    sort_order
-                from `tabPOS Menu` 
-                where 
-                    parent_pos_menu='{}' and
-                    disabled = 0 
-                order by sort_order, name
-                """.format(root_menu)
-        data = frappe.db.sql(sql,as_dict=1)
+                product_category_name_en as name_en,
+                product_category_name_kh as name_kh,
+                parent_product_category as parent,
+                photo,
+                text_color,
+                background_color,
+                '' shortcut_menu,
+                '' price_rule,
+                '' photo,
+                'menu' as type,
+                1 as type_index,
+                1 sort_order
+            from `tabProduct Category` 
+            where 
+                coalesce(parent_product_category,'')='{}' and
+                disabled = 0 
+            order by sort_order, name
+            """.format(root_menu)
+    data = frappe.db.sql(sql,as_dict=1)
 
-        
+    
 
-        for d in data:
-            menus.append(d)
-            
-            for m in get_child_menus(d.name):
-                menus.append(m)
-            
-            for m in get_products(d.name):
-                menus.append(m)
+    for d in data:
+        menus.append(d)
         
-        for m in get_products(root_menu):
-                menus.append(m)
-             
-        return menus
+        for m in get_child_menus(d.name):
+            menus.append(m)
+        
+        for m in get_products(d.name):
+            menus.append(m)
+    
+    for m in get_products(root_menu):
+            menus.append(m)
+            
+    return menus
 
 def get_child_menus(parent_menu):
     menus = []
@@ -66,6 +85,27 @@ def get_child_menus(parent_menu):
             from `tabPOS Menu` 
             where 
                 parent_pos_menu='{}' and
+                disabled = 0 
+            order by sort_order, name
+            """.format(parent_menu)
+    data = frappe.db.sql(sql,as_dict=1)
+    if len(data) == 0:
+        sql = """select 
+                 name,
+                product_category_name_en as name_en,
+                product_category_name_kh as name_kh,
+                parent_product_category as parent,
+                photo,
+                text_color,
+                background_color,
+                '' shortcut_menu,
+                '' price_rule,
+                'menu' as type,
+                2 as type_index,
+                2 sort_order
+            from `tabProduct Category` 
+            where 
+                coalesce(parent_product_category,'')='{}' and
                 disabled = 0 
             order by sort_order, name
             """.format(parent_menu)

@@ -153,9 +153,9 @@ def print_from_print_format(data):
     set_link_titles(document)
     try:
         html = get_rendered_template(
-            doc=document,
-            print_format=print_format,
-            meta=document.meta
+                doc=document,
+                print_format=print_format,
+                meta=document.meta
             )
     except frappe.TemplateNotFoundError:
         frappe.clear_last_message()

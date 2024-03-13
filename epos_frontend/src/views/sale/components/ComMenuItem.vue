@@ -163,7 +163,11 @@ function onClickMenu(menu) {
 
 function onBack(parent) {
     const parent_menu = product.posMenuResource.data?.find(r => r.name == parent).parent;
-    product.parentMenu = parent_menu;
+    if (sale.setting.pos_menus.length > 0) {
+        product.parentMenu = parent_menu;
+    } else {
+        product.getProductMenuByProductCategory(db, parent_menu)
+    }
 }
 async function onClickProduct() {
     
