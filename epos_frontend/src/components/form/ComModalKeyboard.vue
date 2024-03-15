@@ -10,7 +10,7 @@
             </v-toolbar>
             <v-card-text>
                 <div class="mb-2">
-                    <v-text-field type="text" density="compact" variant="solo" single-line hide-details :value="input"
+                    <v-text-field type="text" density="compact" variant="solo" single-line hide-details :value="input" :autofocus="true"
                         @input="onInputChange">
                     </v-text-field>
                 </div>
@@ -37,13 +37,24 @@
 import { ref, defineEmits } from '@/plugin'
 import ComKeyboard from './ComKeyboard.vue';
 import ComKeypad from './ComKeypad.vue';
+import { onMounted } from 'vue';
 const emit = defineEmits(['resolve'])
 const props = defineProps({
     params:Object
 })
+
 let openKeyboard = ref(true)
 let lang = ref('en')
 let input = ref(props.params.value)
+
+onMounted(()=> {
+    // Close modal with 'esc' key
+    document.addEventListener("keydown", (e) => {
+        if (e.key == "Enter") {
+            emit('resolve', parseFloat(input.value))
+        }
+    });
+})
 
 function onKey($event) {
     input.value = $event;

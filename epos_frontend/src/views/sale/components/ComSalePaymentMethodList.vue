@@ -12,6 +12,7 @@
 <script setup>
 import { inject , payToRoomDialog,createToaster,payToCityLedgerDialog,payDeskfolioDialog,i18n ,computed,keyboardDialog} from '@/plugin';
 import { useDisplay } from 'vuetify'
+
 const {mobile} = useDisplay()
 const gv = inject("$gv")
 const sale = inject("$sale")
@@ -19,7 +20,6 @@ const { t: $t } = i18n.global;
 const toaster = createToaster({ position: "top" });
 
 async function onPaymentTypeClick(pt) { 
-
     let room = null;
     let folio_transaction_number = null
     let folio_transaction_type=null
@@ -112,8 +112,4 @@ const balance = computed(()=>{
         return 0;
     }
 })
-
- 
-
-
 </script>

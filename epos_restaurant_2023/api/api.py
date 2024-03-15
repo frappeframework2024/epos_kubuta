@@ -98,7 +98,8 @@ def get_system_settings(pos_profile="", device_name=''):
             "use_room_offline":p.use_room_offline,
             "rooms":p.rooms,
             "is_manual_fee":p.is_manual_fee,
-            "fee_percentage":p.fee_percentage
+            "fee_percentage":p.fee_percentage,
+            "is_default":p.is_default
             })
     
     #get currency

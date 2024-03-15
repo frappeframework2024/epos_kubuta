@@ -20,7 +20,13 @@
 
 <script setup>
 import {ref} from  "@/plugin"
-
+import { onMounted ,onUnmounted} from 'vue';
+onMounted(()=> {
+  document.addEventListener('keydown', OnKeyDown)
+})
+onUnmounted(()=> {
+  document.addEventListener('keydown', OnKeyDown)
+})
 const props = defineProps({
   params:{
     type:Object,
@@ -37,6 +43,15 @@ function onOk(){
   emit('resolve', true);
 }
 
-
-
+function OnKeyDown(e){
+  console.log(e.key)
+    if (e.key == "Enter") 
+    {
+      onOk()
+    }
+    else if (e.key == "Escape") 
+    {
+      onClose()
+    }
+}
 </script>

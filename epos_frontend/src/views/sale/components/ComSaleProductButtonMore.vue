@@ -69,8 +69,8 @@
 <script setup>
 import { defineProps, inject,keypadWithNoteDialog,i18n,ref } from '@/plugin'
 import {createToaster} from '@meforma/vue-toaster';
-const { t: $t } = i18n.global;  
 
+const { t: $t } = i18n.global;  
 const product = inject('$product');
 const sale = inject('$sale');
 const numberFormat = inject('$numberFormat');
@@ -79,7 +79,6 @@ const tableLayout = inject("$tableLayout");
 const props = defineProps({
     saleProduct: Object
 });
-
 
 const toaster = createToaster({ position: "top" });
 function onRemoveNote() {
@@ -122,7 +121,7 @@ function onSaleProductPark() {
     }
 }
 
-sale.vue.$onKeyStroke('F8', (e) => {
+sale.vue.$onKeyStroke('F3', (e) => {
     e.preventDefault()
     if(sale.dialogActiveState==false && props.saleProduct.selected == true){
         sale.onSaleProductNote(props.saleProduct)

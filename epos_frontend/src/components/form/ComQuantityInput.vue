@@ -35,10 +35,6 @@
 import { inject,i18n,computed,watch  } from '@/plugin'
 import {createToaster} from '@meforma/vue-toaster';
 import { useStopwatch } from 'vue-timer-hook';
-
-
-
-
 const numberFormat = inject('$numberFormat');
 const { t: $t } = i18n.global;  
 const toaster = createToaster({ position: "top" })
@@ -92,28 +88,26 @@ watch(() => props.saleProduct.time_out, (newValue, oldValue) => {
 
 
 //Add Key stroke
-sale.vue.$onKeyStroke('PageUp', (e) => {
+sale.vue.$onKeyStroke('ArrowUp', (e) => {
     e.preventDefault()
     if (props.saleProduct.selected && props.saleProduct.is_require_employee==0) {
         sale.updateQuantity(props.saleProduct, props.saleProduct.quantity + 1)
     }
 })
-sale.vue.$onKeyStroke('PageDown', (e) => {
+sale.vue.$onKeyStroke('ArrowDown', (e) => {
     e.preventDefault()
     if (props.saleProduct.selected && props.saleProduct.quantity > 1 && props.saleProduct.is_require_employee==0) {
         sale.updateQuantity(props.saleProduct, props.saleProduct.quantity - 1)
     }
 })
 
-if (props.saleProduct.selected) {
-    sale.vue.$onKeyStroke('F3', (e) => {
-        e.preventDefault()
-        if (props.saleProduct.selected && sale.dialogActiveState == false) {
-            sale.dialogActiveState = true;
-            sale.onChangeQuantity(props.saleProduct, gv)
-        }
-    })
-}
+sale.vue.$onKeyStroke('F8', (e) => {
+    e.preventDefault()
+    if (props.saleProduct.selected) {
+        sale.dialogActiveState = true;
+        sale.onChangeQuantity(props.saleProduct, gv)
+    }
+})
 
 const allow_change_price = computed(()=>{
     if(gv.device_setting.is_order_station == 1 && gv.device_setting.show_button_change_price_on_order_station==1)

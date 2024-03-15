@@ -26,6 +26,7 @@
   "is_foc",
   "required_customer",
   "use_room_offline",
+  "is_default",
   "rooms"
  ],
  "fields": [
@@ -156,12 +157,18 @@
    "fieldtype": "Link",
    "label": "Cancel Order Adjustment Account Code  ",
    "options": "Account Code"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "Is Default"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-02-13 14:59:58.139121",
+ "modified": "2024-03-14 17:30:57.697439",
  "modified_by": "Administrator",
  "module": "Configuration",
  "name": "POS Config Payment Type",

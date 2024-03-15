@@ -52,7 +52,7 @@ export default class Sale {
         this.saleResource = null;
         this.paymentInputNumber = "";
         this.isPrintReceipt = false;
-
+        this.keycount = 0;
         //use this variable to show toast after database submit in resource
         this.message = undefined;
 
@@ -1516,6 +1516,9 @@ export default class Sale {
                     }
                     this.submitToAuditTrail(this.sale);
                     resolve(true);
+                }
+                else{
+                    resolve(false)
                 }
             }
         });

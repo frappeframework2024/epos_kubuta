@@ -60,6 +60,6 @@ async function  onRemovePayment(p) {
     await  setTimeout(function() {
         is_removing.value = false;
     },1);  
-    
+    sale.keycount = 0
 }
 </script> 
