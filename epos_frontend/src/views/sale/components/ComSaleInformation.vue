@@ -1,15 +1,15 @@
 <template>
     <div class="py-2 flex flex-wrap">
         <ComSaleTypeChip v-if="product.setting.pos_menus.length>0"/>
-        <ComChip v-if="!sale.load_menu_lang" :tooltip="$t('Menu Language')" prepend-icon="mdi-translate"   @onClick="onChangeMenuLanguage()"></ComChip>
-        <ComChip :tooltip="$t('POS Profile')" prepend-icon="mdi-desktop-classic">{{ sale.sale.pos_profile }}</ComChip>
-        <ComChip v-if="sale.working_day_resource?.loading" :tooltip="$t('Working Day')" prepend-icon="mdi-spin mdi-loading">{{ $t('Loading') }}...</ComChip>
-        <ComChip v-else :tooltip="$t('Working Day')" prepend-icon="mdi-calendar">{{ sale.sale.working_day }}</ComChip>
-        <ComChip v-if="sale.cashier_shift_resource?.loading" :tooltip="$t('Cashier Shift')" prepend-icon="mdi-spin mdi-loading">{{ $t('Loading') }}...</ComChip>
-        <ComChip v-else :tooltip="$t('Cashier Shift')" prepend-icon="mdi-calendar-clock">{{ sale.sale.cashier_shift }}</ComChip>
-        <ComChip v-if="setting.table_groups && setting.table_groups.length > 0 && setting.use_guest_cover == 1" :tooltip="$t('Guest Cover')" prepend-icon="mdi-account-multiple-outline" @onClick="onUpdateGuestCover()">{{ sale.sale.guest_cover }}</ComChip>
-        <ComChip v-if="setting.table_groups && setting.table_groups.length > 0 && sale.sale.seat_number" :tooltip="($t('Seat')+' #')" prepend-icon="mdi-chair-school" @onClick="onUpdateSeatNumber()">{{ sale.sale.seat_number }}</ComChip>
-        <ComChip :tooltip="$t('Price Rule')" prepend-icon="mdi-bulletin-board" @onClick="onChangePriceRule()">{{ sale.sale.price_rule }}</ComChip>
+        <ComChip size="default" v-if="!sale.load_menu_lang" :tooltip="$t('Menu Language')" prepend-icon="mdi-translate"   @onClick="onChangeMenuLanguage()"></ComChip>
+        <ComChip size="default" :tooltip="$t('POS Profile')" prepend-icon="mdi-desktop-classic">{{ sale.sale.pos_profile }}</ComChip>
+        <ComChip size="default" v-if="sale.working_day_resource?.loading" :tooltip="$t('Working Day')" prepend-icon="mdi-spin mdi-loading">{{ $t('Loading') }}...</ComChip>
+        <ComChip size="default" v-else :tooltip="$t('Working Day')" prepend-icon="mdi-calendar">{{ sale.sale.working_day }}</ComChip>
+        <ComChip size="default" v-if="sale.cashier_shift_resource?.loading" :tooltip="$t('Cashier Shift')" prepend-icon="mdi-spin mdi-loading">{{ $t('Loading') }}...</ComChip>
+        <ComChip size="default" v-else :tooltip="$t('Cashier Shift')" prepend-icon="mdi-calendar-clock">{{ sale.sale.cashier_shift }}</ComChip>
+        <ComChip size="default" v-if="setting.table_groups && setting.table_groups.length > 0 && setting.use_guest_cover == 1" :tooltip="$t('Guest Cover')" prepend-icon="mdi-account-multiple-outline" @onClick="onUpdateGuestCover()">{{ sale.sale.guest_cover }}</ComChip>
+        <ComChip size="default" v-if="setting.table_groups && setting.table_groups.length > 0 && sale.sale.seat_number" :tooltip="($t('Seat')+' #')" prepend-icon="mdi-chair-school" @onClick="onUpdateSeatNumber()">{{ sale.sale.seat_number }}</ComChip>
+        <ComChip size="default" color="primary" :tooltip="$t('Price Rule')" prepend-icon="mdi-bulletin-board" @onClick="onChangePriceRule()">{{ sale.sale.price_rule }}</ComChip>
         <ComExchangeRate />
         <ComSaleInformationHappyHourPromotionChip/>
     </div>

@@ -1,7 +1,7 @@
 <template>
     <v-tooltip :text="$t('Exchange Rate')" location="top">
         <template v-slot:activator="{ props }"> 
-            <ComChip :tooltip="$t('Exchange Rate')" prepend-icon="mdi-cash">
+            <ComChip :tooltip="$t('Exchange Rate')" prepend-icon="mdi-cash" size="default">
                 <CurrencyFormat :value="1" :currency="gv.setting.pos_setting.exchange_rate_main_currency"  />  = 
                 <CurrencyFormat :value="exchange_rate" :currency="to_currency" />
             </ComChip>

@@ -12,7 +12,7 @@
                 
             </template>
             <template v-slot:default>
-                <div class="text-sm">
+                <div style="font-size: 16px;" class="text-sm">
                     <div class="flex">
                         <div class="grow">
                             <div style="white-space: pre-wrap;" v-if="!sale.load_menu_lang"> {{ getMenuName(sp) }}<v-chip class="ml-1" size="x-small"
@@ -125,14 +125,14 @@
                         
 
                         <v-chip v-if="show_button_change_price && !sp.is_timer_product" color="teal"
-                            class="mx-1 grow text-center justify-center" variant="elevated" size="small"
-                            @click="sale.onChangePrice(sp, gv, numberFormat)">{{ $t('Price') }}</v-chip>
+                            class="mx-1 grow text-center justify-center" variant="elevated" density="comfortable" size="large"
+                            @click="sale.onChangePrice(sp, gv, numberFormat)"><span style="font-size: 16px;">{{ $t('Price') }}</span></v-chip>
 
                         <template v-if="(sp.is_require_employee || 0) == 0 && !sp.is_timer_product">
                             <v-chip
                                 :disabled="sale.setting.pos_setting.allow_change_quantity_after_submit == 0"
-                                color="teal" class="mx-1 grow text-center justify-center" variant="elevated" size="small"
-                                @click="sale.onChangeQuantity(sp)">{{ $t('Qty') }}</v-chip>
+                                color="teal" class="mx-1 grow text-center justify-center" variant="elevated" density="comfortable" size="large"
+                                @click="sale.onChangeQuantity(sp)"><span style="font-size: 16px;">{{ $t('Qty') }}</span></v-chip>
 
                             <!-- <v-chip color="teal" class="mx-1 grow text-center justify-center" variant="elevated"
                                 size="small" @click="onReorder(sp)">{{ $t('Re-Order') }}</v-chip> -->
@@ -142,8 +142,8 @@
                                 size="small" @click="sale.onAssignEmployee(sp)">{{ $t('Employee') }}</v-chip>
                         </template>
 
-                        <v-chip v-if="!sp.reference_sale_product" color="red" class="mx-1 grow text-center justify-center" variant="elevated" size="small"
-                            @click="sale.onRemoveItem(sp, gv, numberFormat)">{{ $t('Delete') }}</v-chip>
+                        <v-chip v-if="!sp.reference_sale_product" color="red" class="mx-1 grow text-center justify-center" variant="elevated" density="comfortable" size="large"
+                            @click="sale.onRemoveItem(sp, gv, numberFormat)"><span style="font-size: 16px;">{{ $t('Delete') }}</span></v-chip>
 
                         <ComSaleProductButtonMore :sale-product="sp" />
                     </div>

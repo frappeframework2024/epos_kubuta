@@ -2,7 +2,7 @@
     <v-menu>
         <template v-slot:activator="{ props }">
             <v-chip v-bind="props" variant="elevated" color="primary" class="mx-1 grow text-center justify-center"
-                size="small">{{ $t('More') }}</v-chip>
+            density="comfortable" size="large"><span style="font-size: 16px;">{{ $t('More') }}</span></v-chip>
         </template>
         <v-list>
             <v-list-item prepend-icon="mdi-pencil" :title="$t('Edit')" v-if="!saleProduct.is_timer_product &&  !(sale.setting.pos_setting.allow_change_quantity_after_submit == 1 || saleProduct.sale_product_status == 'Submitted')"
