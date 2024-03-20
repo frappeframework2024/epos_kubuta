@@ -249,6 +249,7 @@ async function onDeleteBill() {
             await deleteSaleResource.fetch().then((v) => {
                 isLoading.value = false;
                 toaster.success($t("msg.Delete sale order successfully"));
+                sale.tableSaleListResource?.data.splice(sale.tableSaleListResource.data.indexOf(sale.sale.name))
                 //print to kitchen
                 onProcessPrintToKitchen(_sale);
                 sale.newSale();
