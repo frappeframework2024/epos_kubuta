@@ -33,7 +33,7 @@ import ComPlaceholder from '../../../components/layout/components/ComPlaceholder
 const { mobile } = useDisplay()
 
 const sale = inject("$sale");
-const searchTextField = ref(null)
+const searchTextField = ref(null) 
 const props = defineProps({
   params: {
     type: Object,
@@ -49,10 +49,10 @@ const search = ref('')
 function getSaleList() {
   if (search.value) {
     return sale.tableSaleListResource?.data?.filter((r) => {
-      return (String(r.name) + ' ' + String(r.customer_name) + String(r.phone_number)).toLocaleLowerCase().includes(search.value.toLocaleLowerCase());
+      return (String(r.name) + ' ' + String(r.customer_name) + String(r.phone_number)).toLocaleLowerCase().includes(search.value.toLocaleLowerCase() && r.name != sale.sale.name);
     });
   } else {
-    return sale.tableSaleListResource?.data || [];
+    return sale.tableSaleListResource?.data.filter(r=>r.name != sale.sale.name) || [];
   }
 }
 
