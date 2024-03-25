@@ -286,7 +286,6 @@ function onPrintFormat(value){
     activeReport.value.preview_report = value.name;
     activeReport.value.print_report_name = value.print_report_name || value.name
     onRefresh()
-  
 }
 
 function onWorkingDay(working_day){ 

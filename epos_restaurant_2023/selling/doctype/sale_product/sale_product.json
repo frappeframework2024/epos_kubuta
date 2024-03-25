@@ -132,7 +132,8 @@
   "printers",
   "combo_menu_data",
   "employee_names",
-  "employees"
+  "employees",
+  "shelf_name"
  ],
  "fields": [
   {
@@ -909,12 +910,17 @@
    "fieldname": "is_return",
    "fieldtype": "Check",
    "label": "Is Return"
+  },
+  {
+   "fieldname": "shelf_name",
+   "fieldtype": "Data",
+   "label": "Shelf Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-03-08 08:54:04.736249",
+ "modified": "2024-03-25 12:28:26.301638",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Sale Product",

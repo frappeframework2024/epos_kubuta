@@ -1,7 +1,9 @@
 import { authorizeDialog,noteDialog,confirm,i18n,computed } from "@/plugin"
 import { createToaster } from "@meforma/vue-toaster";
 import moment from '@/utils/moment.js';
-
+import { FrappeApp } from 'frappe-js-sdk';
+const frappe = new FrappeApp();
+const call = frappe.call();
 
 const { t: $t } = i18n.global; 
  
@@ -192,6 +194,29 @@ export default class Gv {
 		}
 		return format;
 	})
+	onPrintCloseWorkingDay(name) {
+		call.get('epos_restaurant_2023.api.api.get_working_day_summary',{"name":name})
+            .then((data) => {
+				let resp = data.message
+				const send_data = {
+					action: "print_close_working_day",
+					setting: this.setting?.pos_setting,
+					working_day: resp.working_day,
+					sale_transactions: resp.sale_transactions,	
+					close_cashier: resp.close_cashier,
+					sale_summary: resp.sale_summary,
+					sale_revenue_group: resp.sale_revenue_group,
+					payment_breakdown: resp.payment_breakdown,
+					sales: resp.sales,
+					exchange: resp.exchange,
+					station_device_printing:(this.setting?.device_setting?.station_device_printing)||"",
+				}
+				window.chrome.webview.postMessage(JSON.stringify(send_data));
+            }).catch((res)=>{
+                console.log(res)
+            })
+       
+    }
 }
 
  

@@ -95,6 +95,7 @@ onMounted(async () => {
                         window.chrome.webview.postMessage("working_doc");
                     }
                 }
+                gv.onPrintCloseWorkingDay(doc.name)
                 await printPreviewDialog(
                     { title: $t('Working Day Report') + " #" + doc.name, doctype: "Working Day", name: doc.name }
                 )

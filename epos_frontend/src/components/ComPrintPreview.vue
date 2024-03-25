@@ -131,7 +131,7 @@ if (props.params.print) {
  
  
 function onViewReport(r){
-    activeReport.value = r; 
+    activeReport.value = r;
 }
 
 function onClose(isClose) {

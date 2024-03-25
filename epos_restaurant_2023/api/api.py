@@ -1188,5 +1188,90 @@ def convert_to_nested_arrays(json_data,columns):
          return []
 
     # Extract values for each key in each entry
+
+@frappe.whitelist()
+def get_working_day_summary(name):
+    working_day = frappe.get_doc("Working Day",name)
+    working_day.owner = frappe.get_doc("User", working_day.owner).full_name
+    working_day.modified_by = frappe.get_doc("User", working_day.modified_by).full_name
+
+
+    sale_transactions = frappe.db.sql("""
+    select sale_type, count(name) as total_transaction, count(name) as total_display from `tabSale` 
+    where working_day = '{0}' and docstatus = 1 and is_foc=0  group by sale_type
+    union 
+    select 'FOC', count(name) as total_transaction, count(name) as total_display from `tabSale` where working_day = '{0}' and docstatus = 1 and is_foc=1 
+    union
+    select 'Total Guest Cover' as sale_type, 0 as total_display, sum(guest_cover) as total_transaction from `tabSale` where working_day = '{0}'""".format(name),as_dict=1)
+    close_cashier = frappe.db.sql("""
+    select count(name) as total_shift  from `tabCashier Shift`
+    where working_day='{}'""".format(name),as_dict=1)
+
+
+
+    sale_summary = frappe.db.sql("""select 
+        coalesce(sum(if(is_foc=0,sub_total,0)),0) as sub_total,
+        coalesce(sum(if(is_foc=0,total_discount,0)),0) as total_discount,
+        coalesce(sum(if(is_foc=0,tax_1_amount,0)),0) as tax_1,
+        coalesce(sum(if(is_foc=0,tax_2_amount,0)),0) as tax_2,
+        coalesce(sum(if(is_foc=0,tax_3_amount,0)),0) as tax_3,
+        coalesce(sum(if(is_foc = 1,grand_total,0)),0) as total_foc_amount,
+        coalesce(sum(if(is_foc = 0,grand_total,0)),0) as grand_total,
+        coalesce(sum(commission_amount),0) as total_commission_amount
+        from `tabSale`
+        where working_day = '{}' and
+            docstatus = 1""".format(name),as_dict=1)
+    sale_revenue_group = frappe.db.sql("""
+        select revenue_group,
+        sum(sp.quantity) as total_qty,
+        sum(total_revenue) as amount 
+        from `tabSale Product` sp
+            inner join tabSale s on s.name = sp.parent
+        where 
+            s.working_day = '{}' and 
+            s.is_foc=0 and 
+            s.docstatus = 1
+        group by revenue_group""".format(name),as_dict=1)
+    payment_breakdown = frappe.db.sql("""
+        select 
+            payment_type,
+            symbol,
+            exchange_rate,
+            sum(fee_amount) as fee_amount ,
+            sum(input_amount) as input_amount ,
+            sum(payment_amount) as payment_amount 
+        from `tabSale Payment`
+        where working_day = '{}' and docstatus = 1
+        group by 
+            payment_type,
+            symbol,
+            exchange_rate""".format(name),as_dict=1)
+    sales = frappe.db.sql("""
+       select 
+            name,
+            custom_bill_number,
+            grand_total,
+            exchange_rate
+        from tabSale s
+        where 
+            s.working_day = '{}' and 
+            s.is_foc=0 and 
+            s.docstatus = 1""".format(name),as_dict=1)
+    exchange = frappe.db.sql("""select 
+                                      exchange_rate,
+                                      exchange_rate_input,
+                                      to_currency,from_currency 
+                                      from `tabCurrency Exchange` 
+                                      where posting_date <= '{}' and from_currency = 'BAHT' and to_currency = 'USD' 
+                                      order by posting_date  desc limit 1""".format(working_day.posting_date),as_dict=1)
+
+    return {"working_day":working_day,
+            "sale_transactions":sale_transactions,
+            "close_cashier":close_cashier[0],
+            "sale_summary":sale_summary[0],
+            "sale_revenue_group":sale_revenue_group,
+            "payment_breakdown":payment_breakdown,
+            "sales":sales,
+            "exchange":exchange}
     
    
