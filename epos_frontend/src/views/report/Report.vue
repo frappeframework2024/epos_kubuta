@@ -1,7 +1,8 @@
  <template>
     <PageLayout class="pb-4" :title="`${$t(activeReport.doc_type)} #${activeReport.report_id}`" icon="mdi-chart-bar" full>
         <template #action>
-            <v-btn icon="mdi-printer" @click="onPrint()"></v-btn>
+            <v-btn icon="mdi-printer" @click="onSilentPrint()"></v-btn>
+            <v-btn icon="mdi-printer-eye" @click="onPrint()"></v-btn>
         </template>
     <v-row>
         <v-col md="3">
@@ -174,7 +175,7 @@ onMounted(()=>{
 
 let working_day_print_format = [];
 let cashier_shift_print_format = [];
- 
+let working_day_name = "";
 async function _onInit() {
     // const param = {business_branch:gv.setting.business_branch, pos_profile:pos_profile}; 
     const param = {business_branch:gv.setting.business_branch, pos_profile:""}; 
@@ -289,7 +290,7 @@ function onPrintFormat(value){
 }
 
 function onWorkingDay(working_day){ 
-
+    working_day_name = working_day.name;
     activeReport.value.name = 'Working Day';
     activeReport.value.report_id = working_day.name;
     activeReport.value.preview_report = workingDay.value[0]?.name;
@@ -307,6 +308,10 @@ function onPrint(){
     window.open(printUrl.value + "&trigger_print=1").print();
     window.close();
 } 
+
+function onSilentPrint(){
+    gv.onPrintCloseWorkingDay(activeReport.value.report_id)
+}
 const reportClickHandler = async function (e) {
     if(e.isTrusted && typeof(e.data) == 'string'){
         const data = e.data.split("|")
