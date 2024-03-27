@@ -40,7 +40,7 @@
 
 <script setup>
 import moment from '@/utils/moment.js';
-import { inject, printPreviewDialog, confirm, onMounted, createDocumentResource, ref, createResource, useRouter, createToaster, computed, i18n } from "@/plugin";
+import { inject, printPreviewDialog, confirm, onMounted, createDocumentResource, ref, createResource, useRouter, createToaster, computed, i18n ,confirmDialog} from "@/plugin";
 import PageLayout from '../../components/layout/PageLayout.vue';
 import ComAlertPendingOrder from '../../components/layout/components/ComAlertPendingOrder.vue';
 
@@ -126,12 +126,13 @@ async function onCloseWorkingDay() {
             toaster.warning($t(`msg.There are pending orders`, [pendingOrder.value]))
         }
     } else {
-        if (await confirm({ title: $t("Close Working Day"), text: $t("msg.are you sure to close working day") })) {
+        let alert_text = pendingOrder.value == 1 ? $t(`There is `+[pendingOrder.value]+` pending order`) : $t(`msg.There are pending orders`, [pendingOrder.value])
+        if (await confirmDialog({ title: $t('Do You Want To Continue ?'), text: alert_text })) {
             workingDayResourceResource.value.setValue.submit({
-                is_closed: 1,
-                closed_note: closed_note.value,
-                closed_date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
-            })
+            is_closed: 1,
+            closed_note: closed_note.value,
+            closed_date: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+        })
         }
     }
 }
