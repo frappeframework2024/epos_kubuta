@@ -728,7 +728,6 @@ export default class Sale {
                                     note:'',
                                 } 
                             }
-                           
                         }
 
                         if(result){
@@ -787,8 +786,8 @@ export default class Sale {
                     this.sale.sale_products.splice(this.sale.sale_products.indexOf(sp), 1);
                     
                 }
+                this.updateSaleSummary();
             }
-    
         }
     }
 
