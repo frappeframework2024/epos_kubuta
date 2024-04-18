@@ -3,7 +3,7 @@
 
 
 from epos_restaurant_2023.inventory.inventory import add_to_inventory_transaction, get_uom_conversion, update_product_quantity,get_stock_location_product
-from epos_restaurant_2023.inventory.inventory import check_uom_conversion,calculate_average_cost,get_last_inventory_transaction,update_inventory_transaction_status
+from epos_restaurant_2023.inventory.inventory import check_uom_conversion,get_last_inventory_transaction,update_inventory_transaction_status
 import frappe
 from frappe import _
 from py_linq import Enumerable
@@ -69,7 +69,7 @@ def update_inventory_on_submit(self):
 				'stock_location':self.stock_location,
 				'in_quantity':p.quantity / uom_conversion,
 				"uom_conversion":uom_conversion,
-				"price":calculate_average_cost(p.product_code,self.stock_location,(p.quantity / uom_conversion),p.cost),
+				"price":p.cost,
 				'note': 'New purchase order submitted.',
     			'action': 'Submit'
 			})

@@ -546,3 +546,9 @@ def clear_all_printer_from_product(products):
 		product.save()
 
 	frappe.db.commit()
+
+@frappe.whitelist()
+def get_currenct_qty(product_code,stock_location):
+	doc = frappe.db.sql("SELECT quantity,cost FROM `tabStock Location Product` WHERE product_code = '{0}' AND stock_location = '{1}' order by modified desc limit 1".format(product_code,stock_location),as_dict=1)
+	if doc:
+		return doc[0]

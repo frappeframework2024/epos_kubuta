@@ -91,7 +91,7 @@ frappe.ui.form.on("Purchase Order", {
 frappe.ui.form.on('Purchase Order Products', {
 	product_code(frm,cdt, cdn) {
 		let doc=   locals[cdt][cdn];
-    
+		get_currenct_qty(frm,doc)
         update_po_product_amount(frm,doc);
         frm.refresh_field('purchase_order_products');
 	},
@@ -174,6 +174,27 @@ function updateSumTotal(frm) {
 	frm.refresh_field("po_discount");
 	frm.refresh_field("po_discountable_amount");
 	frm.refresh_field("balance");
+}
+
+function get_currenct_qty(frm,doc){
+	if (frm.doc.stock_location == undefined){
+		frappe.throw("Please Select Stock Location First")
+		return
+	}
+	frappe.call({
+		method: "epos_restaurant_2023.inventory.doctype.product.product.get_currenct_qty",
+		args: {
+			product_code:doc.product_code,
+			stock_location:frm.doc.stock_location,
+		},
+		callback: function(r){
+			if(doc!=undefined){
+				doc.current_quantity = r.message.quantity;
+			}
+			frm.refresh_field('purchase_order_products');
+		}
+	});
+	
 }
 
 function check_row_exist(frm, barcode){

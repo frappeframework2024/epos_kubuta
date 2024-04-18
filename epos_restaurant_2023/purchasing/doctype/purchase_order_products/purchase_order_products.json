@@ -15,6 +15,7 @@
   "unit_category",
   "section_break_8",
   "quantity",
+  "current_quantity",
   "column_break_10",
   "cost",
   "exchange_rate",
@@ -238,12 +239,17 @@
    "fieldtype": "Float",
    "label": "Exchange Rate",
    "read_only": 1
+  },
+  {
+   "fieldname": "current_quantity",
+   "fieldtype": "Float",
+   "label": "Current Quantity"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-12-07 15:26:52.675187",
+ "modified": "2024-04-18 11:58:15.608257",
  "modified_by": "Administrator",
  "module": "Purchasing",
  "name": "Purchase Order Products",
