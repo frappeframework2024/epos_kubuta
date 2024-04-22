@@ -552,3 +552,6 @@ def get_currenct_qty(product_code,stock_location):
 	doc = frappe.db.sql("SELECT quantity,cost FROM `tabStock Location Product` WHERE product_code = '{0}' AND stock_location = '{1}' order by modified desc limit 1".format(product_code,stock_location),as_dict=1)
 	if doc:
 		return doc[0]
+	else:
+		doc = frappe.db.sql("SELECT cost FROM `tabProduct` WHERE product_code = '{0}' limit 1".format(product_code),as_dict=1)
+		return {"quantity": 0,"cost": doc[0].cost}

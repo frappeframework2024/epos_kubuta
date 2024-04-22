@@ -84,6 +84,11 @@ frappe.ui.form.on("Purchase Order", {
 			frappe.throw(__("Discount percent cannot greater than 100%"));
 		}
 		update_po_discount_to_po_product(frm);
+	},
+	stock_location(frm){
+		frm.doc.purchase_order_products.forEach((r=>{
+			get_currenct_qty(frm,r)
+		}))
 	}
 });
 
@@ -190,6 +195,7 @@ function get_currenct_qty(frm,doc){
 		callback: function(r){
 			if(doc!=undefined){
 				doc.current_quantity = r.message.quantity;
+				doc.cost = r.message.cost;
 			}
 			frm.refresh_field('purchase_order_products');
 		}
