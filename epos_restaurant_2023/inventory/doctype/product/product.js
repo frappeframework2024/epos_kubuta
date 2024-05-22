@@ -2,8 +2,12 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Product", {
-   
     refresh(frm){
+        frm.get_field("product_stock_location").grid.cannot_add_rows = true;
+        frm.fields_dict["product_stock_location"].grid.wrapper.find(".grid-remove-rows").hide();
+        frm.doc.product_stock_location.forEach(p=>{
+            frm.fields_dict['product_stock_location'].grid.wrapper.find('.btn-open-row').hide();
+        })
         frm.set_query("product","product_recipe", function() {
             return {
                 filters: [
@@ -23,8 +27,26 @@ frappe.ui.form.on("Product", {
 
         set_product_indicator(frm);
 
-            frm.set_df_property('naming_series', 'reqd', 0)
+        frm.set_df_property('naming_series', 'reqd', 0)
 
+    },
+    onload_post_render: function(frm) {
+        frm.set_value('product_stock_location', []);
+        frm.refresh_field('product_stock_location');
+        frm.call({
+            method: 'get_stock_location_product',
+            doc:frm.doc,
+            callback:function(r){
+                if(r.message){
+                    r.message.forEach(p => {
+                        add_product_child(frm,p) 
+                    });
+                    frm.refresh_field('product_stock_location')
+                    frm.fields_dict['product_stock_location'].grid.wrapper.find('.btn-open-row').hide();
+                }
+            },
+            async: true,
+        });
     },
     setup(frm){
         frm.set_query('product_category', () => {
@@ -109,5 +131,17 @@ function set_product_indicator(frm){
 
         },
         async: true,
+    });
+}
+
+function add_product_child(frm,p){
+    frm.add_child('product_stock_location', {
+        product_code : p.product_code,
+        business_branch : p.business_branch,
+        stock_location : p.stock_location,
+        unit : p.unit,
+        quantity : p.quantity,
+        cost : p.cost,
+        current_quantity: p.current_quantity
     });
 }
