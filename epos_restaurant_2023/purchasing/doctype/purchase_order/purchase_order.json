@@ -204,6 +204,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "allow_bulk_edit": 1,
    "fieldname": "purchase_order_products",
    "fieldtype": "Table",
    "label": "Purchase Order Products",
@@ -290,7 +291,7 @@
    "link_fieldname": "purchase_order"
   }
  ],
- "modified": "2023-12-07 15:13:48.555390",
+ "modified": "2024-07-10 11:33:09.942956",
  "modified_by": "Administrator",
  "module": "Purchasing",
  "name": "Purchase Order",
