@@ -30,7 +30,7 @@ frappe.ui.form.on("Product", {
         frm.set_df_property('naming_series', 'reqd', 0)
 
     },
-    onload_post_render: function(frm) {
+    onload: function(frm) {
         frm.set_value('product_stock_location', []);
         frm.refresh_field('product_stock_location');
         frm.call({
