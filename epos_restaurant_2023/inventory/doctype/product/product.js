@@ -2,7 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Product", {
-    refresh(frm){
+    onload(frm){
         frm.get_field("product_stock_location").grid.cannot_add_rows = true;
         frm.fields_dict["product_stock_location"].grid.wrapper.find(".grid-remove-rows").hide();
         frm.doc.product_stock_location.forEach(p=>{
@@ -43,6 +43,9 @@ frappe.ui.form.on("Product", {
                     });
                     frm.refresh_field('product_stock_location')
                     frm.fields_dict['product_stock_location'].grid.wrapper.find('.btn-open-row').hide();
+                }
+                if (!frm.is_new()){
+                    frm.save()
                 }
             },
             async: true,
