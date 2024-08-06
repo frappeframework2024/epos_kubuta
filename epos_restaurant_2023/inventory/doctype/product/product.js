@@ -2,6 +2,66 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Product", {
+    cost(frm){
+        frm.call({
+            method: 'get_exchange_rate',
+            callback:function(r){
+                frm.set_value("cost_usd",frm.doc.cost * r.message)
+                frm.refresh_field("cost_usd")
+            },
+            async: true,
+        });
+    },
+    wholesale(frm){
+        frm.call({
+            method: 'get_exchange_rate',
+            callback:function(r){
+                frm.set_value("wholesale_usd",frm.doc.wholesale * r.message)
+                frm.refresh_field("wholesale_usd")
+            },
+            async: true,
+        });
+    },
+    price(frm){
+        frm.call({
+            method: 'get_exchange_rate',
+            callback:function(r){
+                frm.set_value("price_usd",frm.doc.price * r.message)
+                frm.refresh_field("price_usd")
+            },
+            async: true,
+        });
+    },
+    cost_usd(frm){
+        frm.call({
+            method: 'get_exchange_rate',
+            callback:function(r){
+                frm.set_value("cost",frm.doc.cost_usd / r.message)
+                frm.refresh_field("cost")
+            },
+            async: true,
+        });
+    },
+    wholesale_usd(frm){
+        frm.call({
+            method: 'get_exchange_rate',
+            callback:function(r){
+                frm.set_value("wholesale",frm.doc.wholesale_usd / r.message)
+                frm.refresh_field("wholesale")
+            },
+            async: true,
+        });
+    },
+    price_usd(frm){
+        frm.call({
+            method: 'get_exchange_rate',
+            callback:function(r){
+                frm.set_value("price",frm.doc.price_usd / r.message)
+                frm.refresh_field("price")
+            },
+            async: true,
+        });
+    },
     onload(frm){
         frm.get_field("product_stock_location").grid.cannot_add_rows = true;
         frm.fields_dict["product_stock_location"].grid.wrapper.find(".grid-remove-rows").hide();
@@ -23,14 +83,6 @@ frappe.ui.form.on("Product", {
             }
         });
 
-        print_barcode_button(frm);
-
-        set_product_indicator(frm);
-
-        frm.set_df_property('naming_series', 'reqd', 0)
-
-    },
-    onload: function(frm) {
         frm.set_value('product_stock_location', []);
         frm.refresh_field('product_stock_location');
         frm.call({
@@ -51,6 +103,13 @@ frappe.ui.form.on("Product", {
             },
             async: true,
         });
+
+        print_barcode_button(frm);
+
+        set_product_indicator(frm);
+
+        frm.set_df_property('naming_series', 'reqd', 0)
+
     },
     setup(frm){
         frm.set_query('product_category', () => {

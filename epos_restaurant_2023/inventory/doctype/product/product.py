@@ -259,7 +259,15 @@ class Product(Document):
 					"price":0
 				})
 		return  product_variants
+	
 
+@frappe.whitelist()
+def get_exchange_rate():
+	exchage_rates = frappe.db.get_list('Currency Exchange',filters={'from_currency': 'BAHT','to_currency':'USD'},fields=['exchange_rate'],order_by='posting_date desc',as_list=False)
+	if exchage_rates:
+		return exchage_rates[0].exchange_rate
+	else:
+		frappe.throw("There is no exchange rate from BAHT to USD")
 
 @frappe.whitelist()
 def get_product(barcode,business_branch=None,price_rule=None, unit=None,portion = None,allow_sale=None,allow_purchase=None):
