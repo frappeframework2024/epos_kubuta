@@ -46,6 +46,7 @@ frappe.ui.form.on("Product", {
                 }
                 if (!frm.is_new()){
                     frm.save()
+                    frm.doc.auto_update = 1
                 }
             },
             async: true,

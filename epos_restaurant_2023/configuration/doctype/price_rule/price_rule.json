@@ -9,6 +9,7 @@
  "engine": "InnoDB",
  "field_order": [
   "rule_name",
+  "price_type",
   "note",
   "disabled",
   "is_standard",
@@ -48,11 +49,17 @@
    "fieldtype": "Data",
    "hidden": 1,
    "label": "Previous Name"
+  },
+  {
+   "fieldname": "price_type",
+   "fieldtype": "Select",
+   "label": "Price Type",
+   "options": "Cost\nWholesale\nPrice"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-02-29 14:55:29.089851",
+ "modified": "2024-08-06 09:02:09.218539",
  "modified_by": "Administrator",
  "module": "Configuration",
  "name": "Price Rule",

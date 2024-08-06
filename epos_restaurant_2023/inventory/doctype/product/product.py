@@ -110,15 +110,6 @@ class Product(Document):
 			
 			self.combo_group_data = json.dumps(combo_groups)
 
-		
-		# price = get_product_price(product=self, business_branch="SR Branch",portion="Normal", price_rule="Normal Rate", unit="Box" )
-		# if price:
-		# 	frappe.msgprint(str(price["cost"]))
-
-		#check if portion price exists 
-		if	len(self.product_price) > 0:
-			self.price = Enumerable(self.product_price).min(lambda x: x.price)
-
 	def autoname(self):
 		from frappe.model.naming import set_name_by_naming_series, get_default_naming_series,make_autoname
 
@@ -162,26 +153,29 @@ class Product(Document):
 					"default_discount":p.default_discount
 				})
 		self.prices = json.dumps(prices)	
+		update_prices(self)
 	
 	def on_update(self):
-
-		#add_product_to_temp_menu(self)
-		frappe.enqueue("epos_restaurant_2023.inventory.doctype.product.product.add_product_to_temp_menu", queue='short', self=self)
+		if self.auto_update == 0:
+			frappe.enqueue("epos_restaurant_2023.inventory.doctype.product.product.add_product_to_temp_menu", queue='short', self=self)
+		else:
+			self.auto_update = 0
 		for p in self.product_stock_location:
 			difference_qty = p.quantity - p.current_quantity
-			add_to_inventory_transaction({
-				'doctype': 'Inventory Transaction',
-				'transaction_type':"Stock Adjustment",
-				'transaction_date':datetime.today().strftime('%Y-%m-%d'),
-				'product_code': p.product_code,
-				'unit':p.unit,
-				'stock_location':p.stock_location,
-				'out_quantity': abs(difference_qty) if difference_qty < 0 else 0,
-				'in_quantity': difference_qty if difference_qty >= 0 else 0,
-				"price":p.cost,
-				'note': 'Manual Stock adjustment From Product',
-				"action":"Submit"
-			})
+			if difference_qty != 0:
+				add_to_inventory_transaction({
+					'doctype': 'Inventory Transaction',
+					'transaction_type':"Stock Adjustment",
+					'transaction_date':datetime.today().strftime('%Y-%m-%d'),
+					'product_code': p.product_code,
+					'unit':p.unit,
+					'stock_location':p.stock_location,
+					'out_quantity': abs(difference_qty) if difference_qty < 0 else 0,
+					'in_quantity': difference_qty if difference_qty >= 0 else 0,
+					"price":p.cost,
+					'note': 'Manual Stock adjustment From Product',
+					"action":"Submit"
+				})
 
 	def on_trash(self):
 		frappe.db.sql("delete from `tabTemp Product Menu` where product_code='{}'".format(self.name))
@@ -545,7 +539,7 @@ def assign_printer(products,printer):
 
 	frappe.db.commit()
 
-	#frappe.throw("u run assign pritner")
+
 
 @frappe.whitelist()
 def remove_printer(products,printer):
@@ -558,6 +552,17 @@ def remove_printer(products,printer):
 		product.save()
 
 	frappe.db.commit()
+
+def update_prices(self):
+	if self.cost > self.wholesale:
+		frappe.throw("Cost can not be greater than wholesale")
+	if self.wholesale > self.price:
+		frappe.throw("Wholesale can not be greater than price")
+	for a in self.product_price:
+		if a.price_type == "Wholesale":
+			a.price = self.wholesale
+		else:
+			a.price = self.price
 
 
 @frappe.whitelist()
