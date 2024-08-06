@@ -171,7 +171,7 @@ class Product(Document):
 					'unit':p.unit,
 					'stock_location':p.stock_location,
 					'out_quantity': abs(difference_qty) if difference_qty < 0 else 0,
-					'in_quantity': difference_qty if difference_qty >= 0 else 0,
+					'in_quantity': difference_qty if difference_qty > 0 else 0,
 					"price":p.cost,
 					'note': 'Manual Stock adjustment From Product',
 					"action":"Submit"
