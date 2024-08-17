@@ -122,6 +122,7 @@ class Product(Document):
 		 
   
 	def after_insert(self):
+		add_new_after_insert(self)
 		if self.is_inventory_product:
 			if self.opening_quantity and self.opening_quantity>0:
 				add_to_inventory_transaction(
@@ -139,9 +140,9 @@ class Product(Document):
 
 
 	def before_save(self):
+		add_new_before_save(self)
 		prices = []
 		if self.product_price:
-			
 			for p in self.product_price:
 				prices.append({
 					"price":p.price,
@@ -160,22 +161,23 @@ class Product(Document):
 			frappe.enqueue("epos_restaurant_2023.inventory.doctype.product.product.add_product_to_temp_menu", queue='short', self=self)
 		else:
 			self.auto_update = 0
-		for p in self.product_stock_location:
-			difference_qty = p.quantity - p.current_quantity
-			if difference_qty != 0:
-				add_to_inventory_transaction({
-					'doctype': 'Inventory Transaction',
-					'transaction_type':"Stock Adjustment",
-					'transaction_date':datetime.today().strftime('%Y-%m-%d'),
-					'product_code': p.product_code,
-					'unit':p.unit,
-					'stock_location':p.stock_location,
-					'out_quantity': abs(difference_qty) if difference_qty < 0 else 0,
-					'in_quantity': difference_qty if difference_qty > 0 else 0,
-					"price":p.cost,
-					'note': 'Manual Stock adjustment From Product',
-					"action":"Submit"
-				})
+		if self.product_stock_location and self.is_new() == 0:
+			for p in self.product_stock_location:
+				difference_qty = (p.quantity or 0) - (p.current_quantity or 0)
+				if difference_qty != 0:
+					add_to_inventory_transaction({
+						'doctype': 'Inventory Transaction',
+						'transaction_type':"Stock Adjustment",
+						'transaction_date':datetime.today().strftime('%Y-%m-%d'),
+						'product_code': p.product_code,
+						'unit':p.unit,
+						'stock_location':p.stock_location,
+						'out_quantity': abs(difference_qty) if difference_qty < 0 else 0,
+						'in_quantity': difference_qty if difference_qty > 0 else 0,
+						"price":p.cost,
+						'note': 'Manual Stock adjustment From Product',
+						"action":"Submit"
+					})
 
 	def on_trash(self):
 		frappe.db.sql("delete from `tabTemp Product Menu` where product_code='{}'".format(self.name))
@@ -259,7 +261,43 @@ class Product(Document):
 					"price":0
 				})
 		return  product_variants
-	
+def add_new_after_insert(self):
+	stock_locations = frappe.db.get_list('Stock Location',filters={'disabled': 0},fields=['name'],as_list=False)
+	for a in stock_locations:
+		add_to_inventory_transaction({
+					'doctype': 'Inventory Transaction',
+					"transaction_type":"Stock Adjustment",
+					'transaction_date':datetime.today().strftime('%Y-%m-%d'),
+					'product_code': self.name,
+					'unit': self.unit,
+					'stock_location':a.name,
+					"price":self.cost,
+					"in_quantity":0,
+					"out_quantity":0,
+					'note': 'New Product Opening Stock',
+					"action":"Submit"
+				})
+
+def add_new_before_save(self):
+	price_rules = frappe.db.get_list('Price Rule',filters={'disabled': 0},fields=['name','price_type'],as_list=False)
+	stock_locations = frappe.db.get_list('Stock Location',filters={'disabled': 0},fields=['name'],as_list=False)
+	for a in stock_locations:
+		self.append("product_stock_location",{
+			"product_code":self.name,
+			'stock_location':a.name,
+			"unit":self.unit,
+			"cost":self.cost,
+			"quantity":0
+		})
+	for a in price_rules:
+		self.append("product_price",{
+			"business_branch":"Main Branch",
+			"price_rule":a.name,
+			"unit":self.unit,
+			"portion":"Normal",
+			"price_type":a.price_type,
+			"price":(self.wholesale if a.price_type == "Wholesale" else self.price)
+		})
 
 @frappe.whitelist()
 def get_exchange_rate():
