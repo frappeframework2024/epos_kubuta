@@ -159,12 +159,6 @@ class Product(Document):
 			update_product_prices(self)
 		else:
 			self.auto_update == 0
-	
-	def on_update(self):
-		if self.auto_update == 0:
-			frappe.enqueue("epos_restaurant_2023.inventory.doctype.product.product.add_product_to_temp_menu", queue='short', self=self)
-		else:
-			self.auto_update = 0
 		if self.product_stock_location:
 			for p in self.product_stock_location:
 				difference_qty = (p.quantity or 0) - (p.current_quantity or 0)
@@ -182,6 +176,13 @@ class Product(Document):
 						'note': 'Manual Stock adjustment From Product',
 						"action":"Submit"
 					})
+					p.current_quantity = p.quantity
+	
+	def on_update(self):
+		if self.auto_update == 0:
+			frappe.enqueue("epos_restaurant_2023.inventory.doctype.product.product.add_product_to_temp_menu", queue='short', self=self)
+		else:
+			self.auto_update = 0
 
 	def on_trash(self):
 		frappe.db.sql("delete from `tabTemp Product Menu` where product_code='{}'".format(self.name))

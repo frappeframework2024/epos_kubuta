@@ -48,7 +48,6 @@ onMounted(async ()=>{
    await call.get("epos_restaurant_2023.api.product.get_product_stock",{product_code:props.params.data.sale_product.product_code})
   .then((res)=>{
     stock_product.value = res.message;
-    
   })
 })
 

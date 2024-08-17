@@ -62,6 +62,28 @@ frappe.ui.form.on("Product", {
             async: true,
         });
     },
+    onload_post_render(frm){
+        frm.set_value('product_stock_location', []);
+        frm.refresh_field('product_stock_location');
+        frm.call({
+            method: 'get_stock_location_product',
+            doc:frm.doc,
+            callback:function(r){
+                if(r.message){
+                    r.message.forEach(p => {
+                        add_product_child(frm,p) 
+                    });
+                    frm.refresh_field('product_stock_location')
+                    frm.fields_dict['product_stock_location'].grid.wrapper.find('.btn-open-row').hide();
+                }
+                if (!frm.is_new()){
+                    frm.save()
+                    frm.doc.auto_update = 1
+                }
+            },
+            async: true,
+        });
+    },
     onload(frm){
         if(frm.is_new()){
             frm.set_value('product_price', []);
@@ -86,27 +108,6 @@ frappe.ui.form.on("Product", {
                     ["Product","is_combo_menu", "=", 0]
                 ]
             }
-        });
-
-        frm.set_value('product_stock_location', []);
-        frm.refresh_field('product_stock_location');
-        frm.call({
-            method: 'get_stock_location_product',
-            doc:frm.doc,
-            callback:function(r){
-                if(r.message){
-                    r.message.forEach(p => {
-                        add_product_child(frm,p) 
-                    });
-                    frm.refresh_field('product_stock_location')
-                    frm.fields_dict['product_stock_location'].grid.wrapper.find('.btn-open-row').hide();
-                }
-                if (!frm.is_new()){
-                    frm.save()
-                    frm.doc.auto_update = 1
-                }
-            },
-            async: true,
         });
 
         print_barcode_button(frm);
