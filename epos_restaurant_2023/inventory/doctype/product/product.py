@@ -165,7 +165,7 @@ class Product(Document):
 			frappe.enqueue("epos_restaurant_2023.inventory.doctype.product.product.add_product_to_temp_menu", queue='short', self=self)
 		else:
 			self.auto_update = 0
-		if self.product_stock_location and self.is_new() == 0:
+		if self.product_stock_location:
 			for p in self.product_stock_location:
 				difference_qty = (p.quantity or 0) - (p.current_quantity or 0)
 				if difference_qty != 0:
@@ -333,8 +333,6 @@ def update_product_stock_location(self):
 					'unit': self.unit,
 					'stock_location':a,
 					"price":self.cost,
-					"in_quantity":0,
-					"out_quantity":0,
 					'note': 'New Product Opening Stock',
 					"action":"Submit"
 				})
