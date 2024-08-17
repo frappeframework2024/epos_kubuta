@@ -122,7 +122,6 @@ class Product(Document):
 		 
   
 	def after_insert(self):
-		add_new_after_insert(self)
 		if self.is_inventory_product:
 			if self.opening_quantity and self.opening_quantity>0:
 				add_to_inventory_transaction(
@@ -140,7 +139,8 @@ class Product(Document):
 
 
 	def before_save(self):
-		add_new_before_save(self)
+		if self.is_new():
+			add_new_before_save(self)
 		prices = []
 		if self.product_price:
 			for p in self.product_price:
@@ -154,7 +154,11 @@ class Product(Document):
 					"default_discount":p.default_discount
 				})
 		self.prices = json.dumps(prices)	
-		update_prices(self)
+		update_product_stock_location(self)
+		if self.auto_update == 0:
+			update_product_prices(self)
+		else:
+			self.auto_update == 0
 	
 	def on_update(self):
 		if self.auto_update == 0:
@@ -261,16 +265,73 @@ class Product(Document):
 					"price":0
 				})
 		return  product_variants
-def add_new_after_insert(self):
-	stock_locations = frappe.db.get_list('Stock Location',filters={'disabled': 0},fields=['name'],as_list=False)
-	for a in stock_locations:
-		add_to_inventory_transaction({
+
+def update_product_prices(self):
+	price_rules = []
+	product_prices = []
+	new_price_rules = []
+	rules = frappe.db.get_list('Price Rule',filters={'disabled': 0},fields=['name','price_type'],as_list=False)
+	for a in rules:
+		price_rules.append(a.name)
+	for a in self.product_price:
+		product_prices.append(a.price_rule)
+	if len(price_rules) != len(product_prices):
+		for a in price_rules:
+			if a not in product_prices:
+				new_price_rules.append(a)
+	if len(new_price_rules)>0:
+		for a in new_price_rules:
+			price_type = frappe.db.get_value('Price Rule', a, ['price_type'])
+			self.append("product_price",{
+			"business_branch":"Main Branch",
+			"price_rule":a,
+			"unit":self.unit,
+			"portion":"Normal",
+			"price_type": price_type,
+			"price":(self.wholesale if price_type == "Wholesale" else self.price)
+		})
+
+	if self.cost > self.wholesale:
+		frappe.throw("Cost can not be greater than wholesale")
+	if self.wholesale > self.price:
+		frappe.throw("Wholesale can not be greater than price")
+	for a in self.product_price:
+		if a.price_type == "Wholesale":
+			a.price = self.wholesale
+		else:
+			a.price = self.price
+
+def update_product_stock_location(self):
+	product_stock_locations = []
+	stock_locations = []
+	new_stocks=[]
+
+	locations = frappe.db.get_list('Stock Location',filters={'disabled': 0},fields=['name'],as_list=False)
+	for a in locations:
+		stock_locations.append(a.name)
+	for a in self.product_stock_location:
+		product_stock_locations.append(a.stock_location)
+
+	if len(stock_locations) != len(product_stock_locations):
+		for a in stock_locations:
+			if a not in product_stock_locations:
+				new_stocks.append(a)
+	if len(new_stocks)>0:
+		for a in new_stocks:
+			self.append("product_stock_location",{
+				"product_code":self.name,
+				'stock_location':a,
+				"unit":self.unit,
+				"cost":self.cost,
+				"quantity":0
+			})
+			add_to_inventory_transaction({
 					'doctype': 'Inventory Transaction',
 					"transaction_type":"Stock Adjustment",
 					'transaction_date':datetime.today().strftime('%Y-%m-%d'),
 					'product_code': self.name,
 					'unit': self.unit,
-					'stock_location':a.name,
+					'stock_location':a,
 					"price":self.cost,
 					"in_quantity":0,
 					"out_quantity":0,
@@ -598,17 +659,6 @@ def remove_printer(products,printer):
 		product.save()
 
 	frappe.db.commit()
-
-def update_prices(self):
-	if self.cost > self.wholesale:
-		frappe.throw("Cost can not be greater than wholesale")
-	if self.wholesale > self.price:
-		frappe.throw("Wholesale can not be greater than price")
-	for a in self.product_price:
-		if a.price_type == "Wholesale":
-			a.price = self.wholesale
-		else:
-			a.price = self.price
 
 
 @frappe.whitelist()
