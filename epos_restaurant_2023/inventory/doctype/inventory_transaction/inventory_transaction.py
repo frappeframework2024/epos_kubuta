@@ -50,7 +50,7 @@ class InventoryTransaction(Document):
 		update_product_qty(self)
 	
 def update_product_qty(self):
-	sql = "update `tabProduct` a SET a.quantity = (select SUM(coalesce(quantity,0)) from `tabStock Location Product` b WHERE b.product_code = a.name) WHERE a.name = '{}'".format(self.product_code)
+	sql = "update `tabProduct` a SET a.quantity = coalesce((select SUM(coalesce(b.quantity,0)) from `tabStock Location Product` b WHERE b.product_code = a.name),0) WHERE a.name = '{}'".format(self.product_code)
 	frappe.db.sql(sql)
 	frappe.db.commit()
 
