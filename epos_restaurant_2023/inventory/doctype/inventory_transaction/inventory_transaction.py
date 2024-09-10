@@ -47,7 +47,12 @@ class InventoryTransaction(Document):
 			add_stock_location_product(self)
 		else:
 			update_stock_location_product(self)
-        
+		update_product_qty(self)
+	
+def update_product_qty(self):
+	sql = "update `tabProduct` a SET a.quantity = (select SUM(coalesce(quantity,0)) from `tabStock Location Product` b WHERE b.product_code = a.name) WHERE a.name = '{}'".format(self.product_code)
+	frappe.db.sql(sql)
+	frappe.db.commit()
 
 def add_stock_location_product(self):
 	cost = 0
